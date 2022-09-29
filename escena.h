@@ -18,7 +18,7 @@ class Escena
 
 private:
 
-    bool visual_obj[3] = {true , false, false}; // Puntos, lineas, solido
+    bool visual_obj[3] = {false , false, true}; // Puntos, lineas, solido
     bool piramide_cubo = true; // Piramide = true, Cubo = false
 
     // ** PARÁMETROS DE LA CÁMARA (PROVISIONAL)
