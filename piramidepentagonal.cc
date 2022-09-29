@@ -36,20 +36,34 @@ PiramidePentagonal::PiramidePentagonal(float h, float r)
 
    f = {ct0, ct1, ct2, ct3, ct4, ct5, ct6, ct7};
 
-   // Inicializar tabla de colores
-   c.resize(8);
+   // Inicializar tablas de colores
+   c_p.resize(8);
+   c_l.resize(8);
+   c_s.resize(8);
 
-   /*Tupla3f cv0 ( 1 , 0 , 0 ); // COLOR VERTICE
-   Tupla3f cv1 ( 1 , 0 , 0 );
-   Tupla3f cv2 ( 1 , 0 , 0 );   
-   Tupla3f cv3 ( 1 , 0 , 0 );
-   Tupla3f cv4 ( 1 , 0 , 0 );
-   Tupla3f cv5 ( 1 , 0 , 0 );
-   Tupla3f cv6 ( 1 , 0 , 0 );
-   Tupla3f cv7 ( 1 , 0 , 0 );
+   Tupla3f rojo  ( 1 , 0 , 0 );
+   Tupla3f verde ( 0 , 1 , 0 );
+   Tupla3f azul  ( 0 , 0 , 1 );
 
-   c = {cv0, cv1, cv2, cv3, cv4, cv5, cv6, cv7};*/
+   color_puntos(rojo);
 
-   rellenar_color(Tupla3f(1,1,1));
+   color_lineas(verde);
+
+   color_solido(azul);
+
+   /*Tupla3f color0(1, 0, 0);
+   Tupla3f color1(1, 0, 0);
+   Tupla3f color2(1, 0, 0);
+   Tupla3f color3(1, 0, 0);
+   Tupla3f color4(1, 0, 0);
+   Tupla3f color5(1, 0, 0);
+   Tupla3f color6(1, 0, 0);
+   Tupla3f color7(1, 0, 0);
+   
+   c_p = {color0, color1, color2, color3, color4, color5, color6, color7};*/
+
+   /*
+   rellenar_color(Tupla3f(0, 1, 0), c_l);
+   rellenar_color(Tupla3f(0, 0, 1), c_s);*/
 
 }

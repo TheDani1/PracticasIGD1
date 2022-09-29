@@ -27,22 +27,7 @@ void Malla3D::draw()
       id_vbo_ver = CrearVBO(GL_ARRAY_BUFFER, 3 * v.size() * sizeof(float), v.data());
    }
 
-   id_vbo_c = CrearVBO(GL_ARRAY_BUFFER, 3 * c.size() * sizeof(float), c.data());
-
-   // COLORES -------------------------------------
-   // AQUI id_vbo_c != 0
-   // habilitar uso de array de colores
-   glEnableClientState(GL_COLOR_ARRAY);
-
-   // especifícar cual es el VBO que vamos a usar
-   glBindBuffer(GL_ARRAY_BUFFER, id_vbo_c);
-
-   // Usar el buffer activo para el color
-   glColorPointer(3, GL_FLOAT, 0, 0);
-
-   glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-   // ---------------------------------------------
+   // VERTICES -------------------------------------
 
    // activar buffer: VBO de vértices
    glBindBuffer(GL_ARRAY_BUFFER, id_vbo_ver);
@@ -81,6 +66,78 @@ void Malla3D::draw()
    // piensa que los colores son propiedades de los vértices... no tienes por qué tratarlo de forma diferente
 }
 
+void Malla3D::draw_puntos(){
+
+   if (id_vbo_c_p == 0)
+   {
+      id_vbo_c_p = CrearVBO(GL_ARRAY_BUFFER, 3 * c_p.size() * sizeof(float), c_p.data());
+   }
+
+   // COLORES -------------------------------------
+   // AQUI id_vbo_c != 0
+   // habilitar uso de array de colores
+   glEnableClientState(GL_COLOR_ARRAY);
+
+   // especifícar cual es el VBO que vamos a usar
+   glBindBuffer(GL_ARRAY_BUFFER, id_vbo_c_p);
+
+   // Usar el buffer activo para el color
+   glColorPointer(3, GL_FLOAT, 0, 0);
+
+   // desactivar
+   glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
+void Malla3D::draw_lineas(){
+
+   if (id_vbo_c_l == 0)
+   {
+      id_vbo_c_l = CrearVBO(GL_ARRAY_BUFFER, 3 * c_l.size() * sizeof(float), c_l.data());
+   }
+
+   // COLORES -------------------------------------
+   // AQUI id_vbo_c != 0
+   // habilitar uso de array de colores
+   glEnableClientState(GL_COLOR_ARRAY);
+
+   // especifícar cual es el VBO que vamos a usar
+   glBindBuffer(GL_ARRAY_BUFFER, id_vbo_c_l);
+
+   // Usar el buffer activo para el color
+   glColorPointer(3, GL_FLOAT, 0, 0);
+
+   // desactivar
+   glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
+void Malla3D::draw_solido(){
+
+   if (id_vbo_c_s == 0)
+   {
+      id_vbo_c_s = CrearVBO(GL_ARRAY_BUFFER, 3 * c_s.size() * sizeof(float), c_s.data());
+   }
+
+   // COLORES -------------------------------------
+   // AQUI id_vbo_c != 0
+   // habilitar uso de array de colores
+   glEnableClientState(GL_COLOR_ARRAY);
+
+   // especifícar cual es el VBO que vamos a usar
+   glBindBuffer(GL_ARRAY_BUFFER, id_vbo_c_s);
+
+   // Usar el buffer activo para el color
+   glColorPointer(3, GL_FLOAT, 0, 0);
+
+   // desactivar
+   glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
+void Malla3D::set_visual(char visual)
+{
+
+   visual_obj = visual;
+}
+
 // Creación de VBOs
 GLuint Malla3D::CrearVBO(GLuint tipo_vbo, GLuint tam, GLvoid *puntero_ram)
 {
@@ -98,16 +155,26 @@ GLuint Malla3D::CrearVBO(GLuint tipo_vbo, GLuint tam, GLvoid *puntero_ram)
    return id_vbo;
 }
 
-void Malla3D::rellenar_color(Tupla3f color)
+void Malla3D::color_puntos(const Tupla3f color)
 {
 
-   /*for (int i = 0; i < c.size(); i++)
-   {
-      c[i] = color;
-   }*/
+   for (auto it = c_p.begin(); it != c_p.end(); ++it){
+      (*it) = color;
+   }
+}
 
-   for (auto it = c.begin(); it != c.end(); ++it)
-   {
+void Malla3D::color_lineas(const Tupla3f color)
+{
+
+   for (auto it = c_l.begin(); it != c_l.end(); ++it){
+      (*it) = color;
+   }
+}
+
+void Malla3D::color_solido(const Tupla3f color)
+{
+
+   for (auto it = c_s.begin(); it != c_s.end(); ++it){
       (*it) = color;
    }
 }

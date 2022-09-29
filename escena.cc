@@ -74,13 +74,15 @@ void Escena::dibujar()
 
       if(piramide_cubo){
 
-         piramide->rellenar_color(Tupla3f(0, 1, 0));
+         piramide->draw_puntos();
 
          piramide->draw();
 
       }else{
 
-         cubo->rellenar_color(Tupla3f(1, 0, 0));
+         std::cout << "Pintando cubo con puntos " << std::endl;
+
+         cubo->draw_puntos();
 
          cubo->draw();
       }
@@ -93,13 +95,17 @@ void Escena::dibujar()
 
       if(piramide_cubo){
 
-         piramide->rellenar_color(Tupla3f(1, 0, 0));
+         std::cout << "Pintando piramide con lineas " << std::endl;
+
+         piramide->draw_lineas();
 
          piramide->draw();
 
       }else{
 
-         cubo->rellenar_color(Tupla3f(0, 1, 0));
+         std::cout << "Pintando cubo con lineas " << std::endl;
+
+         cubo->draw_lineas();
 
          cubo->draw();
       }
@@ -111,13 +117,17 @@ void Escena::dibujar()
       glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
       if(piramide_cubo){
 
-         piramide->rellenar_color(Tupla3f(0, 0, 1));
+         std::cout << "Pintando piramide con solido " << std::endl;
 
+         piramide->draw_solido();
 
          piramide->draw();
+
       }else{
 
-         cubo->rellenar_color(Tupla3f(0, 0, 1));
+         std::cout << "Pintando cubo con solido " << std::endl;
+
+         cubo->draw_solido();
 
          cubo->draw();
       }

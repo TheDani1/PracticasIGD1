@@ -25,20 +25,40 @@ class Malla3D
    // función que dibuja el objeto en modo diferido (usando VBOs)
    void draw();
 
-   void rellenar_color(Tupla3f color);
+   void draw_puntos();
+
+   void draw_lineas();
+
+   void draw_solido();
+
+   char visual_obj;
+
+   void set_visual(char visual);
+
+   void color_puntos(const Tupla3f color);
+
+   void color_lineas(const Tupla3f color);
+
+   void color_solido(const Tupla3f color);
 
    protected:
 
       std::vector<Tupla3f> v; // tabla de coordenadas de vértices (una tupla por vértice, con tres floats)
       std::vector<Tupla3i> f; // una terna de 3 enteros por cada cara o triángulo
-      std::vector<Tupla3f> c; // tabla para los colores de los vértices
+
+      std::vector<Tupla3f> c_p; // tabla para los colores de los vértices (puntos)
+      std::vector<Tupla3f> c_l; // tabla para los colores de los vértices (líneas)
+      std::vector<Tupla3f> c_s; // tabla para los colores de los vértices (sólido)
 
       // completar P1: tabla de colores (hecho)
       // Completar P1: vbo y método asociado (hecho)
 
       GLuint id_vbo_tri = 0; // Se inicializa a 0
       GLuint id_vbo_ver = 0; // Se inicializa a 0
-      GLuint id_vbo_c = 0; // Se inicializa a 0
+
+      GLuint id_vbo_c_p = 0; // Se inicializa a 0
+      GLuint id_vbo_c_l = 0; // Se inicializa a 0
+      GLuint id_vbo_c_s = 0; // Se inicializa a 0
 
       GLuint CrearVBO(GLuint tipo_vbo, GLuint tam, GLvoid *puntero_ram);
    

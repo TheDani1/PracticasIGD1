@@ -41,17 +41,22 @@ Cubo::Cubo(float lado)
    f.resize(12);
    f = {cc0, cc1, cc2, cc3, cc4, cc5, cc6, cc7, cc8, cc9, cc10, cc11};
 
-   c.resize(8);
+   c_p.resize(8);
+   c_l.resize(8);
+   c_s.resize(8);
 
-   Tupla3f cv0 ( 1 , 0 , 0 ); // COLOR VERTICE
-   Tupla3f cv1 ( 1 , 0 , 0 );
-   Tupla3f cv2 ( 1 , 0 , 0 );   
-   Tupla3f cv3 ( 1 , 0 , 0 );
-   Tupla3f cv4 ( 1 , 0 , 0 );
-   Tupla3f cv5 ( 1 , 0 , 0 );
-   Tupla3f cv6 ( 1 , 0 , 0 );
-   Tupla3f cv7 ( 1 , 0 , 0 );
+   c_p.resize(8);
+   c_l.resize(8);
+   c_s.resize(8);
 
-   c = {cv0, cv1, cv2, cv3, cv4, cv5, cv6, cv7};
+   Tupla3f rojo  ( 1 , 0 , 0 );
+   Tupla3f verde ( 0 , 1 , 0 );
+   Tupla3f azul  ( 0 , 0 , 1 );
+
+   color_puntos(rojo);
+
+   color_lineas(verde);
+
+   color_solido(azul);
 
 }
