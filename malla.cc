@@ -15,8 +15,6 @@ void Malla3D::draw()
    // completar (práctica 1)
    // .....
 
-   // std::cout << id_vbo_ver;
-
    if (id_vbo_tri == 0)
    {
       id_vbo_tri = CrearVBO(GL_ELEMENT_ARRAY_BUFFER, f.size() * 3 * sizeof(int), f.data());
