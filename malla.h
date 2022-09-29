@@ -1,0 +1,48 @@
+// #############################################################################
+//
+// Informática Gráfica D (Grado Informática)
+//
+// Archivo: Malla3D.h
+// -- declaraciones de clase Malla3D (mallas indexadas) y derivados
+//
+// #############################################################################
+
+#ifndef MALLA3D_H_INCLUDED
+#define MALLA3D_H_INCLUDED
+
+#include "auxiliar.h"
+
+// *****************************************************************************
+//
+// clase para objetos 3D (mallas indexadas)
+//
+// *****************************************************************************
+
+class Malla3D
+{
+   public:
+
+   // función que dibuja el objeto en modo diferido (usando VBOs)
+   void draw();
+
+   void rellenar_color(Tupla3f color);
+
+   protected:
+
+      std::vector<Tupla3f> v; // tabla de coordenadas de vértices (una tupla por vértice, con tres floats)
+      std::vector<Tupla3i> f; // una terna de 3 enteros por cada cara o triángulo
+      std::vector<Tupla3f> c; // tabla para los colores de los vértices
+
+      // completar P1: tabla de colores (hecho)
+      // Completar P1: vbo y método asociado (hecho)
+
+      GLuint id_vbo_tri = 0; // Se inicializa a 0
+      GLuint id_vbo_ver = 0; // Se inicializa a 0
+      GLuint id_vbo_c = 0; // Se inicializa a 0
+
+      GLuint CrearVBO(GLuint tipo_vbo, GLuint tam, GLvoid *puntero_ram);
+   
+} ;
+
+
+#endif
