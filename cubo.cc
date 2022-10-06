@@ -45,10 +45,6 @@ Cubo::Cubo(float lado)
    c_l.resize(8);
    c_s.resize(8);
 
-   c_p.resize(8);
-   c_l.resize(8);
-   c_s.resize(8);
-
    Tupla3f rojo  ( 1 , 0 , 0 );
    Tupla3f verde ( 0 , 1 , 0 );
    Tupla3f azul  ( 0 , 0 , 1 );

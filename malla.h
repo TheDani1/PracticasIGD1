@@ -23,7 +23,7 @@ class Malla3D
    public:
 
    // función que dibuja el objeto en modo diferido (usando VBOs)
-   void draw();
+   void draw(const GLenum modo);
 
    void draw_puntos();
 

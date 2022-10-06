@@ -5,6 +5,7 @@
 #include "malla.h"
 #include "cubo.h"
 #include "piramidepentagonal.h"
+#include "objply.h"
 
 typedef enum
 {
@@ -42,6 +43,7 @@ private:
     Ejes ejes;
     Cubo *cubo = nullptr;                   // es importante inicializarlo a 'nullptr'
     PiramidePentagonal *piramide = nullptr; // es importante inicializarlo a 'nullptr'
+    ObjPLY *objply = nullptr;                  // es importante inicializarlo a 'nullptr'
 
 public:
     Escena();

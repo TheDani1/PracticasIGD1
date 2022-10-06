@@ -1,5 +1,3 @@
-
-
 #include "auxiliar.h" // includes de OpenGL/glut/glew, windows, y librería std de C++
 #include "escena.h"
 #include "malla.h" // objetos: Cubo y otros....
@@ -24,6 +22,8 @@ Escena::Escena()
    cubo = new Cubo(50);
 
    piramide = new PiramidePentagonal(50, 50);
+
+   objply = new ObjPLY("plys/beethoven.ply");
 }
 
 //**************************************************************************
@@ -66,6 +66,7 @@ void Escena::dibujar()
    //  y hacer
    //  cubo->draw()
    //  o    piramide->draw()
+   
 
    if(visual_obj[0]){
 
@@ -74,16 +75,16 @@ void Escena::dibujar()
 
       if(piramide_cubo){
 
-         piramide->draw_puntos();
-
-         piramide->draw();
+         piramide->draw(GL_POINT);
 
       }else{
 
-         cubo->draw_puntos();
-
-         cubo->draw();
+         cubo->draw(GL_POINT);
       }
+
+      /*objply->draw_puntos();
+
+      objply->draw();*/
       
    }
 
@@ -91,17 +92,17 @@ void Escena::dibujar()
       
       glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
+      /*objply->draw_lineas();
+      objply->draw();*/
+
       if(piramide_cubo){
 
-         piramide->draw_lineas();
-
-         piramide->draw();
+         piramide->draw(GL_LINE);
 
       }else{
 
-         cubo->draw_lineas();
+         cubo->draw(GL_LINE);
 
-         cubo->draw();
       }
 
    }
@@ -109,19 +110,15 @@ void Escena::dibujar()
    if(visual_obj[2]){
 
       glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
       if(piramide_cubo){
 
-         piramide->draw_solido();
-
-         piramide->draw();
+         piramide->draw(GL_FILL);
 
       }else{
 
-         cubo->draw_solido();
-
-         cubo->draw();
+         cubo->draw(GL_FILL);
       }
-
    }
 }
 

@@ -10,7 +10,7 @@
 #ifndef OBJREVOLUCION_H_INCLUDED
 #define OBJREVOLUCION_H_INCLUDED
 
-#include "aux.h"
+#include "auxiliar.h"
 #include "malla.h"
 
 // *****************************************************************************
