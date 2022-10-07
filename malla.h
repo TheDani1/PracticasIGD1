@@ -25,12 +25,6 @@ class Malla3D
    // función que dibuja el objeto en modo diferido (usando VBOs)
    void draw(const GLenum modo);
 
-   void draw_puntos();
-
-   void draw_lineas();
-
-   void draw_solido();
-
    char visual_obj;
 
    void set_visual(char visual);

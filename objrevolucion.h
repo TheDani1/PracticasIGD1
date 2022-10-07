@@ -12,6 +12,7 @@
 
 #include "auxiliar.h"
 #include "malla.h"
+#include "ply_reader.h"
 
 // *****************************************************************************
 //
@@ -25,16 +26,16 @@
 
 class ObjRevolucion : public Malla3D
 {
-   public:
-       ObjRevolucion();
-   ObjRevolucion(const std::string & archivo, int num_instancias);
-   ObjRevolucion(std::vector<Tupla3f> archivo, int num_instancias) ;
+public:
+    ObjRevolucion();
+    ObjRevolucion(const std::string &archivo, int num_instancias);
+    ObjRevolucion(std::vector<Tupla3f> archivo, int num_instancias);
+
 private:
+
+    std::vector<Tupla3f> polos;
+
     void crearMalla(std::vector<Tupla3f> perfil_original, int num_instancias);
-
-} ;
-
-
-
+};
 
 #endif

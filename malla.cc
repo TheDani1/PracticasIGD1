@@ -108,52 +108,6 @@ void Malla3D::draw(const GLenum modo)
    // piensa que los colores son propiedades de los vértices... no tienes por qué tratarlo de forma diferente
 }
 
-void Malla3D::draw_puntos()
-{
-
-   // COLORES -------------------------------------
-   // AQUI id_vbo_c != 0
-   // habilitar uso de array de colores
-
-   // especifícar cual es el VBO que vamos a usar
-
-   
-}
-
-void Malla3D::draw_lineas()
-{
-
-   // COLORES -------------------------------------
-   // AQUI id_vbo_c != 0
-   // habilitar uso de array de colores
-   glEnableClientState(GL_COLOR_ARRAY);
-
-   // especifícar cual es el VBO que vamos a usar
-
-   // Usar el buffer activo para el color
-   glColorPointer(3, GL_FLOAT, 0, 0);
-
-   // desactivar
-   glBindBuffer(GL_ARRAY_BUFFER, 0);
-}
-
-void Malla3D::draw_solido()
-{
-
-   // COLORES -------------------------------------
-   // AQUI id_vbo_c != 0
-   // habilitar uso de array de colores
-   glEnableClientState(GL_COLOR_ARRAY);
-
-   // especifícar cual es el VBO que vamos a usar
-
-   // Usar el buffer activo para el color
-   glColorPointer(3, GL_FLOAT, 0, 0);
-
-   // desactivar
-   glBindBuffer(GL_ARRAY_BUFFER, 0);
-}
-
 void Malla3D::set_visual(char visual)
 {
 
