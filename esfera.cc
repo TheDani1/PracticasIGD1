@@ -20,8 +20,6 @@ Esfera::Esfera(const int num_vert_perfil, const int num_instancias_perf, const f
     std::vector<Tupla3f> perfil_original;
 
     // Crear el perfil original
-    
-
     // Crear perfil de una esfera
     for (int i = 1; i < num_vert_perfil - 1; i++)
     {
@@ -46,7 +44,7 @@ Esfera::Esfera(const int num_vert_perfil, const int num_instancias_perf, const f
     c_s.resize(v.size());
 
     Tupla3f rojo(1, 0, 0);
-    Tupla3f verde(0, 1, 0);
+    Tupla3f verde(0, 0, 0);
     Tupla3f azul(0, 0, 1);
 
     color_puntos(rojo);

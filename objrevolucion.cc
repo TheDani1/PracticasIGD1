@@ -34,7 +34,7 @@ ObjRevolucion::ObjRevolucion(const std::string &archivo, int num_instancias)
 
    color_puntos(rojo);
 
-   color_lineas(verde);
+   color_lineas(rojo);
 
    color_solido(azul);
 }
@@ -51,7 +51,7 @@ void ObjRevolucion::crearMalla(std::vector<Tupla3f> perfil_original, int num_ins
 
    // VERIFICAMOS QUE ESTÉ EN EL SENTIDO QUE NOSOTROS QUEREMOS Y SI NO LO INVERTIMOS
 
-   std::cout << "Inverso?? " << perfil_original[0](1) << "<" << perfil_original[perfil_original.size() - 1](1) << std::endl;
+   std::cout << "Inverso?" << perfil_original[0](1) << " < " << perfil_original[perfil_original.size() - 1](1) << std::endl;
 
    if (perfil_original[0](1) < perfil_original[perfil_original.size() - 1](1))
    {

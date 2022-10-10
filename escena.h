@@ -8,6 +8,8 @@
 #include "objply.h"
 #include "objrevolucion.h"
 #include "esfera.h"
+#include "cono.h"
+#include "cilindro.h"
 
 typedef enum
 {
@@ -43,11 +45,14 @@ private:
     menu modoMenu = NADA;
     // Objetos de la escena
     Ejes ejes;
-    Cubo *cubo = nullptr;                   // es importante inicializarlo a 'nullptr'
-    PiramidePentagonal *piramide = nullptr; // es importante inicializarlo a 'nullptr'
+    // Cubo *cubo = nullptr;                   // es importante inicializarlo a 'nullptr'
+    // PiramidePentagonal *piramide = nullptr; // es importante inicializarlo a 'nullptr'
     ObjPLY *objply = nullptr;                  // es importante inicializarlo a 'nullptr'
     ObjRevolucion *objrevolucion = nullptr;    // es importante inicializarlo a 'nullptr'
     Esfera *esfera = nullptr;                  // es importante inicializarlo a 'nullptr'
+    Cono *cono = nullptr;                      // es importante inicializarlo a 'nullptr'
+    Cilindro *cilindro = nullptr;              // es importante inicializarlo a 'nullptr'
+
 
 public:
     Escena();

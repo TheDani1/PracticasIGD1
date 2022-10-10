@@ -19,15 +19,19 @@ Escena::Escena()
    // crear los objetos de la escena....
    // .......completar: ...
    // .....
-   cubo = new Cubo(50);
+   //cubo = new Cubo(50);
 
-   piramide = new PiramidePentagonal(50, 50);
+   //piramide = new PiramidePentagonal(50, 50);
 
    objply = new ObjPLY("plys/big_dodge.ply");
 
    objrevolucion = new ObjRevolucion("plys/peon_polos.ply", 20);
 
    esfera = new Esfera(20, 20, 50);
+
+   cono = new Cono(20, 20, 50, 20);
+
+   cilindro = new Cilindro(20, 20, 50, 20);
 }
 
 //**************************************************************************
@@ -62,7 +66,7 @@ void Escena::dibujar()
    change_observer();
    ejes.draw();
 
-   //glEnable(GL_CULL_FACE);
+   glEnable(GL_CULL_FACE);
 
    //  COMPLETAR
    //    Dibujar los diferentes elementos de la escena
@@ -73,20 +77,23 @@ void Escena::dibujar()
    // glPointSize(5);
    // glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
 
-   // objrevolucion->draw(GL_POINT);
-
-   glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-
    glPushMatrix ();
    glTranslatef(100, 0, 0);
    glScalef(20, 20, 20);
-   
-
    objrevolucion->draw(GL_LINE);
-
    glPopMatrix();
 
    esfera->draw(GL_LINE);
+
+   glPushMatrix ();
+   glTranslatef(-100, 0, 0);
+   cono->draw(GL_LINE);
+   glPopMatrix();
+
+   glPushMatrix();
+   glTranslatef(0, 0, 100);
+   cilindro->draw(GL_LINE);
+   glPopMatrix();
 
    /*if(visual_obj[0]){
 

@@ -31,6 +31,9 @@ void Malla3D::draw(const GLenum modo)
    if (modo == GL_POINT)
    {
 
+      glPointSize(5);
+      glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
+
       if (id_vbo_c_p == 0)
       {
          id_vbo_c_p = CrearVBO(GL_ARRAY_BUFFER, 3 * c_p.size() * sizeof(float), c_p.data());
@@ -43,6 +46,8 @@ void Malla3D::draw(const GLenum modo)
    if (modo == GL_LINE)
    {
 
+      glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
       if (id_vbo_c_l == 0)
       {
          id_vbo_c_l = CrearVBO(GL_ARRAY_BUFFER, 3 * c_l.size() * sizeof(float), c_l.data());
@@ -54,6 +59,8 @@ void Malla3D::draw(const GLenum modo)
    // SOLIDO
    if (modo == GL_FILL)
    {
+
+      glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
       if (id_vbo_c_s == 0)
       {
