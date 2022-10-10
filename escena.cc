@@ -26,6 +26,8 @@ Escena::Escena()
    objply = new ObjPLY("plys/big_dodge.ply");
 
    objrevolucion = new ObjRevolucion("plys/peon_polos.ply", 20);
+
+   esfera = new Esfera(20, 20, 50);
 }
 
 //**************************************************************************
@@ -68,9 +70,6 @@ void Escena::dibujar()
    //  y hacer
    //  cubo->draw()
    //  o    piramide->draw()
-
-   glScalef(20, 20, 20);
-
    // glPointSize(5);
    // glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
 
@@ -78,7 +77,16 @@ void Escena::dibujar()
 
    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
+   glPushMatrix ();
+   glTranslatef(100, 0, 0);
+   glScalef(20, 20, 20);
+   
+
    objrevolucion->draw(GL_LINE);
+
+   glPopMatrix();
+
+   esfera->draw(GL_LINE);
 
    /*if(visual_obj[0]){
 

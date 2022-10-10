@@ -2,8 +2,7 @@
 //
 // Informática Gráfica (Grado Informática)
 //
-// Archivo: Cubo.h
-
+// Archivo: objrevolucion.h (Práctica 2)
 //
 // #############################################################################
 
@@ -34,11 +33,12 @@ public:
 private:
 
     std::vector<Tupla3f> polos;
-
-    void crearMalla(std::vector<Tupla3f> perfil_original, int num_instancias);
-
+    
     void tapaSuperior(std::vector<Tupla3f> perfil_original, int num_instancias, int norte);
     void tapaInferior(std::vector<Tupla3f> perfil_original, int num_instancias, int sur);
+
+protected:
+    void crearMalla(std::vector<Tupla3f> perfil_original, int num_instancias);
 };
 
 #endif
