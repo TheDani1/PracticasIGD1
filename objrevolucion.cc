@@ -91,9 +91,9 @@ void ObjRevolucion::crearMalla(std::vector<Tupla3f> perfil_original, int num_ins
 
          std::cout << "Polo encontrado " << std::endl;
          polos.push_back(*it);
-         //perfil_original.erase(it);
-
-      }else
+         // perfil_original.erase(it);
+      }
+      else
       {
          perfil_sin_polos.push_back(*it);
       }
@@ -114,8 +114,8 @@ void ObjRevolucion::crearMalla(std::vector<Tupla3f> perfil_original, int num_ins
       {
 
          float x = perfil_original[k](X) * cos(angulo) + perfil_original[k](Z) * sin(angulo);
-         float y = perfil_original[k](Y);
          float z = perfil_original[k](X) * -sin(angulo) + perfil_original[k](Z) * cos(angulo);
+         float y = perfil_original[k](Y);
 
          Tupla3f perfil_n(x, y, z);
 
@@ -184,7 +184,8 @@ void ObjRevolucion::crearMalla(std::vector<Tupla3f> perfil_original, int num_ins
          pos_polo_norte = v.size() - 2;
          pos_polo_sur = v.size() - 1;
 
-         for(int i = 0; i < v.size(); i++){
+         for (int i = 0; i < v.size(); i++)
+         {
             std::cout << "V[" << i << "] = " << v[i] << std::endl;
          }
 
@@ -251,25 +252,40 @@ void ObjRevolucion::tapaSuperior(std::vector<Tupla3f> perfil_original, int num_i
 
       pos_aux2 = pos_aux1 + perfil_original.size();
 
-      f.push_back(Tupla3i(pos_aux1, norte, pos_aux2));
+      f.push_back(Tupla3i(pos_aux2, norte, pos_aux1));
    }
+
+   pos_aux1 = perfil_original.size() * num_instancias - 1;
+
+   // primer vertice
+   pos_aux2 = perfil_original.size() - 1;
+
+   f.push_back(Tupla3i(pos_aux2, norte, pos_aux1));
+
+
 }
 
 void ObjRevolucion::tapaInferior(std::vector<Tupla3f> perfil_original, int num_instancias, int sur)
 {
 
-   int pos_aux1;
-   int pos_aux2;
+   int pos_aux1 = 0;
+   int pos_aux2 = 0;
 
    // Generamos caras del polo inferior
 
-   for (int i = 0; i < num_instancias - 1; i++)
+   for (int i = 0; i < num_instancias-1; i++)
    {
 
       pos_aux1 = perfil_original.size() * i;
 
-      pos_aux2 = (pos_aux1 + perfil_original.size()) % sur;
+      //pos_aux2 = ( pos_aux1 + perfil_original.size() ) % sur;
+
+      pos_aux2 = pos_aux1 + perfil_original.size();
 
       f.push_back(Tupla3i(pos_aux1, sur, pos_aux2));
    }
+
+   // Union de la ultima cara con la primera
+
+   f.push_back({(int) perfil_original.size() * (num_instancias - 1), sur, 0});
 }
