@@ -41,5 +41,5 @@ Cono::Cono(const int num_vert_perfil,
 
     color_lineas(azul);
 
-    color_solido(azul);
+    color_solido(verde);
 }

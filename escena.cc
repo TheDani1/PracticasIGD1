@@ -80,19 +80,27 @@ void Escena::dibujar()
    glPushMatrix ();
    glTranslatef(100, 0, 0);
    glScalef(20, 20, 20);
+   objrevolucion->draw(GL_POINT);
    objrevolucion->draw(GL_LINE);
+   objrevolucion->draw(GL_FILL);
    glPopMatrix();
 
+   esfera->draw(GL_POINT);
    esfera->draw(GL_LINE);
+   esfera->draw(GL_FILL);
 
    glPushMatrix ();
    glTranslatef(-100, 0, 0);
+   cono->draw(GL_POINT);
    cono->draw(GL_LINE);
+   cono->draw(GL_FILL);
    glPopMatrix();
 
    glPushMatrix();
    glTranslatef(0, 0, 100);
+   cilindro->draw(GL_POINT);
    cilindro->draw(GL_LINE);
+   cilindro->draw(GL_FILL);
    glPopMatrix();
 
    /*if(visual_obj[0]){

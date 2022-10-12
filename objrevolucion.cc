@@ -34,9 +34,9 @@ ObjRevolucion::ObjRevolucion(const std::string &archivo, int num_instancias)
 
    color_puntos(rojo);
 
-   color_lineas(rojo);
+   color_lineas(azul);
 
-   color_solido(azul);
+   color_solido(verde);
 }
 
 // *****************************************************************************

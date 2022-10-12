@@ -40,7 +40,7 @@ Cilindro::Cilindro(const int num_vert_perfil,
 
     color_puntos(rojo);
 
-    color_lineas(verde);
+    color_lineas(azul);
 
-    color_solido(azul);
+    color_solido(verde);
 }

@@ -44,12 +44,12 @@ Esfera::Esfera(const int num_vert_perfil, const int num_instancias_perf, const f
     c_s.resize(v.size());
 
     Tupla3f rojo(1, 0, 0);
-    Tupla3f verde(0, 0, 0);
+    Tupla3f verde(0, 1, 0);
     Tupla3f azul(0, 0, 1);
 
     color_puntos(rojo);
 
-    color_lineas(verde);
+    color_lineas(azul);
 
-    color_solido(azul);
+    color_solido(verde);
 }
