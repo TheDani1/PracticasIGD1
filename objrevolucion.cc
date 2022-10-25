@@ -51,8 +51,6 @@ void ObjRevolucion::crearMalla(std::vector<Tupla3f> perfil_original, int num_ins
 
    // VERIFICAMOS QUE ESTÉ EN EL SENTIDO QUE NOSOTROS QUEREMOS Y SI NO LO INVERTIMOS
 
-   std::cout << "Inverso?" << perfil_original[0](1) << " < " << perfil_original[perfil_original.size() - 1](1) << std::endl;
-
    bool inverso = false;
 
    for(int i = 0; i < perfil_original.size(); i++){
@@ -66,52 +64,24 @@ void ObjRevolucion::crearMalla(std::vector<Tupla3f> perfil_original, int num_ins
 
    if (inverso)
    {
-      std::cout << "Orden invertido" << std::endl;
       std::reverse(perfil_original.begin(), perfil_original.end());
    }
-
-   // Verificar si tenemos polos (eliminamos todos los puntos del eje Y que sean 0 y solo nos quedamos con los más grandes)
-
-   // float y_max = -INFINITY; // Y máxima para posteriormente calcular la altura max (si es más alto (o igual) es polo norte y si es mas bajo, polo sur)
-   // float y_min = +INFINITY;
-
-   // for (int i = 0; i < perfil_original.size(); i++)
-   // {
-
-   //    if (perfil_original[i](Y) > y_max)
-   //       y_max = perfil_original[i](Y);
-
-   //    if (perfil_original[i](Y) < y_min)
-   //       y_min = perfil_original[i](Y);
-   // }
-
-   // std::cout << y_max << " " << y_min << std::endl;
-
-   // Una vez calculado el maximo y el mínimo
-   // (que es donde están los polos podemos identificar los polos y solo dejar en el vector los polos reales (con y max y min))
 
    std::vector<Tupla3f> perfil_sin_polos;
 
    for (auto it = perfil_original.begin(); it < perfil_original.end(); ++it)
    {
 
-      std::cout << (*it) << std::endl;
+      
 
       if ((*it)(X) == 0 && (*it)(Z) == 0 && (it == perfil_original.end() - 1 || it == perfil_original.begin()))
       {
 
-         std::cout << "Polo encontrado " << std::endl;
+         //std::cout << "Polo encontrado " << std::endl;
          polos.push_back(*it);
-         // perfil_original.erase(it);
       }
-      // else
-      // {
-      //    perfil_sin_polos.push_back(*it);
-      // }
-   }
 
-   // perfil_original.clear();
-   // perfil_original = perfil_sin_polos;
+   }
 
    v.clear();
 
@@ -163,8 +133,8 @@ void ObjRevolucion::crearMalla(std::vector<Tupla3f> perfil_original, int num_ins
    if (polos.size() > 0)
    {
 
-      std::cout << "Posicion polo norte: " << pos_polo_norte << std::endl;
-      std::cout << "Posicion polo sur: " << pos_polo_sur << std::endl;
+      //std::cout << "Posicion polo norte: " << pos_polo_norte << std::endl;
+      //std::cout << "Posicion polo sur: " << pos_polo_sur << std::endl;
 
       // Generamos ambas tapas
 
@@ -174,8 +144,8 @@ void ObjRevolucion::crearMalla(std::vector<Tupla3f> perfil_original, int num_ins
    else
    { // Si nada más que hay un polo tenemos que ver si es superior o inferior y dibujar la tapa
 
-      std::cout << "Posicion polo norte: " << pos_polo_norte << std::endl;
-      std::cout << "Posicion polo sur: " << pos_polo_sur << std::endl;
+      // std::cout << "Posicion polo norte: " << pos_polo_norte << std::endl;
+      // std::cout << "Posicion polo sur: " << pos_polo_sur << std::endl;
    }
 }
 
@@ -217,8 +187,6 @@ void ObjRevolucion::tapaInferior(std::vector<Tupla3f> perfil_original, int num_i
    {
 
       pos_aux1 = perfil_original.size() * i;
-
-      // pos_aux2 = ( pos_aux1 + perfil_original.size() ) % sur;
 
       pos_aux2 = pos_aux1 + perfil_original.size();
 

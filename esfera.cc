@@ -13,7 +13,6 @@
 Esfera::Esfera(const int num_vert_perfil, const int num_instancias_perf, const float radio)
 {
 
-    std::cout << "######## ESFERA ########" << std::endl;
     // Simplemente crear el perfil original y una vez creado
     // llamar a crearMalla
 
@@ -32,12 +31,6 @@ Esfera::Esfera(const int num_vert_perfil, const int num_instancias_perf, const f
         perfil_original.push_back(Tupla3f(x, y, 0));
     }
     perfil_original.push_back(Tupla3f(0, radio * -1, 0));
-
-    std::cout << "Esto se pasa a la función crearMalla" << std::endl;
-    for (int i = 0; i < perfil_original.size(); i++)
-    {
-        std::cout << perfil_original[i] << std::endl;
-    }
 
     crearMalla(perfil_original, num_instancias_perf);
 

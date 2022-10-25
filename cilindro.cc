@@ -9,28 +9,27 @@
 
 // *****************************************************************************
 // Cilindro generado a partir de perfil de revolución desde constructor propio
+
 Cilindro::Cilindro(const int num_vert_perfil,
                    const int num_instancias_perf,
                    const float altura,
                    const float radio)
 {
 
-    std::cout << "######## CILINDRO ########" << std::endl;
 
     std::vector<Tupla3f> perfil_original;
 
-    const float distancia_puntos = altura / num_vert_perfil;
+    const float d = altura / num_vert_perfil;
 
     perfil_original.push_back(Tupla3f(0, 0, 0));
 
     for (int i = 0; i < num_vert_perfil; i++)
     {
 
-        perfil_original.push_back(Tupla3f(radio, i*distancia_puntos, 0));
+        perfil_original.push_back(Tupla3f(radio, i*d, 0));
     }
 
     perfil_original.push_back(Tupla3f(0, altura, 0));
-    
 
     crearMalla(perfil_original, num_instancias_perf);
 
