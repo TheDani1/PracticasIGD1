@@ -13,14 +13,17 @@
 Esfera::Esfera(const int num_vert_perfil, const int num_instancias_perf, const float radio)
 {
 
+    std::cout << "######## ESFERA ########" << std::endl;
     // Simplemente crear el perfil original y una vez creado
     // llamar a crearMalla
 
     // Crear el perfil original
     std::vector<Tupla3f> perfil_original;
 
+    perfil_original.push_back(Tupla3f(0, radio, 0));
     // Crear el perfil original
     // Crear perfil de una esfera
+
     for (int i = 1; i < num_vert_perfil - 1; i++)
     {
         float angulo = (i * M_PI) / (num_vert_perfil - 1);
@@ -28,12 +31,11 @@ Esfera::Esfera(const int num_vert_perfil, const int num_instancias_perf, const f
         float y = radio * cos(angulo);
         perfil_original.push_back(Tupla3f(x, y, 0));
     }
-
-    perfil_original.push_back(Tupla3f(0, radio*-1, 0));
-    perfil_original.push_back(Tupla3f(0, radio, 0));
+    perfil_original.push_back(Tupla3f(0, radio * -1, 0));
 
     std::cout << "Esto se pasa a la función crearMalla" << std::endl;
-    for(int i = 0; i < perfil_original.size(); i++){
+    for (int i = 0; i < perfil_original.size(); i++)
+    {
         std::cout << perfil_original[i] << std::endl;
     }
 
