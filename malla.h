@@ -35,10 +35,13 @@ class Malla3D
 
    void color_solido(const Tupla3f color);
 
+   void calcularNormales();
+
    protected:
 
       std::vector<Tupla3f> v; // tabla de coordenadas de vértices (una tupla por vértice, con tres floats)
       std::vector<Tupla3i> f; // una terna de 3 enteros por cada cara o triángulo
+      std::vector<Tupla3f> nv; // tabla de normales
 
       std::vector<Tupla3f> c_p; // tabla para los colores de los vértices (puntos)
       std::vector<Tupla3f> c_l; // tabla para los colores de los vértices (líneas)
@@ -49,6 +52,7 @@ class Malla3D
 
       GLuint id_vbo_tri = 0; // Se inicializa a 0
       GLuint id_vbo_ver = 0; // Se inicializa a 0
+      GLuint id_vbo_nv = 0; // Se inicializa a 0
 
       GLuint id_vbo_c_p = 0; // Se inicializa a 0
       GLuint id_vbo_c_l = 0; // Se inicializa a 0

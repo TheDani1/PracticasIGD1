@@ -164,3 +164,32 @@ void Malla3D::color_solido(const Tupla3f color)
       (*it) = color;
    }
 }
+
+void Malla3D::calcularNormales()
+{
+
+   // Inicializar a cero
+   for (int i = 0; i < v.size(); i++)
+   {
+      nv.push_back(Tupla3f(0, 0, 0));
+   }
+
+   // Calcular normales de las caras
+   for (int i = 0; i < f.size(); i++)
+   {
+      Tupla3f v1 = v[f[i](1)] - v[f[i](0)];
+      Tupla3f v2 = v[f[i](2)] - v[f[i](0)];
+
+      Tupla3f normal = v1.cross(v2);
+
+      nv[f[i](0)] = nv[f[i](0)] + normal;
+      nv[f[i](1)] = nv[f[i](1)] + normal;
+      nv[f[i](2)] = nv[f[i](2)] + normal;
+   }
+
+   // Normalizar
+   for (int i = 0; i < nv.size(); i++)
+   {
+      nv[i] = nv[i].normalized();
+   }
+}

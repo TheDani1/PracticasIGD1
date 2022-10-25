@@ -68,6 +68,8 @@ void Escena::dibujar()
 
    glEnable(GL_CULL_FACE);
 
+   glEnable(GL_NORMALIZE);
+
    //  COMPLETAR
    //    Dibujar los diferentes elementos de la escena
    //  Habrá que tener en esta primera práctica una variable que indique qué objeto se ha de visualizar
