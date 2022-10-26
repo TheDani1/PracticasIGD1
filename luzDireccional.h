@@ -19,7 +19,11 @@ protected:
     float beta;
 
 public:
-    LuzDireccional(const Tupla2f &orientacion);
+    LuzDireccional(const Tupla2f direccion,
+                     const GLenum idLuzOpenGL,
+                     const Tupla4f colorAmbiente = Tupla4f(0.0f, 0.0f, 0.0f, 1.0f),
+                     const Tupla4f colorEspecular = Tupla4f(1.0f, 1.0f, 1.0f, 1.0f),
+                     const Tupla4f colorDifuso = Tupla4f(1.0f, 1.0f, 1.0f, 1.0f));
 
     void variarAnguloAlpha(float incremento);
     void variarAnguloBeta(float incremento);

@@ -32,6 +32,12 @@ Escena::Escena()
    cono = new Cono(20, 20, 50, 20);
 
    cilindro = new Cilindro(20, 20, 50, 20);
+
+   Tupla2f pos0 = {0, 0};
+   Tupla2f pos1 = {0, 0};
+
+   luz0 = new LuzPosicional(pos0, GL_LIGHT0);
+   luz1 = new LuzDireccional(pos1, GL_LIGHT1);
 }
 
 //**************************************************************************
@@ -70,6 +76,8 @@ void Escena::dibujar()
 
    glEnable(GL_NORMALIZE);
 
+   glDisable(GL_LIGHTING);
+
    //  COMPLETAR
    //    Dibujar los diferentes elementos de la escena
    //  Habrá que tener en esta primera práctica una variable que indique qué objeto se ha de visualizar
@@ -99,6 +107,27 @@ void Escena::dibujar()
       if (visual_obj[2])
       {
          cono->draw(GL_FILL);
+      }
+
+      if (visual_obj[3])
+      {
+
+         glEnable(GL_LIGHTING);
+         cono->draw(GL_FILL);
+
+         if (luz0 != nullptr)
+         {
+            glPushMatrix();
+            luz0->activar();
+            glPopMatrix();
+         }
+
+         if (luz1 != nullptr)
+         {
+            glPushMatrix();
+            luz1->activar();
+            glPopMatrix();
+         }
       }
 
       glPopMatrix();
@@ -254,6 +283,7 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
               << "\t [D]: Se activa/desactiva la visualizacion en modo puntos ░" << endl
               << "\t [L]: Se activa/desactiva la visualizacion en modo lineas △ □" << endl
               << "\t [S]: Se activa/desactiva la visualizacion en modo solido (por defecto) ■ ▲" << endl
+              << "\t [T]: Se activa la visualización con iluminacion" << endl
               << "\t [Q]: Salir del [MENU SELECCION DE MODO DE VISUALIZACION]" << endl;
       }
       else
@@ -267,6 +297,7 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
               << "\t [D]: Se activa/desactiva la visualizacion en modo puntos ░" << endl
               << "\t [L]: Se activa/desactiva la visualizacion en modo lineas △ □" << endl
               << "\t [S]: Se activa/desactiva la visualizacion en modo solido (por defecto) ■ ▲" << endl
+              << "\t [T]: Se activa la visualización con iluminacion" << endl
               << "\t [Q]: Salir del [MENU SELECCION DE MODO DE VISUALIZACION]" << endl;
       }
 
@@ -469,8 +500,9 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
 
             cout << "[MENU SELECCION DE MODO DE VISUALIZACION]" << endl
                  << "\t [D]: Se activa/desactiva la visualizacion en modo puntos ░" << endl
-                 << "\t [L]: Se activa/desactiva la visualizacion en modo lineas ◍" << endl
-                 << "\t [S]: Se activa/desactiva la visualizacion en modo solido (por defecto)" << endl
+                 << "\t [L]: Se activa/desactiva la visualizacion en modo lineas △ □" << endl
+                 << "\t [S]: Se activa/desactiva la visualizacion en modo solido (por defecto) ■ ▲" << endl
+                 << "\t [T]: Se activa la visualización con iluminacion" << endl
                  << "\t [Q]: Salir del [MENU SELECCION DE MODO DE VISUALIZACION]" << endl;
          }
          else
@@ -480,8 +512,9 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
 
             cout << "[MENU SELECCION DE MODO DE VISUALIZACION]" << endl
                  << "\t [D]: Se activa/desactiva la visualizacion en modo puntos ░" << endl
-                 << "\t [L]: Se activa/desactiva la visualizacion en modo lineas ◍" << endl
-                 << "\t [S]: Se activa/desactiva la visualizacion en modo solido (por defecto)" << endl
+                 << "\t [L]: Se activa/desactiva la visualizacion en modo lineas △ □" << endl
+                 << "\t [S]: Se activa/desactiva la visualizacion en modo solido (por defecto) ■ ▲" << endl
+                 << "\t [T]: Se activa la visualización con iluminacion" << endl
                  << "\t [Q]: Salir del [MENU SELECCION DE MODO DE VISUALIZACION]" << endl;
          }
       }
@@ -494,8 +527,9 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
          cout << "[!] Seleccion no valida" << endl;
          cout << "[MENU SELECCION DE MODO DE VISUALIZACION]" << endl
               << "\t [D]: Se activa/desactiva la visualizacion en modo puntos ░" << endl
-              << "\t [L]: Se activa/desactiva la visualizacion en modo lineas ◍" << endl
-              << "\t [S]: Se activa/desactiva la visualizacion en modo solido (por defecto)" << endl
+              << "\t [L]: Se activa/desactiva la visualizacion en modo lineas △ □" << endl
+              << "\t [S]: Se activa/desactiva la visualizacion en modo solido (por defecto) ■ ▲" << endl
+              << "\t [T]: Se activa la visualización con iluminacion" << endl
               << "\t [Q]: Salir del [MENU SELECCION DE MODO DE VISUALIZACION]" << endl;
       }
 
@@ -516,8 +550,9 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
 
             cout << "[MENU SELECCION DE MODO DE VISUALIZACION]" << endl
                  << "\t [D]: Se activa/desactiva la visualizacion en modo puntos ░" << endl
-                 << "\t [L]: Se activa/desactiva la visualizacion en modo lineas ◍" << endl
-                 << "\t [S]: Se activa/desactiva la visualizacion en modo solido (por defecto)" << endl
+                 << "\t [L]: Se activa/desactiva la visualizacion en modo lineas △ □" << endl
+                 << "\t [S]: Se activa/desactiva la visualizacion en modo solido (por defecto) ■ ▲" << endl
+                 << "\t [T]: Se activa la visualización con iluminacion" << endl
                  << "\t [Q]: Salir del [MENU SELECCION DE MODO DE VISUALIZACION]" << endl;
          }
          else
@@ -527,8 +562,9 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
 
             cout << "[MENU SELECCION DE MODO DE VISUALIZACION]" << endl
                  << "\t [D]: Se activa/desactiva la visualizacion en modo puntos ░" << endl
-                 << "\t [L]: Se activa/desactiva la visualizacion en modo lineas ◍" << endl
-                 << "\t [S]: Se activa/desactiva la visualizacion en modo solido (por defecto)" << endl
+                 << "\t [L]: Se activa/desactiva la visualizacion en modo lineas △ □" << endl
+                 << "\t [S]: Se activa/desactiva la visualizacion en modo solido (por defecto) ■ ▲" << endl
+                 << "\t [T]: Se activa la visualización con iluminacion" << endl
                  << "\t [Q]: Salir del [MENU SELECCION DE MODO DE VISUALIZACION]" << endl;
          }
       }
@@ -542,8 +578,9 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
 
          cout << "[MENU SELECCION DE MODO DE VISUALIZACION]" << endl
               << "\t [D]: Se activa/desactiva la visualizacion en modo puntos ░" << endl
-              << "\t [L]: Se activa/desactiva la visualizacion en modo lineas ◍" << endl
-              << "\t [S]: Se activa/desactiva la visualizacion en modo solido (por defecto)" << endl
+              << "\t [L]: Se activa/desactiva la visualizacion en modo lineas △ □" << endl
+              << "\t [S]: Se activa/desactiva la visualizacion en modo solido (por defecto) ■ ▲" << endl
+              << "\t [T]: Se activa la visualización con iluminacion" << endl
               << "\t [Q]: Salir del [MENU SELECCION DE MODO DE VISUALIZACION]" << endl;
       }
 
@@ -564,8 +601,9 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
 
             cout << "[MENU SELECCION DE MODO DE VISUALIZACION]" << endl
                  << "\t [D]: Se activa/desactiva la visualizacion en modo puntos ░" << endl
-                 << "\t [L]: Se activa/desactiva la visualizacion en modo lineas ◍" << endl
-                 << "\t [S]: Se activa/desactiva la visualizacion en modo solido (por defecto)" << endl
+                 << "\t [L]: Se activa/desactiva la visualizacion en modo lineas △ □" << endl
+                 << "\t [S]: Se activa/desactiva la visualizacion en modo solido (por defecto) ■ ▲" << endl
+                 << "\t [T]: Se activa la visualización con iluminacion" << endl
                  << "\t [Q]: Salir del [MENU SELECCION DE MODO DE VISUALIZACION]" << endl;
          }
          else
@@ -575,8 +613,9 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
 
             cout << "[MENU SELECCION DE MODO DE VISUALIZACION]" << endl
                  << "\t [D]: Se activa/desactiva la visualizacion en modo puntos ░" << endl
-                 << "\t [L]: Se activa/desactiva la visualizacion en modo lineas ◍" << endl
-                 << "\t [S]: Se activa/desactiva la visualizacion en modo solido (por defecto)" << endl
+                 << "\t [L]: Se activa/desactiva la visualizacion en modo lineas △ □" << endl
+                 << "\t [S]: Se activa/desactiva la visualizacion en modo solido (por defecto) ■ ▲" << endl
+                 << "\t [T]: Se activa la visualización con iluminacion" << endl
                  << "\t [Q]: Salir del [MENU SELECCION DE MODO DE VISUALIZACION]" << endl;
          }
       }
@@ -590,12 +629,42 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
 
          cout << "[MENU SELECCION DE MODO DE VISUALIZACION]" << endl
               << "\t [D]: Se activa/desactiva la visualizacion en modo puntos ░" << endl
-              << "\t [L]: Se activa/desactiva la visualizacion en modo lineas ◍" << endl
-              << "\t [S]: Se activa/desactiva la visualizacion en modo solido (por defecto)" << endl
+              << "\t [L]: Se activa/desactiva la visualizacion en modo lineas △ □" << endl
+              << "\t [S]: Se activa/desactiva la visualizacion en modo solido (por defecto) ■ ▲" << endl
+              << "\t [T]: Se activa la visualización con iluminacion" << endl
               << "\t [Q]: Salir del [MENU SELECCION DE MODO DE VISUALIZACION]" << endl;
       }
 
       break;
+
+   case 'T':
+
+      visual_obj[3] = !visual_obj[3];
+
+      if (visual_obj[3])
+      {
+
+         cout << "[Evento] Modo iluminación activado" << endl;
+
+         cout << "[MENU SELECCION DE MODO DE VISUALIZACION]" << endl
+              << "\t [D]: Se activa/desactiva la visualizacion en modo puntos ░" << endl
+              << "\t [L]: Se activa/desactiva la visualizacion en modo lineas △ □" << endl
+              << "\t [S]: Se activa/desactiva la visualizacion en modo solido (por defecto) ■ ▲" << endl
+              << "\t [T]: Se activa la visualización con iluminacion" << endl
+              << "\t [Q]: Salir del [MENU SELECCION DE MODO DE VISUALIZACION]" << endl;
+      }
+      else
+      {
+
+         cout << "[Evento] Modo solido desactivado" << endl;
+
+         cout << "[MENU SELECCION DE MODO DE VISUALIZACION]" << endl
+              << "\t [D]: Se activa/desactiva la visualizacion en modo puntos ░" << endl
+              << "\t [L]: Se activa/desactiva la visualizacion en modo lineas △ □" << endl
+              << "\t [S]: Se activa/desactiva la visualizacion en modo solido (por defecto) ■ ▲" << endl
+              << "\t [T]: Se activa la visualización con iluminacion" << endl
+              << "\t [Q]: Salir del [MENU SELECCION DE MODO DE VISUALIZACION]" << endl;
+      }
    }
 
    return salir;

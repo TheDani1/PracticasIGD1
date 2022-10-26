@@ -11,6 +11,7 @@
 #define MALLA3D_H_INCLUDED
 
 #include "auxiliar.h"
+#include "material.h"
 
 // *****************************************************************************
 //
@@ -37,10 +38,13 @@ class Malla3D
 
    void calcularNormales();
 
+   void setMaterial(Material mat);
+
    protected:
 
       std::vector<Tupla3f> v; // tabla de coordenadas de vértices (una tupla por vértice, con tres floats)
       std::vector<Tupla3i> f; // una terna de 3 enteros por cada cara o triángulo
+      
       std::vector<Tupla3f> nv; // tabla de normales
 
       std::vector<Tupla3f> c_p; // tabla para los colores de los vértices (puntos)
@@ -52,11 +56,14 @@ class Malla3D
 
       GLuint id_vbo_tri = 0; // Se inicializa a 0
       GLuint id_vbo_ver = 0; // Se inicializa a 0
+
       GLuint id_vbo_nv = 0; // Se inicializa a 0
 
       GLuint id_vbo_c_p = 0; // Se inicializa a 0
       GLuint id_vbo_c_l = 0; // Se inicializa a 0
       GLuint id_vbo_c_s = 0; // Se inicializa a 0
+
+      Material m; // Práctica 3
 
       GLuint CrearVBO(GLuint tipo_vbo, GLuint tam, GLvoid *puntero_ram);
    

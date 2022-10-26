@@ -53,7 +53,7 @@ void ObjRevolucion::crearMalla(std::vector<Tupla3f> perfil_original, int num_ins
 
    bool inverso = false;
 
-   for(int i = 0; i < perfil_original.size(); i++){
+   for(int i = 0; i < perfil_original.size()-1; i++){
       
       if(perfil_original[i](1) < perfil_original[i+1](1)){
          inverso = true;

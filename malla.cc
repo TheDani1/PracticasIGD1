@@ -25,6 +25,12 @@ void Malla3D::draw(const GLenum modo)
       id_vbo_ver = CrearVBO(GL_ARRAY_BUFFER, 3 * v.size() * sizeof(float), v.data());
    }
 
+   if (id_vbo_nv == 0)
+   {
+
+      id_vbo_nv = CrearVBO(GL_ARRAY_BUFFER, 3 * nv.size() * sizeof(float), nv.data());
+   }
+
    glEnableClientState(GL_COLOR_ARRAY);
 
    // PUNTOS
@@ -87,6 +93,27 @@ void Malla3D::draw(const GLenum modo)
    // desactivar buffer: VBO de vértices.
    glBindBuffer(GL_ARRAY_BUFFER, 0);
 
+   // NORMALES -------------------------------------
+
+   if (glIsEnabled(GL_LIGHTING))
+   {
+
+      glEnableClientState(GL_NORMAL_ARRAY);
+
+      // activar buffer: VBO de normales
+      glBindBuffer(GL_ARRAY_BUFFER, id_vbo_nv);
+
+      // usar como buffer de normales el actualmente activo
+      glNormalPointer(GL_FLOAT, 0, 0);
+
+      // desactivar buffer: VBO de normales.
+      glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+      m.aplicar();
+   }
+
+   // ----------------------------------------------
+
    // habilitar el uso de tabla de vértices
    glEnableClientState(GL_VERTEX_ARRAY);
 
@@ -113,6 +140,11 @@ void Malla3D::draw(const GLenum modo)
 
    //> Javier Melero:
    // piensa que los colores son propiedades de los vértices... no tienes por qué tratarlo de forma diferente
+   
+   if(glIsEnabled(GL_LIGHTING))
+   {
+      glDisableClientState(GL_LIGHTING);
+   }
 }
 
 void Malla3D::set_visual(char visual)

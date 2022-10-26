@@ -11,6 +11,10 @@
 #include "cono.h"
 #include "cilindro.h"
 
+#include "luz.h"
+#include "luzDireccional.h"
+#include "luzPosicional.h"
+
 typedef enum
 {
     NADA,
@@ -23,7 +27,7 @@ class Escena
 
 private:
 
-    bool visual_obj[3] = {false , false, true}; // Puntos, lineas, solido
+    bool visual_obj[4] = {false , false, true, false}; // Puntos, lineas, solido, iluminación
     bool sel_obj[4] = {true, true, true, true}; // Piramide, cilindro, esfera y peón
 
     // ** PARÁMETROS DE LA CÁMARA (PROVISIONAL)
@@ -53,6 +57,8 @@ private:
     Cono *cono = nullptr;                      // es importante inicializarlo a 'nullptr'
     Cilindro *cilindro = nullptr;              // es importante inicializarlo a 'nullptr'
 
+    LuzPosicional *luz0 = nullptr;
+    LuzDireccional *luz1 = nullptr;
 
 public:
     Escena();
