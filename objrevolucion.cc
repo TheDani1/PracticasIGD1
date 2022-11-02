@@ -22,6 +22,8 @@ ObjRevolucion::ObjRevolucion(const std::string &archivo, int num_instancias)
 
    ply::read_vertices(archivo, this->v);
 
+   std::cout << "[objeto revol]" << std::endl;
+
    crearMalla(v, num_instancias);
 
    c_p.resize(v.size());
@@ -37,6 +39,8 @@ ObjRevolucion::ObjRevolucion(const std::string &archivo, int num_instancias)
    color_lineas(azul);
 
    color_solido(verde);
+
+   calcularNormales();
 }
 
 // *****************************************************************************
@@ -53,17 +57,22 @@ void ObjRevolucion::crearMalla(std::vector<Tupla3f> perfil_original, int num_ins
 
    bool inverso = false;
 
-   for(int i = 0; i < perfil_original.size()-1; i++){
-      
-      if(perfil_original[i](1) < perfil_original[i+1](1)){
+   for (int i = 0; i < perfil_original.size(); i++)
+   {
+
+      if (perfil_original[i](1) < perfil_original[i + 1](1))
+      {
          inverso = true;
-      }else{
-         inverso=false;
+      }
+      else
+      {
+         inverso = false;
       }
    }
 
    if (inverso)
    {
+      std::cout << "Invertido" << std::endl;
       std::reverse(perfil_original.begin(), perfil_original.end());
    }
 
@@ -72,15 +81,20 @@ void ObjRevolucion::crearMalla(std::vector<Tupla3f> perfil_original, int num_ins
    for (auto it = perfil_original.begin(); it < perfil_original.end(); ++it)
    {
 
-      
-
       if ((*it)(X) == 0 && (*it)(Z) == 0 && (it == perfil_original.end() - 1 || it == perfil_original.begin()))
       {
 
-         //std::cout << "Polo encontrado " << std::endl;
+         std::cout << "Polo encontrado " << *it << std::endl;
          polos.push_back(*it);
-      }
 
+         perfil_original.erase(it);
+      }
+   }
+
+   std::cout << "[Polos: " << polos.size() << " ] " << std::endl;
+   for (int i = 0; i < polos.size(); i++)
+   {
+      std::cout << "Polo " << i << " " << polos[i](X) << " " << polos[i](Y) << " " << polos[i](Z) << std::endl;
    }
 
    v.clear();
@@ -127,14 +141,41 @@ void ObjRevolucion::crearMalla(std::vector<Tupla3f> perfil_original, int num_ins
 
    // GENERAMOS CARAS DE LOS POLOS
 
-   int pos_polo_norte = perfil_original.size() - 1;
-   int pos_polo_sur = 0;
+   // perfil_sin_polos = perfil_original;
 
-   if (polos.size() > 0)
+   // perfil_original.clear();
+
+   // perfil_original.push_back(polos[0]);
+
+   // // INSERTAMOS VÉRTICES DE perfil_original
+
+   // for (int i = 0, j = 0; i < perfil_original.size() && j < perfil_sin_polos.size(); i++, j++)
+   // {
+   //    perfil_original.push_back(perfil_sin_polos[j]);
+   // }
+
+   // TIENE DOS POLOS
+   if (polos.size() > 1)
    {
 
-      //std::cout << "Posicion polo norte: " << pos_polo_norte << std::endl;
-      //std::cout << "Posicion polo sur: " << pos_polo_sur << std::endl;
+      int pos_polo_sur = 0;
+
+      int pos_polo_norte = perfil_original.size() - 1;
+
+      if(polos[0](Y) > polos[1](Y)){
+
+         pos_polo_sur = perfil_original.size() - 1;
+         pos_polo_norte = 0;
+
+      }else{
+
+         pos_polo_sur = 0;
+         pos_polo_norte = perfil_original.size() - 1;
+
+      }
+
+      // std::cout << "Posicion polo norte: " << pos_polo_norte << std::endl;
+      // std::cout << "Posicion polo sur: " << pos_polo_sur << std::endl;
 
       // Generamos ambas tapas
 

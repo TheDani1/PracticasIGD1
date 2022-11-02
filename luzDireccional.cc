@@ -20,8 +20,8 @@ LuzDireccional::LuzDireccional(const Tupla2f direccion,
     this->colorEspecular = colorEspecular;
     this->colorDifuso = colorDifuso;
 
-    this->alpha = direccion[0];
-    this->beta = direccion[1];
+    this->alpha = direccion(0);
+    this->beta = direccion(1);
 
-    this->posicion = {0.0f, 0.0f, 0.0f, 0.0f};
+    this->posicion = {direccion(0), direccion(1), 0, 0};
 }

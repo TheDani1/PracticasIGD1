@@ -38,13 +38,13 @@ class Malla3D
 
    void calcularNormales();
 
-   void setMaterial(Material mat);
+   void setMaterial(const Material &mat);
 
    protected:
 
       std::vector<Tupla3f> v; // tabla de coordenadas de vértices (una tupla por vértice, con tres floats)
       std::vector<Tupla3i> f; // una terna de 3 enteros por cada cara o triángulo
-      
+
       std::vector<Tupla3f> nv; // tabla de normales
 
       std::vector<Tupla3f> c_p; // tabla para los colores de los vértices (puntos)
@@ -68,6 +68,5 @@ class Malla3D
       GLuint CrearVBO(GLuint tipo_vbo, GLuint tam, GLvoid *puntero_ram);
    
 } ;
-
 
 #endif

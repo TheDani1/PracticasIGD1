@@ -1,441 +1,107 @@
-==13794== Memcheck, a memory error detector
-==13794== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==13794== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==13794== Command: ./pracs_exe
-==13794== Parent PID: 6960
-==13794== 
-==13794== Invalid read of size 4
-==13794==    at 0x7593738: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x7635A90: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x763EBEA: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x763F7B6: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x7297DCD: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x115598: Malla3D::draw(unsigned int) (malla.cc:124)
-==13794==    by 0x11225C: Escena::dibujar() (escena.cc:116)
-==13794==    by 0x11A877: draw_scene() (practicas.cc:28)
-==13794==    by 0x494A72A: ??? (in /usr/lib/x86_64-linux-gnu/libglut.so.3.9.0)
-==13794==    by 0x494E0C0: fgEnumWindows (in /usr/lib/x86_64-linux-gnu/libglut.so.3.9.0)
-==13794==    by 0x494ACBA: glutMainLoopEvent (in /usr/lib/x86_64-linux-gnu/libglut.so.3.9.0)
-==13794==    by 0x494B5D2: glutMainLoop (in /usr/lib/x86_64-linux-gnu/libglut.so.3.9.0)
-==13794==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
-==13794== 
-==13794== 
-==13794== Process terminating with default action of signal 11 (SIGSEGV)
-==13794==  Access not within mapped region at address 0x0
-==13794==    at 0x7593738: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x7635A90: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x763EBEA: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x763F7B6: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x7297DCD: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x115598: Malla3D::draw(unsigned int) (malla.cc:124)
-==13794==    by 0x11225C: Escena::dibujar() (escena.cc:116)
-==13794==    by 0x11A877: draw_scene() (practicas.cc:28)
-==13794==    by 0x494A72A: ??? (in /usr/lib/x86_64-linux-gnu/libglut.so.3.9.0)
-==13794==    by 0x494E0C0: fgEnumWindows (in /usr/lib/x86_64-linux-gnu/libglut.so.3.9.0)
-==13794==    by 0x494ACBA: glutMainLoopEvent (in /usr/lib/x86_64-linux-gnu/libglut.so.3.9.0)
-==13794==    by 0x494B5D2: glutMainLoop (in /usr/lib/x86_64-linux-gnu/libglut.so.3.9.0)
-==13794==  If you believe this happened as a result of a stack
-==13794==  overflow in your program's main thread (unlikely but
-==13794==  possible), you can try to increase the size of the
-==13794==  main thread stack using the --main-stacksize= flag.
-==13794==  The main thread stack size used in this run was 8388608.
-==13794== 
-==13794== HEAP SUMMARY:
-==13794==     in use at exit: 5,668,915 bytes in 5,546 blocks
-==13794==   total heap usage: 33,950 allocs, 28,404 frees, 327,484,352 bytes allocated
-==13794== 
-==13794== 80 bytes in 1 blocks are possibly lost in loss record 862 of 3,436
-==13794==    at 0x4844899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==13794==    by 0x50D1F96: ??? (in /usr/lib/x86_64-linux-gnu/libGLdispatch.so.0.0.0)
-==13794==    by 0x50D264B: __glDispatchInit (in /usr/lib/x86_64-linux-gnu/libGLdispatch.so.0.0.0)
-==13794==    by 0x514B757: ??? (in /usr/lib/x86_64-linux-gnu/libGLX.so.0.0.0)
-==13794==    by 0x4004FBD: call_init.part.0 (dl-init.c:70)
-==13794==    by 0x40050A7: call_init (dl-init.c:33)
-==13794==    by 0x40050A7: _dl_init (dl-init.c:117)
-==13794==    by 0x401D8AF: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
-==13794== 
-==13794== 80 bytes in 1 blocks are possibly lost in loss record 863 of 3,436
-==13794==    at 0x4844899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==13794==    by 0x50D1F96: ??? (in /usr/lib/x86_64-linux-gnu/libGLdispatch.so.0.0.0)
-==13794==    by 0x50D287E: __glDispatchRegisterStubCallbacks (in /usr/lib/x86_64-linux-gnu/libGLdispatch.so.0.0.0)
-==13794==    by 0x49B8218: ??? (in /usr/lib/x86_64-linux-gnu/libGL.so.1.7.0)
-==13794==    by 0x4004FBD: call_init.part.0 (dl-init.c:70)
-==13794==    by 0x40050A7: call_init (dl-init.c:33)
-==13794==    by 0x40050A7: _dl_init (dl-init.c:117)
-==13794==    by 0x401D8AF: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
-==13794== 
-==13794== 128 bytes in 1 blocks are definitely lost in loss record 2,894 of 3,436
-==13794==    at 0x4849A83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==13794==    by 0x74BA3BF: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74AF609: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74AE08E: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74BF188: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x5A4BB98: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.515.65.01)
-==13794==    by 0x5AB18F5: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.515.65.01)
-==13794==    by 0x5A4B232: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.515.65.01)
-==13794== 
-==13794== 167 bytes in 1 blocks are possibly lost in loss record 2,904 of 3,436
-==13794==    at 0x4849A83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==13794==    by 0x74BA3BF: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74CDF7A: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x72BB428: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x72BB8B5: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x7189493: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74DF002: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74E2E65: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74A1E14: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x5A4E262: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.515.65.01)
-==13794==    by 0x5A894DE: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.515.65.01)
-==13794==    by 0x515C4D1: ??? (in /usr/lib/x86_64-linux-gnu/libGLX.so.0.0.0)
-==13794== 
-==13794== 311 bytes in 1 blocks are possibly lost in loss record 3,011 of 3,436
-==13794==    at 0x4849A83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==13794==    by 0x74BA3BF: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74CDF7A: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x72BB56B: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x72BB8B5: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x7189493: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74DF002: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74E2E65: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74A1E14: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x5A4E262: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.515.65.01)
-==13794==    by 0x5A894DE: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.515.65.01)
-==13794==    by 0x515C4D1: ??? (in /usr/lib/x86_64-linux-gnu/libGLX.so.0.0.0)
-==13794== 
-==13794== 599 bytes in 1 blocks are possibly lost in loss record 3,122 of 3,436
-==13794==    at 0x4849A83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==13794==    by 0x74BA3BF: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74CDF7A: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x72BB407: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x72BB8B5: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x7189493: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74DF002: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74E2E65: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74A1E14: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x5A4E262: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.515.65.01)
-==13794==    by 0x5A894DE: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.515.65.01)
-==13794==    by 0x515C4D1: ??? (in /usr/lib/x86_64-linux-gnu/libGLX.so.0.0.0)
-==13794== 
-==13794== 599 (128 direct, 471 indirect) bytes in 1 blocks are definitely lost in loss record 3,123 of 3,436
-==13794==    at 0x4849A83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==13794==    by 0x74BA3BF: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74AF609: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74AC5B8: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74ADC3C: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74BF152: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x5A4BB98: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.515.65.01)
-==13794==    by 0x5AB18F5: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.515.65.01)
-==13794==    by 0x5A4B232: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.515.65.01)
-==13794== 
-==13794== 896 bytes in 1 blocks are possibly lost in loss record 3,220 of 3,436
-==13794==    at 0x4849A83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==13794==    by 0x74BA3BF: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74AF609: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74AC69E: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74ACA5D: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74C020E: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x5A4BB98: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.515.65.01)
-==13794==    by 0x5AB18F5: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.515.65.01)
-==13794==    by 0x5A4B232: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.515.65.01)
-==13794== 
-==13794== 1,127 bytes in 1 blocks are possibly lost in loss record 3,288 of 3,436
-==13794==    at 0x4844899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==13794==    by 0x74B9F2C: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74CDF20: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x7677728: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x7677776: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x718AB3E: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74E2080: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x749FF93: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x5A4DFDA: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.515.65.01)
-==13794==    by 0x5A87A28: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.515.65.01)
-==13794==    by 0x5A774FF: glXCreateNewContext (in /usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.515.65.01)
-==13794==    by 0x5162C37: glXCreateNewContext (in /usr/lib/x86_64-linux-gnu/libGLX.so.0.0.0)
-==13794== 
-==13794== 1,336 bytes in 8 blocks are possibly lost in loss record 3,298 of 3,436
-==13794==    at 0x4849A83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==13794==    by 0x74BA3BF: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74CDF7A: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x72BB5A3: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x72BB8B5: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x7189493: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74DF002: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74E2E65: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74A1E14: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x5A4E262: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.515.65.01)
-==13794==    by 0x5A894DE: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.515.65.01)
-==13794==    by 0x515C4D1: ??? (in /usr/lib/x86_64-linux-gnu/libGLX.so.0.0.0)
-==13794== 
-==13794== 3,431 bytes in 1 blocks are possibly lost in loss record 3,328 of 3,436
-==13794==    at 0x4844899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==13794==    by 0x74B9F2C: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74CDF20: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x7189DC0: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x71704D7: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x7170ED1: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x115663: Malla3D::CrearVBO(unsigned int, unsigned int, void*) (malla.cc:166)
-==13794==    by 0x11522F: Malla3D::draw(unsigned int) (malla.cc:25)
-==13794==    by 0x112488: Escena::dibujar() (escena.cc:197)
-==13794==    by 0x11A877: draw_scene() (practicas.cc:28)
-==13794==    by 0x494A72A: ??? (in /usr/lib/x86_64-linux-gnu/libglut.so.3.9.0)
-==13794==    by 0x494E0C0: fgEnumWindows (in /usr/lib/x86_64-linux-gnu/libglut.so.3.9.0)
-==13794== 
-==13794== 3,431 bytes in 1 blocks are possibly lost in loss record 3,329 of 3,436
-==13794==    at 0x4844899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==13794==    by 0x74B9F2C: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74CDF20: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x7189DC0: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x71704D7: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x7170ED1: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x115663: Malla3D::CrearVBO(unsigned int, unsigned int, void*) (malla.cc:166)
-==13794==    by 0x115440: Malla3D::draw(unsigned int) (malla.cc:73)
-==13794==    by 0x112488: Escena::dibujar() (escena.cc:197)
-==13794==    by 0x11A877: draw_scene() (practicas.cc:28)
-==13794==    by 0x494A72A: ??? (in /usr/lib/x86_64-linux-gnu/libglut.so.3.9.0)
-==13794==    by 0x494E0C0: fgEnumWindows (in /usr/lib/x86_64-linux-gnu/libglut.so.3.9.0)
-==13794== 
-==13794== 4,608 bytes in 2 blocks are possibly lost in loss record 3,344 of 3,436
-==13794==    at 0x4844899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==13794==    by 0x40046FB: malloc (rtld-malloc.h:56)
-==13794==    by 0x40046FB: _dlfo_mappings_segment_allocate (dl-find_object.c:217)
-==13794==    by 0x40046FB: _dl_find_object_update_1 (dl-find_object.c:671)
-==13794==    by 0x40046FB: _dl_find_object_update (dl-find_object.c:805)
-==13794==    by 0x400CB4F: dl_open_worker_begin (dl-open.c:735)
-==13794==    by 0x4E9E799: _dl_catch_exception (dl-error-skeleton.c:208)
-==13794==    by 0x400BE39: dl_open_worker (dl-open.c:782)
-==13794==    by 0x4E9E799: _dl_catch_exception (dl-error-skeleton.c:208)
-==13794==    by 0x400C20B: _dl_open (dl-open.c:886)
-==13794==    by 0x4DBCE6B: dlopen_doit (dlopen.c:56)
-==13794==    by 0x4E9E799: _dl_catch_exception (dl-error-skeleton.c:208)
-==13794==    by 0x4E9E852: _dl_catch_error (dl-error-skeleton.c:227)
-==13794==    by 0x4DBC93E: _dlerror_run (dlerror.c:138)
-==13794==    by 0x4DBCF20: dlopen_implementation (dlopen.c:71)
-==13794==    by 0x4DBCF20: dlopen@@GLIBC_2.34 (dlopen.c:81)
-==13794== 
-==13794== 4,631 bytes in 1 blocks are possibly lost in loss record 3,346 of 3,436
-==13794==    at 0x4849A83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==13794==    by 0x74BA3BF: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74CDF7A: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x72BB3E7: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x72BB8B5: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x7189493: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74DF002: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74E2E65: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74A1E14: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x5A4E262: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.515.65.01)
-==13794==    by 0x5A894DE: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.515.65.01)
-==13794==    by 0x515C4D1: ??? (in /usr/lib/x86_64-linux-gnu/libGLX.so.0.0.0)
-==13794== 
-==13794== 4,631 bytes in 1 blocks are possibly lost in loss record 3,347 of 3,436
-==13794==    at 0x4849A83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==13794==    by 0x74BA3BF: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74CDF7A: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x72BB5CD: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x72BB8B5: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x7189493: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74DF002: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74E2E65: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74A1E14: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x5A4E262: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.515.65.01)
-==13794==    by 0x5A894DE: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.515.65.01)
-==13794==    by 0x515C4D1: ??? (in /usr/lib/x86_64-linux-gnu/libGLX.so.0.0.0)
-==13794== 
-==13794== 4,871 bytes in 1 blocks are possibly lost in loss record 3,352 of 3,436
-==13794==    at 0x4844899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==13794==    by 0x74B9F2C: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74CDF20: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x7189DC0: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x71704D7: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x7170ED1: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x115663: Malla3D::CrearVBO(unsigned int, unsigned int, void*) (malla.cc:166)
-==13794==    by 0x11522F: Malla3D::draw(unsigned int) (malla.cc:25)
-==13794==    by 0x1123D2: Escena::dibujar() (escena.cc:175)
-==13794==    by 0x11A877: draw_scene() (practicas.cc:28)
-==13794==    by 0x494A72A: ??? (in /usr/lib/x86_64-linux-gnu/libglut.so.3.9.0)
-==13794==    by 0x494E0C0: fgEnumWindows (in /usr/lib/x86_64-linux-gnu/libglut.so.3.9.0)
-==13794== 
-==13794== 4,871 bytes in 1 blocks are possibly lost in loss record 3,353 of 3,436
-==13794==    at 0x4844899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==13794==    by 0x74B9F2C: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74CDF20: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x7189DC0: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x71704D7: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x7170ED1: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x115663: Malla3D::CrearVBO(unsigned int, unsigned int, void*) (malla.cc:166)
-==13794==    by 0x115440: Malla3D::draw(unsigned int) (malla.cc:73)
-==13794==    by 0x1123D2: Escena::dibujar() (escena.cc:175)
-==13794==    by 0x11A877: draw_scene() (practicas.cc:28)
-==13794==    by 0x494A72A: ??? (in /usr/lib/x86_64-linux-gnu/libglut.so.3.9.0)
-==13794==    by 0x494E0C0: fgEnumWindows (in /usr/lib/x86_64-linux-gnu/libglut.so.3.9.0)
-==13794== 
-==13794== 5,351 bytes in 1 blocks are possibly lost in loss record 3,359 of 3,436
-==13794==    at 0x4844899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==13794==    by 0x74B9F2C: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74CDF20: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x7189DC0: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x71704D7: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x7170ED1: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x115663: Malla3D::CrearVBO(unsigned int, unsigned int, void*) (malla.cc:166)
-==13794==    by 0x11522F: Malla3D::draw(unsigned int) (malla.cc:25)
-==13794==    by 0x112356: Escena::dibujar() (escena.cc:154)
-==13794==    by 0x11A877: draw_scene() (practicas.cc:28)
-==13794==    by 0x494A72A: ??? (in /usr/lib/x86_64-linux-gnu/libglut.so.3.9.0)
-==13794==    by 0x494E0C0: fgEnumWindows (in /usr/lib/x86_64-linux-gnu/libglut.so.3.9.0)
-==13794== 
-==13794== 5,351 bytes in 1 blocks are possibly lost in loss record 3,360 of 3,436
-==13794==    at 0x4844899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==13794==    by 0x74B9F2C: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74CDF20: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x7189DC0: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x71704D7: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x7170ED1: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x115663: Malla3D::CrearVBO(unsigned int, unsigned int, void*) (malla.cc:166)
-==13794==    by 0x115440: Malla3D::draw(unsigned int) (malla.cc:73)
-==13794==    by 0x112356: Escena::dibujar() (escena.cc:154)
-==13794==    by 0x11A877: draw_scene() (practicas.cc:28)
-==13794==    by 0x494A72A: ??? (in /usr/lib/x86_64-linux-gnu/libglut.so.3.9.0)
-==13794==    by 0x494E0C0: fgEnumWindows (in /usr/lib/x86_64-linux-gnu/libglut.so.3.9.0)
-==13794== 
-==13794== 5,591 bytes in 1 blocks are possibly lost in loss record 3,365 of 3,436
-==13794==    at 0x4844899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==13794==    by 0x74B9F2C: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74CDF20: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x7189DC0: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x71704D7: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x7170ED1: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x115663: Malla3D::CrearVBO(unsigned int, unsigned int, void*) (malla.cc:166)
-==13794==    by 0x11522F: Malla3D::draw(unsigned int) (malla.cc:25)
-==13794==    by 0x11222E: Escena::dibujar() (escena.cc:109)
-==13794==    by 0x11A877: draw_scene() (practicas.cc:28)
-==13794==    by 0x494A72A: ??? (in /usr/lib/x86_64-linux-gnu/libglut.so.3.9.0)
-==13794==    by 0x494E0C0: fgEnumWindows (in /usr/lib/x86_64-linux-gnu/libglut.so.3.9.0)
-==13794== 
-==13794== 5,591 bytes in 1 blocks are possibly lost in loss record 3,366 of 3,436
-==13794==    at 0x4844899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==13794==    by 0x74B9F2C: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74CDF20: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x7189DC0: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x71704D7: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x7170ED1: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x115663: Malla3D::CrearVBO(unsigned int, unsigned int, void*) (malla.cc:166)
-==13794==    by 0x115440: Malla3D::draw(unsigned int) (malla.cc:73)
-==13794==    by 0x11222E: Escena::dibujar() (escena.cc:109)
-==13794==    by 0x11A877: draw_scene() (practicas.cc:28)
-==13794==    by 0x494A72A: ??? (in /usr/lib/x86_64-linux-gnu/libglut.so.3.9.0)
-==13794==    by 0x494E0C0: fgEnumWindows (in /usr/lib/x86_64-linux-gnu/libglut.so.3.9.0)
-==13794== 
-==13794== 6,791 bytes in 1 blocks are possibly lost in loss record 3,374 of 3,436
-==13794==    at 0x4844899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==13794==    by 0x74B9F2C: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74CDF20: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x7189DC0: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x71704D7: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x7170ED1: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x115663: Malla3D::CrearVBO(unsigned int, unsigned int, void*) (malla.cc:166)
-==13794==    by 0x1151D3: Malla3D::draw(unsigned int) (malla.cc:20)
-==13794==    by 0x112488: Escena::dibujar() (escena.cc:197)
-==13794==    by 0x11A877: draw_scene() (practicas.cc:28)
-==13794==    by 0x494A72A: ??? (in /usr/lib/x86_64-linux-gnu/libglut.so.3.9.0)
-==13794==    by 0x494E0C0: fgEnumWindows (in /usr/lib/x86_64-linux-gnu/libglut.so.3.9.0)
-==13794== 
-==13794== 9,671 bytes in 1 blocks are possibly lost in loss record 3,384 of 3,436
-==13794==    at 0x4844899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==13794==    by 0x74B9F2C: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74CDF20: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x7189DC0: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x71704D7: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x7170ED1: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x115663: Malla3D::CrearVBO(unsigned int, unsigned int, void*) (malla.cc:166)
-==13794==    by 0x1151D3: Malla3D::draw(unsigned int) (malla.cc:20)
-==13794==    by 0x1123D2: Escena::dibujar() (escena.cc:175)
-==13794==    by 0x11A877: draw_scene() (practicas.cc:28)
-==13794==    by 0x494A72A: ??? (in /usr/lib/x86_64-linux-gnu/libglut.so.3.9.0)
-==13794==    by 0x494E0C0: fgEnumWindows (in /usr/lib/x86_64-linux-gnu/libglut.so.3.9.0)
-==13794== 
-==13794== 10,631 bytes in 1 blocks are possibly lost in loss record 3,385 of 3,436
-==13794==    at 0x4844899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==13794==    by 0x74B9F2C: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74CDF20: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x7189DC0: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x71704D7: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x7170ED1: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x115663: Malla3D::CrearVBO(unsigned int, unsigned int, void*) (malla.cc:166)
-==13794==    by 0x1151D3: Malla3D::draw(unsigned int) (malla.cc:20)
-==13794==    by 0x112356: Escena::dibujar() (escena.cc:154)
-==13794==    by 0x11A877: draw_scene() (practicas.cc:28)
-==13794==    by 0x494A72A: ??? (in /usr/lib/x86_64-linux-gnu/libglut.so.3.9.0)
-==13794==    by 0x494E0C0: fgEnumWindows (in /usr/lib/x86_64-linux-gnu/libglut.so.3.9.0)
-==13794== 
-==13794== 11,111 bytes in 1 blocks are possibly lost in loss record 3,386 of 3,436
-==13794==    at 0x4844899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==13794==    by 0x74B9F2C: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74CDF20: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x7189DC0: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x71704D7: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x7170ED1: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x115663: Malla3D::CrearVBO(unsigned int, unsigned int, void*) (malla.cc:166)
-==13794==    by 0x1151D3: Malla3D::draw(unsigned int) (malla.cc:20)
-==13794==    by 0x11222E: Escena::dibujar() (escena.cc:109)
-==13794==    by 0x11A877: draw_scene() (practicas.cc:28)
-==13794==    by 0x494A72A: ??? (in /usr/lib/x86_64-linux-gnu/libglut.so.3.9.0)
-==13794==    by 0x494E0C0: fgEnumWindows (in /usr/lib/x86_64-linux-gnu/libglut.so.3.9.0)
-==13794== 
-==13794== 11,704 bytes in 8 blocks are possibly lost in loss record 3,387 of 3,436
-==13794==    at 0x4849A83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==13794==    by 0x74BA3BF: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74CDF7A: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x72BB4B8: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x72BB8B5: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x7189493: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74DF002: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74E2E65: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74A1E14: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x5A4E262: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.515.65.01)
-==13794==    by 0x5A894DE: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.515.65.01)
-==13794==    by 0x515C4D1: ??? (in /usr/lib/x86_64-linux-gnu/libGLX.so.0.0.0)
-==13794== 
-==13794== 28,836 (6,024 direct, 22,812 indirect) bytes in 1 blocks are definitely lost in loss record 3,406 of 3,436
-==13794==    at 0x4849A83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==13794==    by 0x74BA3BF: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74B1045: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74AC5A0: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74ADC3C: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74BF152: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x5A4BB98: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.515.65.01)
-==13794==    by 0x5AB18F5: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.515.65.01)
-==13794==    by 0x5A4B232: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.515.65.01)
-==13794== 
-==13794== 128,001 (1,024 direct, 126,977 indirect) bytes in 1 blocks are definitely lost in loss record 3,424 of 3,436
-==13794==    at 0x4849CD3: realloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==13794==    by 0x74B986A: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74AF6A0: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74ACD0E: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74C0353: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x5A4BB98: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.515.65.01)
-==13794==    by 0x5AB18F5: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.515.65.01)
-==13794==    by 0x5A4B232: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.515.65.01)
-==13794== 
-==13794== 307,271 bytes in 1 blocks are possibly lost in loss record 3,434 of 3,436
-==13794==    at 0x4849A83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==13794==    by 0x74BA3BF: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x74CDF7A: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x7195B0A: ??? (in /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.515.65.01)
-==13794==    by 0x5A8323F: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.515.65.01)
-==13794==    by 0x5A8B83E: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.515.65.01)
-==13794==    by 0x5A4BCA7: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.515.65.01)
-==13794==    by 0x5AB18F5: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.515.65.01)
-==13794==    by 0x5A4B232: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.515.65.01)
-==13794== 
-==13794== LEAK SUMMARY:
-==13794==    definitely lost: 7,304 bytes in 4 blocks
-==13794==    indirectly lost: 150,260 bytes in 835 blocks
-==13794==      possibly lost: 414,133 bytes in 40 blocks
-==13794==    still reachable: 5,097,218 bytes in 4,667 blocks
-==13794==                       of which reachable via heuristic:
-==13794==                         multipleinheritance: 192 bytes in 1 blocks
-==13794==         suppressed: 0 bytes in 0 blocks
-==13794== Reachable blocks (those to which a pointer was found) are not shown.
-==13794== To see them, rerun with: --leak-check=full --show-leak-kinds=all
-==13794== 
-==13794== For lists of detected and suppressed errors, rerun with: -s
-==13794== ERROR SUMMARY: 30 errors from 30 contexts (suppressed: 0 from 0)
+==85524== Memcheck, a memory error detector
+==85524== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==85524== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==85524== Command: ./pracs_exe
+==85524== Parent PID: 56538
+==85524== 
+==85524== Invalid read of size 4
+==85524==    at 0x117358: ObjRevolucion::crearMalla(std::vector<TuplaG3<float>, std::allocator<TuplaG3<float> > >, int) (objrevolucion.cc:60)
+==85524==    by 0x11709F: ObjRevolucion::ObjRevolucion(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, int) (objrevolucion.cc:25)
+==85524==    by 0x11197F: Escena::Escena() (escena.cc:28)
+==85524==    by 0x11ABE8: main (practicas.cc:102)
+==85524==  Address 0x5232ff0 is 4 bytes after a block of size 156 alloc'd
+==85524==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==85524==    by 0x10DCBC: __gnu_cxx::new_allocator<TuplaG3<float> >::allocate(unsigned long, void const*) (new_allocator.h:127)
+==85524==    by 0x10D9B2: std::allocator_traits<std::allocator<TuplaG3<float> > >::allocate(std::allocator<TuplaG3<float> >&, unsigned long) (alloc_traits.h:464)
+==85524==    by 0x10D5C3: std::_Vector_base<TuplaG3<float>, std::allocator<TuplaG3<float> > >::_M_allocate(unsigned long) (stl_vector.h:346)
+==85524==    by 0x10D3BE: std::_Vector_base<TuplaG3<float>, std::allocator<TuplaG3<float> > >::_M_create_storage(unsigned long) (stl_vector.h:361)
+==85524==    by 0x10C906: std::_Vector_base<TuplaG3<float>, std::allocator<TuplaG3<float> > >::_Vector_base(unsigned long, std::allocator<TuplaG3<float> > const&) (stl_vector.h:305)
+==85524==    by 0x10C46E: std::vector<TuplaG3<float>, std::allocator<TuplaG3<float> > >::vector(std::vector<TuplaG3<float>, std::allocator<TuplaG3<float> > > const&) (stl_vector.h:555)
+==85524==    by 0x117086: ObjRevolucion::ObjRevolucion(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, int) (objrevolucion.cc:25)
+==85524==    by 0x11197F: Escena::Escena() (escena.cc:28)
+==85524==    by 0x11ABE8: main (practicas.cc:102)
+==85524== 
+==85524== Invalid read of size 4
+==85524==    at 0x117358: ObjRevolucion::crearMalla(std::vector<TuplaG3<float>, std::allocator<TuplaG3<float> > >, int) (objrevolucion.cc:60)
+==85524==    by 0x114A50: Esfera::Esfera(int, int, float) (esfera.cc:35)
+==85524==    by 0x1119CE: Escena::Escena() (escena.cc:30)
+==85524==    by 0x11ABE8: main (practicas.cc:102)
+==85524==  Address 0x5241af4 is 4 bytes after a block of size 240 alloc'd
+==85524==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==85524==    by 0x10DCBC: __gnu_cxx::new_allocator<TuplaG3<float> >::allocate(unsigned long, void const*) (new_allocator.h:127)
+==85524==    by 0x10D9B2: std::allocator_traits<std::allocator<TuplaG3<float> > >::allocate(std::allocator<TuplaG3<float> >&, unsigned long) (alloc_traits.h:464)
+==85524==    by 0x10D5C3: std::_Vector_base<TuplaG3<float>, std::allocator<TuplaG3<float> > >::_M_allocate(unsigned long) (stl_vector.h:346)
+==85524==    by 0x10D3BE: std::_Vector_base<TuplaG3<float>, std::allocator<TuplaG3<float> > >::_M_create_storage(unsigned long) (stl_vector.h:361)
+==85524==    by 0x10C906: std::_Vector_base<TuplaG3<float>, std::allocator<TuplaG3<float> > >::_Vector_base(unsigned long, std::allocator<TuplaG3<float> > const&) (stl_vector.h:305)
+==85524==    by 0x10C46E: std::vector<TuplaG3<float>, std::allocator<TuplaG3<float> > >::vector(std::vector<TuplaG3<float>, std::allocator<TuplaG3<float> > > const&) (stl_vector.h:555)
+==85524==    by 0x114A3B: Esfera::Esfera(int, int, float) (esfera.cc:35)
+==85524==    by 0x1119CE: Escena::Escena() (escena.cc:30)
+==85524==    by 0x11ABE8: main (practicas.cc:102)
+==85524== 
+==85524== Invalid read of size 4
+==85524==    at 0x117358: ObjRevolucion::crearMalla(std::vector<TuplaG3<float>, std::allocator<TuplaG3<float> > >, int) (objrevolucion.cc:60)
+==85524==    by 0x10E2DF: Cono::Cono(int, int, float, float) (cono.cc:36)
+==85524==    by 0x111A0D: Escena::Escena() (escena.cc:32)
+==85524==    by 0x11ABE8: main (practicas.cc:102)
+==85524==  Address 0x52525d8 is 4 bytes after a block of size 276 alloc'd
+==85524==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==85524==    by 0x10DCBC: __gnu_cxx::new_allocator<TuplaG3<float> >::allocate(unsigned long, void const*) (new_allocator.h:127)
+==85524==    by 0x10D9B2: std::allocator_traits<std::allocator<TuplaG3<float> > >::allocate(std::allocator<TuplaG3<float> >&, unsigned long) (alloc_traits.h:464)
+==85524==    by 0x10D5C3: std::_Vector_base<TuplaG3<float>, std::allocator<TuplaG3<float> > >::_M_allocate(unsigned long) (stl_vector.h:346)
+==85524==    by 0x10D3BE: std::_Vector_base<TuplaG3<float>, std::allocator<TuplaG3<float> > >::_M_create_storage(unsigned long) (stl_vector.h:361)
+==85524==    by 0x10C906: std::_Vector_base<TuplaG3<float>, std::allocator<TuplaG3<float> > >::_Vector_base(unsigned long, std::allocator<TuplaG3<float> > const&) (stl_vector.h:305)
+==85524==    by 0x10C46E: std::vector<TuplaG3<float>, std::allocator<TuplaG3<float> > >::vector(std::vector<TuplaG3<float>, std::allocator<TuplaG3<float> > > const&) (stl_vector.h:555)
+==85524==    by 0x10E2CA: Cono::Cono(int, int, float, float) (cono.cc:36)
+==85524==    by 0x111A0D: Escena::Escena() (escena.cc:32)
+==85524==    by 0x11ABE8: main (practicas.cc:102)
+==85524== 
+==85524== 
+==85524== Process terminating with default action of signal 6 (SIGABRT)
+==85524==    at 0x4DC8A7C: __pthread_kill_implementation (pthread_kill.c:44)
+==85524==    by 0x4DC8A7C: __pthread_kill_internal (pthread_kill.c:78)
+==85524==    by 0x4DC8A7C: pthread_kill@@GLIBC_2.34 (pthread_kill.c:89)
+==85524==    by 0x4D74475: raise (raise.c:26)
+==85524==    by 0x4D5A7F2: abort (abort.c:79)
+==85524==    by 0x4D5A71A: __assert_fail_base.cold (assert.c:92)
+==85524==    by 0x4D6BE95: __assert_fail (assert.c:101)
+==85524==    by 0x1167E9: TuplaG<float, 3u>::normalized() const (tuplasg.h:404)
+==85524==    by 0x115F80: Malla3D::calcularNormales() (malla.cc:231)
+==85524==    by 0x10E498: Cono::Cono(int, int, float, float) (cono.cc:52)
+==85524==    by 0x111A0D: Escena::Escena() (escena.cc:32)
+==85524==    by 0x11ABE8: main (practicas.cc:102)
+==85524== 
+==85524== HEAP SUMMARY:
+==85524==     in use at exit: 190,055 bytes in 74 blocks
+==85524==   total heap usage: 223 allocs, 149 frees, 277,029 bytes allocated
+==85524== 
+==85524== 80 bytes in 1 blocks are possibly lost in loss record 4 of 32
+==85524==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==85524==    by 0x50F7F16: ??? (in /usr/lib/x86_64-linux-gnu/libGLdispatch.so.0.0.0)
+==85524==    by 0x50F85DE: __glDispatchInit (in /usr/lib/x86_64-linux-gnu/libGLdispatch.so.0.0.0)
+==85524==    by 0x517274E: ??? (in /usr/lib/x86_64-linux-gnu/libGLX.so.0.0.0)
+==85524==    by 0x400647D: call_init.part.0 (dl-init.c:70)
+==85524==    by 0x4006567: call_init (dl-init.c:33)
+==85524==    by 0x4006567: _dl_init (dl-init.c:117)
+==85524==    by 0x40202E9: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+==85524== 
+==85524== 80 bytes in 1 blocks are possibly lost in loss record 5 of 32
+==85524==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==85524==    by 0x50F7F16: ??? (in /usr/lib/x86_64-linux-gnu/libGLdispatch.so.0.0.0)
+==85524==    by 0x50F87FF: __glDispatchRegisterStubCallbacks (in /usr/lib/x86_64-linux-gnu/libGLdispatch.so.0.0.0)
+==85524==    by 0x49BB218: ??? (in /usr/lib/x86_64-linux-gnu/libGL.so.1.7.0)
+==85524==    by 0x400647D: call_init.part.0 (dl-init.c:70)
+==85524==    by 0x4006567: call_init (dl-init.c:33)
+==85524==    by 0x4006567: _dl_init (dl-init.c:117)
+==85524==    by 0x40202E9: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+==85524== 
+==85524== LEAK SUMMARY:
+==85524==    definitely lost: 0 bytes in 0 blocks
+==85524==    indirectly lost: 0 bytes in 0 blocks
+==85524==      possibly lost: 160 bytes in 2 blocks
+==85524==    still reachable: 189,895 bytes in 72 blocks
+==85524==         suppressed: 0 bytes in 0 blocks
+==85524== Reachable blocks (those to which a pointer was found) are not shown.
+==85524== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==85524== 
+==85524== For lists of detected and suppressed errors, rerun with: -s
+==85524== ERROR SUMMARY: 5 errors from 5 contexts (suppressed: 0 from 0)

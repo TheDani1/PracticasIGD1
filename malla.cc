@@ -15,6 +15,8 @@ void Malla3D::draw(const GLenum modo)
    // completar (práctica 1)
    // .....
 
+   glShadeModel(GL_SMOOTH);
+
    if (id_vbo_tri == 0)
    {
       id_vbo_tri = CrearVBO(GL_ELEMENT_ARRAY_BUFFER, f.size() * 3 * sizeof(int), f.data());
@@ -112,8 +114,6 @@ void Malla3D::draw(const GLenum modo)
       m.aplicar();
    }
 
-   // ----------------------------------------------
-
    // habilitar el uso de tabla de vértices
    glEnableClientState(GL_VERTEX_ARRAY);
 
@@ -141,11 +141,17 @@ void Malla3D::draw(const GLenum modo)
    //> Javier Melero:
    // piensa que los colores son propiedades de los vértices... no tienes por qué tratarlo de forma diferente
    
-   if(glIsEnabled(GL_LIGHTING))
+   if (glIsEnabled(GL_LIGHTING))
    {
       glDisableClientState(GL_LIGHTING);
    }
 }
+
+void Malla3D::setMaterial(const Material &mat)
+{
+   m = mat;
+}
+
 
 void Malla3D::set_visual(char visual)
 {

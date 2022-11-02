@@ -21,6 +21,6 @@ LuzPosicional::LuzPosicional(const Tupla2f direccion,
     this->colorEspecular = colorEspecular;
     this->colorDifuso = colorDifuso;
 
-    this->posicion = {posicion[0], posicion[1], 0.0f, 1.0f};
+    this->posicion = {direccion(0), direccion(1), 0.0f, 1.0f};
     
 }

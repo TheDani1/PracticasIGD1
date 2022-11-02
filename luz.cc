@@ -16,3 +16,11 @@ void Luz::activar() const{
     glLightfv(id, GL_SPECULAR, colorEspecular);
     glLightfv(id, GL_POSITION, posicion);
 }
+
+Luz::Luz(){
+    active = false;
+}
+
+bool Luz::isActive() const{
+    return active;
+}

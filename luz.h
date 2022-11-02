@@ -21,8 +21,14 @@ protected:
     Tupla4f colorDifuso;
     Tupla4f colorEspecular;
 
+    bool active;
+
 public:
     void activar() const;
+
+    Luz();
+
+    bool isActive() const;
 };
 
 #endif

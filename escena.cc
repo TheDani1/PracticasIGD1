@@ -19,11 +19,11 @@ Escena::Escena()
    // crear los objetos de la escena....
    // .......completar: ...
    // .....
-   // cubo = new Cubo(50);
+   //cubo = new Cubo(50);
 
-   // piramide = new PiramidePentagonal(50, 50);
+   //piramide = new PiramidePentagonal(50, 50);
 
-   objply = new ObjPLY("plys/big_dodge.ply");
+   //objply = new ObjPLY("plys/big_dodge.ply");
 
    objrevolucion = new ObjRevolucion("plys/peon_polos.ply", 20);
 
@@ -33,11 +33,18 @@ Escena::Escena()
 
    cilindro = new Cilindro(20, 20, 50, 20);
 
-   Tupla2f pos0 = {0, 0};
-   Tupla2f pos1 = {0, 0};
+   Tupla2f pos0 = {20, 0};
+   Tupla2f pos1 = {20, 0};
 
-   luz0 = new LuzPosicional(pos0, GL_LIGHT0);
-   luz1 = new LuzDireccional(pos1, GL_LIGHT1);
+   // Material oro({0.24725, 0.1995, 0.0745, 1}, {0.75164, 0.60648, 0.22648, 1}, {0.628281, 0.555802, 0.366065, 1}, 0.4 * 128.0f);
+
+   // if (esfera != nullptr)
+   // {
+   //    esfera->setMaterial(oro);
+   // }
+
+   luz0 = new LuzPosicional(pos0, GL_LIGHT0, {0, 0, 0, 1}, {1, 1, 1, 1}, {1, 1, 1, 1});
+   luz1 = new LuzDireccional(pos1, GL_LIGHT1, {0, 0, 0, 1}, {1, 1, 1, 1}, {1, 1, 1, 1});
 }
 
 //**************************************************************************
@@ -51,6 +58,10 @@ void Escena::inicializar(int UI_window_width, int UI_window_height)
    glClearColor(1.0, 1.0, 1.0, 1.0); // se indica cual sera el color para limpiar la ventana	(r,v,a,al)
 
    glEnable(GL_DEPTH_TEST); // se habilita el z-bufer
+
+   glEnable(GL_CULL_FACE);
+
+   glEnable(GL_NORMALIZE);
 
    Width = UI_window_width / 10;
    Height = UI_window_height / 10;
@@ -70,13 +81,32 @@ void Escena::dibujar()
 {
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Limpiar la pantalla
    change_observer();
-   ejes.draw();
-
-   glEnable(GL_CULL_FACE);
-
-   glEnable(GL_NORMALIZE);
+   
 
    glDisable(GL_LIGHTING);
+
+   ejes.draw();
+
+   // if (visual_obj[3])
+   // {
+   //    glEnable(GL_LIGHTING);
+   //    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+   //    if (luz0 != nullptr)
+   //    {
+   //       glPushMatrix();
+   //       luz0->activar();
+   //       glPopMatrix();
+   //    }
+
+   //    if (luz1 != nullptr)
+   //    {
+   //       luz1->activar();
+   //    }
+
+   //    esfera->draw(GL_FILL);
+
+   // }
 
    //  COMPLETAR
    //    Dibujar los diferentes elementos de la escena
@@ -120,6 +150,7 @@ void Escena::dibujar()
             glPushMatrix();
             luz0->activar();
             glPopMatrix();
+
          }
 
          if (luz1 != nullptr)
@@ -127,7 +158,9 @@ void Escena::dibujar()
             glPushMatrix();
             luz1->activar();
             glPopMatrix();
+
          }
+
       }
 
       glPopMatrix();
@@ -154,6 +187,30 @@ void Escena::dibujar()
          cilindro->draw(GL_FILL);
       }
 
+      if (visual_obj[3])
+      {
+
+         glEnable(GL_LIGHTING);
+         cilindro->draw(GL_FILL);
+
+         if (luz0 != nullptr)
+         {
+            glPushMatrix();
+            luz0->activar();
+            glPopMatrix();
+
+         }
+
+         if (luz1 != nullptr)
+         {
+            glPushMatrix();
+            luz1->activar();
+            glPopMatrix();
+
+         }
+
+      }
+
       glPopMatrix();
    }
 
@@ -173,6 +230,36 @@ void Escena::dibujar()
       if (visual_obj[2])
       {
          esfera->draw(GL_FILL);
+      }
+
+
+      if (visual_obj[3])
+      {
+
+         glEnable(GL_LIGHTING);
+         esfera->draw(GL_FILL);
+
+         if (luz0 != nullptr)
+         {
+            glPushMatrix();
+            luz0->activar();
+            glPopMatrix();
+
+         }
+
+         if (luz1 != nullptr)
+         {
+            glPushMatrix();
+            luz1->activar();
+            glPopMatrix();
+
+         }
+
+         if(luz1 != nullptr && !luz1->isActive()){
+            glEnable(GL_LIGHT1);
+         }
+
+
       }
    }
 
@@ -195,6 +282,35 @@ void Escena::dibujar()
       if (visual_obj[2])
       {
          objrevolucion->draw(GL_FILL);
+      }
+
+      if (visual_obj[3])
+      {
+
+         glEnable(GL_LIGHTING);
+         objrevolucion->draw(GL_FILL);
+
+         if (luz0 != nullptr)
+         {
+            glPushMatrix();
+            luz0->activar();
+            glPopMatrix();
+
+         }
+
+         if (luz1 != nullptr)
+         {
+            glPushMatrix();
+            luz1->activar();
+            glPopMatrix();
+
+         }
+
+         if(luz1 != nullptr && !luz1->isActive()){
+            glEnable(GL_LIGHT1);
+         }
+
+
       }
 
       glPopMatrix();
@@ -641,6 +757,10 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
 
       visual_obj[3] = !visual_obj[3];
 
+      visual_obj[1] = false;
+      visual_obj[2] = false;
+      visual_obj[0] = false;
+
       if (visual_obj[3])
       {
 
@@ -664,6 +784,24 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
               << "\t [S]: Se activa/desactiva la visualizacion en modo solido (por defecto) ■ ▲" << endl
               << "\t [T]: Se activa la visualización con iluminacion" << endl
               << "\t [Q]: Salir del [MENU SELECCION DE MODO DE VISUALIZACION]" << endl;
+      }
+
+      break;
+
+   case '1':
+      if (modoMenu == SELVISUALIZACION)
+      {
+         if (visual_obj[3])
+         {
+            if (luz1->isActive())
+            {
+               glDisable(GL_LIGHT1);
+            }
+            else
+            {
+               glEnable(GL_LIGHT1);
+            }
+         }
       }
    }
 
