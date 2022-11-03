@@ -24,3 +24,14 @@ Luz::Luz(){
 bool Luz::isActive() const{
     return active;
 }
+
+void Luz::activate(){
+
+    active = !active;
+
+    if(active){
+        glEnable(id);
+    }else{
+        glDisable(id);
+    }
+}

@@ -4,15 +4,15 @@
 
 Cubo::Cubo(float lado)
 {
-   Tupla3f c0 ( -lado/2.0f , -lado/2.0f , -lado/2.0f );
-   Tupla3f c1 ( +lado/2.0f , -lado/2.0f , -lado/2.0f );
-   Tupla3f c2 ( -lado/2.0f , -lado/2.0f , +lado/2.0f );
-   Tupla3f c3 ( +lado/2.0f , -lado/2.0f , +lado/2.0f );
+   Tupla3f c0 ( 0.0f , 0.0f , 0.0f );
+   Tupla3f c1 ( lado , 0.0f , 0.0f );
+   Tupla3f c2 ( lado , lado , 0.0f );
+   Tupla3f c3 ( 0.0f , lado , 0.0f );
 
-   Tupla3f c4 ( -lado/2.0f , lado/2.0f , -lado/2.0f );
-   Tupla3f c5 ( +lado/2.0f , lado/2.0f , -lado/2.0f );
-   Tupla3f c6 ( -lado/2.0f , lado/2.0f , +lado/2.0f );
-   Tupla3f c7 ( +lado/2.0f , lado/2.0f , +lado/2.0f );
+   Tupla3f c4 ( 0.0f , 0.0f , lado );
+   Tupla3f c5 ( lado , 0.0f , lado);
+   Tupla3f c6 ( lado , lado , lado );
+   Tupla3f c7 ( 0.0f , lado , lado );
 
    v.resize(8);
    v = {c0, c1, c2, c3, c4, c5, c6, c7};
@@ -21,22 +21,22 @@ Cubo::Cubo(float lado)
    // (es importante en cada cara ordenar los vértices en sentido contrario
    //  de las agujas del reloj, cuando esa cara se observa desde el exterior del cubo)
 
-   Tupla3i cc0 ( 3 , 7 , 6 ); // CARA CUBO
-   Tupla3i cc1 ( 3 , 6 , 2 );
-   Tupla3i cc2 ( 2 , 6 , 4 );   
-   Tupla3i cc3 ( 2 , 4 , 0 );
-   Tupla3i cc4 ( 1 , 0 , 4 );
-   Tupla3i cc5 ( 1 , 4 , 5 );
-   Tupla3i cc6 ( 1 , 5 , 7 );
-   Tupla3i cc7 ( 1 , 7 , 3 );
+   Tupla3i cc0 ( 3 , 2 , 1 ); // CARA CUBO
+   Tupla3i cc1 ( 1 , 0 , 3 );
+   Tupla3i cc2 ( 0 , 1 , 4 );   
+   Tupla3i cc3 ( 4 , 1 , 5 );
+   Tupla3i cc4 ( 5 , 1 , 6 );
+   Tupla3i cc5 ( 1 , 2 , 6 );
+   Tupla3i cc6 ( 6 , 2 , 7 );
+   Tupla3i cc7 ( 7 , 2 , 3 );
 
    // TAPA SUPERIOR
-   Tupla3i cc8 ( 7 , 5 , 4 );  
-   Tupla3i cc9 ( 7 , 4 , 6 );
+   Tupla3i cc8 ( 7 , 3 , 0 );  
+   Tupla3i cc9 ( 4 , 7 , 0 );
 
    // TAPA INFERIOR
-   Tupla3i cc10( 2 , 0 , 3 );
-   Tupla3i cc11( 3 , 0 , 1 );
+   Tupla3i cc10( 5 , 7 , 4 );
+   Tupla3i cc11( 5 , 6 , 7 );
 
    f.resize(12);
    f = {cc0, cc1, cc2, cc3, cc4, cc5, cc6, cc7, cc8, cc9, cc10, cc11};

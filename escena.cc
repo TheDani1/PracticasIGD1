@@ -19,13 +19,15 @@ Escena::Escena()
    // crear los objetos de la escena....
    // .......completar: ...
    // .....
-   //cubo = new Cubo(50);
+   cubo = new Cubo(50);
 
    //piramide = new PiramidePentagonal(50, 50);
 
-   //objply = new ObjPLY("plys/big_dodge.ply");
+   objply = new ObjPLY("plys/big_dodge.ply");
 
-   objrevolucion = new ObjRevolucion("plys/peon_polos.ply", 20);
+   objrevolucion = new ObjRevolucion("plys/peon.ply", 20);
+
+   objrevolucion1 = new ObjRevolucion("plys/peon.ply", 20);
 
    esfera = new Esfera(20, 20, 50);
 
@@ -33,15 +35,50 @@ Escena::Escena()
 
    cilindro = new Cilindro(20, 20, 50, 20);
 
-   Tupla2f pos0 = {20, 0};
-   Tupla2f pos1 = {20, 0};
+   // MATERIALES ------------------------------------------------
 
-   // Material oro({0.24725, 0.1995, 0.0745, 1}, {0.75164, 0.60648, 0.22648, 1}, {0.628281, 0.555802, 0.366065, 1}, 0.4 * 128.0f);
+   Material oro({0.24725, 0.1995, 0.0745, 1}, {0.75164, 0.60648, 0.22648, 1}, {0.628281, 0.555802, 0.366065, 1}, 0.4 * 128.0f);
+   Material turquesa({0.1, 0.18725, 0.1745, 1}, {0.396, 0.74151, 0.69102, 1}, {0.297254, 0.30829, 0.306678, 1}, 0.1 * 128.0f);
+   Material perla({0.25, 0.20725, 0.20725, 1}, {1, 0.829, 0.829, 1}, {0.296648, 0.296648, 0.296648, 1}, 128.0f * 0.088);
 
-   // if (esfera != nullptr)
-   // {
-   //    esfera->setMaterial(oro);
-   // }
+   Material peon_blanco({1, 1, 1, 1}, {0, 0, 0, 0}, {0, 0, 0, 0}, 0);
+
+   // Material especular sin apenas reflectividad difusa
+
+   //                   difusion               especular        ambiente           brillo
+   Material peon_negro({0.1, 0.1, 0.1, 1}, {0.1, 0.1, 0.1, 1}, {0.1, 0.1, 0.1, 1}, 1 * 128.0f);
+
+   Material obsidian({0.05375, 0.05, 0.06625, 1}, {0.18275, 0.17, 0.22525, 1}, {0.332741, 0.328634, 0.346435, 1}, 0.3 * 128.0f);
+
+   if (esfera != nullptr)
+   {
+      esfera->setMaterial(oro);
+   }
+
+   if(cilindro != nullptr)
+   {
+      cilindro->setMaterial(turquesa);
+   }
+
+   if(cono != nullptr)
+   {
+      cono->setMaterial(perla);
+   }
+
+   if(objrevolucion != nullptr)
+   {
+      objrevolucion->setMaterial(peon_blanco);
+   }
+
+   if(objrevolucion1 != nullptr)
+   {
+      objrevolucion1->setMaterial(obsidian);
+   }
+
+   // LUCES ------------------------------------------------
+
+   Tupla2f pos0 = {20, 100};
+   Tupla2f pos1 = {20, 100};
 
    luz0 = new LuzPosicional(pos0, GL_LIGHT0, {0, 0, 0, 1}, {1, 1, 1, 1}, {1, 1, 1, 1});
    luz1 = new LuzDireccional(pos1, GL_LIGHT1, {0, 0, 0, 1}, {1, 1, 1, 1}, {1, 1, 1, 1});
@@ -255,10 +292,6 @@ void Escena::dibujar()
 
          }
 
-         if(luz1 != nullptr && !luz1->isActive()){
-            glEnable(GL_LIGHT1);
-         }
-
 
       }
    }
@@ -306,10 +339,149 @@ void Escena::dibujar()
 
          }
 
-         if(luz1 != nullptr && !luz1->isActive()){
-            glEnable(GL_LIGHT1);
+      }
+
+      glPopMatrix();
+   }
+
+   if (sel_obj[3])
+   {
+      // PEÓN 2
+
+      glPushMatrix();
+      glTranslatef(100, 0, 50);
+      glScalef(20, 20, 20);
+
+      if (visual_obj[0])
+      {
+         objrevolucion1->draw(GL_POINT);
+      }
+      if (visual_obj[1])
+      {
+         objrevolucion1->draw(GL_LINE);
+      }
+      if (visual_obj[2])
+      {
+         objrevolucion1->draw(GL_FILL);
+      }
+
+      if (visual_obj[3])
+      {
+
+         glEnable(GL_LIGHTING);
+         objrevolucion1->draw(GL_FILL);
+
+         if (luz0 != nullptr)
+         {
+            glPushMatrix();
+            luz0->activar();
+            glPopMatrix();
+
          }
 
+         if (luz1 != nullptr)
+         {
+            glPushMatrix();
+            luz1->activar();
+            glPopMatrix();
+
+         }
+
+      }
+
+      glPopMatrix();
+   }
+
+   if (sel_obj[4])
+   {
+      // CUBO
+
+      glPushMatrix();
+      glTranslatef(-50, 0, 50);
+      //glScalef(, 20, 20);
+
+      if (visual_obj[0])
+      {
+         cubo->draw(GL_POINT);
+      }
+      if (visual_obj[1])
+      {
+         cubo->draw(GL_LINE);
+      }
+      if (visual_obj[2])
+      {
+         cubo->draw(GL_FILL);
+      }
+
+      if (visual_obj[3])
+      {
+
+         glEnable(GL_LIGHTING);
+         cubo->draw(GL_FILL);
+
+         if (luz0 != nullptr)
+         {
+            glPushMatrix();
+            luz0->activar();
+            glPopMatrix();
+
+         }
+
+         if (luz1 != nullptr)
+         {
+            glPushMatrix();
+            luz1->activar();
+            glPopMatrix();
+
+         }
+
+      }
+
+      glPopMatrix();
+   }
+
+   if (sel_obj[5])
+   {
+      // OBJETO PLY
+
+      glPushMatrix();
+      glTranslatef(0, 0, -100);
+      glScalef(10, 10, 10);
+
+      if (visual_obj[0])
+      {
+         objply->draw(GL_POINT);
+      }
+      if (visual_obj[1])
+      {
+         objply->draw(GL_LINE);
+      }
+      if (visual_obj[2])
+      {
+         objply->draw(GL_FILL);
+      }
+
+      if (visual_obj[3])
+      {
+
+         glEnable(GL_LIGHTING);
+         objply->draw(GL_FILL);
+
+         if (luz0 != nullptr)
+         {
+            glPushMatrix();
+            luz0->activar();
+            glPopMatrix();
+
+         }
+
+         if (luz1 != nullptr)
+         {
+            glPushMatrix();
+            luz1->activar();
+            glPopMatrix();
+
+         }
 
       }
 
@@ -789,20 +961,29 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
       break;
 
    case '1':
+
       if (modoMenu == SELVISUALIZACION)
       {
          if (visual_obj[3])
          {
-            if (luz1->isActive())
-            {
-               glDisable(GL_LIGHT1);
-            }
-            else
-            {
-               glEnable(GL_LIGHT1);
-            }
+            luz1->activate();
          }
       }
+
+      break;
+
+   case '0':
+
+      if (modoMenu == SELVISUALIZACION)
+      {
+         if (visual_obj[3])
+         {
+            luz0->activate();
+         }
+      }
+
+      break;
+   
    }
 
    return salir;

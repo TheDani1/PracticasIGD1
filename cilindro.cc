@@ -50,6 +50,6 @@ Cilindro::Cilindro(const int num_vert_perfil,
 
     color_solido(verde);
 
-    calcularNormales();
+    //calcularNormales();
 
 }

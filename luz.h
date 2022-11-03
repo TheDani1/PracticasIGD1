@@ -29,6 +29,8 @@ public:
     Luz();
 
     bool isActive() const;
+
+    void activate();
 };
 
 #endif

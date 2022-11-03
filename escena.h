@@ -28,7 +28,7 @@ class Escena
 private:
 
     bool visual_obj[4] = {false , false, true, false}; // Puntos, lineas, solido, iluminación
-    bool sel_obj[4] = {true, true, true, true}; // Piramide, cilindro, esfera y peón
+    bool sel_obj[6] = {true, true, true, true, true, true}; // Piramide, cilindro, esfera, peón, cubo y escultura
 
     // ** PARÁMETROS DE LA CÁMARA (PROVISIONAL)
 
@@ -49,10 +49,11 @@ private:
     menu modoMenu = NADA;
     // Objetos de la escena
     Ejes ejes;
-    // Cubo *cubo = nullptr;                   // es importante inicializarlo a 'nullptr'
+    Cubo *cubo = nullptr;                   // es importante inicializarlo a 'nullptr'
     // PiramidePentagonal *piramide = nullptr; // es importante inicializarlo a 'nullptr'
     ObjPLY *objply = nullptr;                  // es importante inicializarlo a 'nullptr'
     ObjRevolucion *objrevolucion = nullptr;    // es importante inicializarlo a 'nullptr'
+    ObjRevolucion *objrevolucion1 = nullptr;    // es importante inicializarlo a 'nullptr'
     Esfera *esfera = nullptr;                  // es importante inicializarlo a 'nullptr'
     Cono *cono = nullptr;                      // es importante inicializarlo a 'nullptr'
     Cilindro *cilindro = nullptr;              // es importante inicializarlo a 'nullptr'
