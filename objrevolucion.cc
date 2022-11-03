@@ -78,24 +78,7 @@ void ObjRevolucion::crearMalla(std::vector<Tupla3f> perfil_original, int num_ins
 
    std::vector<Tupla3f> perfil_sin_polos;
 
-   for (auto it = perfil_original.begin(); it < perfil_original.end(); ++it)
-   {
-
-      if ((*it)(X) == 0 && (*it)(Z) == 0 && (it == perfil_original.end() - 1 || it == perfil_original.begin()))
-      {
-
-         std::cout << "Polo encontrado " << *it << std::endl;
-         polos.push_back(*it);
-
-         perfil_original.erase(it);
-      }
-   }
-
-   std::cout << "[Polos: " << polos.size() << " ] " << std::endl;
-   for (int i = 0; i < polos.size(); i++)
-   {
-      std::cout << "Polo " << i << " " << polos[i](X) << " " << polos[i](Y) << " " << polos[i](Z) << std::endl;
-   }
+   Tupla3f polo_sur, polo_norte;
 
    v.clear();
 
@@ -139,48 +122,55 @@ void ObjRevolucion::crearMalla(std::vector<Tupla3f> perfil_original, int num_ins
       }
    }
 
-   // GENERAMOS CARAS DE LOS POLOS
-
-   // perfil_sin_polos = perfil_original;
-
-   // perfil_original.clear();
-
-   // perfil_original.push_back(polos[0]);
-
-   // // INSERTAMOS VÉRTICES DE perfil_original
-
-   // for (int i = 0, j = 0; i < perfil_original.size() && j < perfil_sin_polos.size(); i++, j++)
-   // {
-   //    perfil_original.push_back(perfil_sin_polos[j]);
-   // }
-
    // TIENE DOS POLOS
    if (polos.size() > 1)
    {
 
-      int pos_polo_sur = 0;
+      float polo_norte;
+      float polo_sur;
 
-      int pos_polo_norte = perfil_original.size() - 1;
+      if (polos[0](Y) > polos[1](Y))
+      {
+         // 0 -> norte
+         // 1 -> sur
 
-      if(polos[0](Y) > polos[1](Y)){
+         polo_norte = polos[0](Y);
+         polo_sur = polos[1](Y);
+      }
+      else
+      {
+         // 0 -> sur
+         // 1 -> norte
 
-         pos_polo_sur = perfil_original.size() - 1;
-         pos_polo_norte = 0;
-
-      }else{
-
-         pos_polo_sur = 0;
-         pos_polo_norte = perfil_original.size() - 1;
+         polo_norte = polos[1](Y);
+         polo_sur = polos[0](Y);
 
       }
 
-      // std::cout << "Posicion polo norte: " << pos_polo_norte << std::endl;
-      // std::cout << "Posicion polo sur: " << pos_polo_sur << std::endl;
+      std::cout << "Polo norte: " << polo_norte << std::endl;
+      std::cout << "Polo sur: " << polo_sur << std::endl;
 
-      // Generamos ambas tapas
+      // v.push_back(Tupla3f(0.0f, polo_norte, 0.0f));
+      // v.push_back(Tupla3f(0.0f, polo_sur, 0.0f));
+
+      perfil_original.push_back(Tupla3f(0.0f, polo_norte, 0.0f));
+      perfil_original.push_back(Tupla3f(0.0f, polo_sur, 0.0f));
+
+      int pos_polo_sur = perfil_original.size();
+      int pos_polo_norte = perfil_original.size() - 1;
+
+      std::cout << "Posicion polo norte: " << pos_polo_norte << std::endl;
+      std::cout << "Posicion polo sur: " << pos_polo_sur << std::endl;
+
+      for (int i = 0; i < perfil_original.size(); i++)
+      {
+         std::cout << "Perfil original final: " << perfil_original[i] << std::endl;
+      }
 
       tapaSuperior(perfil_original, num_instancias, pos_polo_norte);
       tapaInferior(perfil_original, num_instancias, pos_polo_sur);
+
+      calcularNormales();
    }
    else
    { // Si nada más que hay un polo tenemos que ver si es superior o inferior y dibujar la tapa

@@ -29,7 +29,7 @@ Cono::Cono(const int num_vert_perfil,
         perfil_original.push_back({horizontal * (num_vert_perfil - i), vertical * i, 0});
     }
 
-    perfil_original.push_back(Tupla3f(0, altura, 0));
+    //perfil_original.push_back(Tupla3f(0, altura, 0));
 
     std::cout << "[CONO]" << std::endl;
 
