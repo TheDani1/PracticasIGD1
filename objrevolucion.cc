@@ -80,6 +80,8 @@ void ObjRevolucion::crearMalla(std::vector<Tupla3f> perfil_original, int num_ins
 
    Tupla3f polo_sur, polo_norte;
 
+
+
    v.clear();
 
    // GENERAMOS PERFIL (VERTICES)
