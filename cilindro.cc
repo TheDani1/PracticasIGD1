@@ -31,9 +31,6 @@ Cilindro::Cilindro(const int num_vert_perfil,
 
     perfil_original.push_back(Tupla3f(0, altura, 0));
 
-    
-    std::cout << "[CILINDRO]" << std::endl;
-
     crearMalla(perfil_original, num_instancias_perf);
 
     c_p.resize(v.size());

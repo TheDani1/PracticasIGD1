@@ -26,4 +26,6 @@ ObjPLY::ObjPLY(const std::string &nombre_archivo)
 
    color_solido(azul);
 
+   calcularNormales();
+
 }

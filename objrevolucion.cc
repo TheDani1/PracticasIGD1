@@ -22,8 +22,6 @@ ObjRevolucion::ObjRevolucion(const std::string &archivo, int num_instancias)
 
    ply::read_vertices(archivo, this->v);
 
-   std::cout << "[objeto revol]" << std::endl;
-
    crearMalla(v, num_instancias);
 
    c_p.resize(v.size());
@@ -74,7 +72,6 @@ void ObjRevolucion::crearMalla(std::vector<Tupla3f> perfil_original, int num_ins
 
    if (inverso)
    {
-      std::cout << "Invertido" << std::endl;
       std::reverse(perfil_inverso.begin(), perfil_inverso.end());
    }
 
