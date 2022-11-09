@@ -23,5 +23,6 @@ LuzDireccional::LuzDireccional(const Tupla2f direccion,
     this->alpha = direccion(0);
     this->beta = direccion(1);
 
-    this->posicion = {direccion(0), direccion(1), 0, 0};
+    // Pasamos de coordenadas esféricas a cartesianas
+    this->posicion = {cosf(direccion(0))*sinf(direccion(1)), cosf(direccion(1)), sinf(direccion(0))*sinf(direccion(1)), 0.0f};
 }

@@ -18,18 +18,16 @@ Cono::Cono(const int num_vert_perfil,
 
     std::vector<Tupla3f> perfil_original;
 
-    const float horizontal = radio / num_vert_perfil;
-    const float vertical = altura / num_vert_perfil;
+    const float sep_h = radio / num_vert_perfil;
+    const float sep_v = altura / num_vert_perfil;
 
     // Crear vértice de la punta
     perfil_original.push_back(Tupla3f(0, 0, 0));
 
     for (int i = 0; i <= num_vert_perfil; i++)
     {
-        perfil_original.push_back({horizontal * (num_vert_perfil - i), vertical * i, 0});
+        perfil_original.push_back({sep_h * (num_vert_perfil - i), sep_v * i, 0});
     }
-
-    //perfil_original.push_back(Tupla3f(0, altura, 0));
 
     crearMalla(perfil_original, num_instancias_perf);
 
@@ -47,5 +45,4 @@ Cono::Cono(const int num_vert_perfil,
 
     color_solido(verde);
 
-    //calcularNormales();
 }

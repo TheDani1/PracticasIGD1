@@ -48,5 +48,4 @@ Esfera::Esfera(const int num_vert_perfil, const int num_instancias_perf, const f
 
     color_solido(verde);
 
-    //calcularNormales();
 }

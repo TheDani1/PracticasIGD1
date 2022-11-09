@@ -2,6 +2,8 @@
 #include "objrevolucion.h"
 #include <algorithm>
 
+#define EPSILON 0.0001
+
 // *****************************************************************************
 //
 // Clase ObjRevolucion (práctica 2)
@@ -73,25 +75,34 @@ void ObjRevolucion::crearMalla(std::vector<Tupla3f> perfil_original, int num_ins
    if (inverso)
    {
       std::reverse(perfil_inverso.begin(), perfil_inverso.end());
+      std::cout << "El perfil está en el sentido contrario al que nosotros queremos" << std::endl;
    }
 
-   Tupla3f polo_sur, polo_norte;
+   // Se le asignan valores basura
+   Tupla3f polo_sur   = {-1, -1, -1};
+   Tupla3f polo_norte = {-1, -1, -1};
 
-   polo_sur = perfil_inverso.front();
-   polo_norte = perfil_inverso.back();
+   bool tapa_sup = false;
+   bool tapa_inf = false;
 
-   if(polo_sur(X) == 0 && polo_sur(Z) == 0){
+   if(fabs(perfil_inverso.front()(X)) < EPSILON && perfil_inverso.front()(Z) < EPSILON){
+
+      polo_sur = perfil_inverso.front();
       perfil_inverso.erase(perfil_inverso.begin());
-   }else{
-      polo_sur(X) = 0;
-      polo_sur(Z) = 0;
+
+      tapa_inf = true;
+
+      std::cout << "Hay polo sur" << std::endl;
    }
 
-   if(polo_norte(X) == 0 && polo_norte(Z) == 0){
+   if(fabs(perfil_inverso.back()(X)) < EPSILON && perfil_inverso.back()(Z) < EPSILON){
+
+      polo_norte = perfil_inverso.back();
       perfil_inverso.pop_back();
-   }else{
-      polo_norte(X) = 0;
-      polo_norte(Z) = 0;
+
+      tapa_sup = true;
+
+      std::cout << "Hay polo norte" << std::endl;
    }
 
    v.clear();
@@ -138,11 +149,27 @@ void ObjRevolucion::crearMalla(std::vector<Tupla3f> perfil_original, int num_ins
 
    perfil_original = perfil_inverso;
 
-   v.push_back(polo_sur);
-   v.push_back(polo_norte);
+   if(tapa_sup && !tapa_inf){
 
-   tapaSuperior(perfil_original, num_instancias, v.size()-1);
-   tapaInferior(perfil_original, num_instancias, v.size()-2);
+      std::cout << "Hay polo norte y no hay polo sur: genero tapaInferior" << std::endl;
+
+      v.push_back(polo_sur);
+      tapaSuperior(perfil_original, num_instancias, v.size()-1);
+
+   }else if(tapa_inf && !tapa_sup){
+
+      std::cout << "Hay polo norte y no hay polo sur: genero tapaInferior" << std::endl;
+      v.push_back(polo_norte);
+      tapaInferior(perfil_original, num_instancias, v.size()-1);
+
+   }else if(tapa_inf && tapa_sup){
+
+      v.push_back(polo_sur);
+      v.push_back(polo_norte);
+
+      tapaSuperior(perfil_original, num_instancias, v.size()-1);
+      tapaInferior(perfil_original, num_instancias, v.size()-2);
+   }
 
    calcularNormales();
 }

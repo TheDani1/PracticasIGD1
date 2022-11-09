@@ -55,4 +55,6 @@ Cubo::Cubo(float lado)
 
    color_solido(azul);
 
+   calcularNormales();
+
 }

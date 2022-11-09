@@ -23,16 +23,22 @@ Escena::Escena()
 
    //piramide = new PiramidePentagonal(50, 50);
 
+   std::cout << "[Coche]" << std::endl;
    objply = new ObjPLY("plys/big_dodge.ply");
 
-   objrevolucion = new ObjRevolucion("plys/peon.ply", 20);
+   std::cout << "[Peon]" << std::endl;
+   objrevolucion = new ObjRevolucion("plys/peon_polos.ply", 20);
 
+   std::cout << "[Peon 2]" << std::endl;
    objrevolucion1 = new ObjRevolucion("plys/peon.ply", 20);
 
+   std::cout << "[Esfera]" << std::endl;
    esfera = new Esfera(20, 20, 50);
 
+   std::cout << "[Cono]" << std::endl;
    cono = new Cono(20, 20, 50, 20);
 
+   std::cout << "[Cilindro]" << std::endl;
    cilindro = new Cilindro(20, 20, 50, 20);
 
    // MATERIALES ------------------------------------------------
