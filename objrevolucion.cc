@@ -75,7 +75,6 @@ void ObjRevolucion::crearMalla(std::vector<Tupla3f> perfil_original, int num_ins
    if (inverso)
    {
       std::reverse(perfil_inverso.begin(), perfil_inverso.end());
-      std::cout << "El perfil está en el sentido contrario al que nosotros queremos" << std::endl;
    }
 
    // Se le asignan valores basura
@@ -92,7 +91,6 @@ void ObjRevolucion::crearMalla(std::vector<Tupla3f> perfil_original, int num_ins
 
       tapa_inf = true;
 
-      std::cout << "Hay polo sur" << std::endl;
    }
 
    if(fabs(perfil_inverso.back()(X)) < EPSILON && perfil_inverso.back()(Z) < EPSILON){
@@ -102,7 +100,6 @@ void ObjRevolucion::crearMalla(std::vector<Tupla3f> perfil_original, int num_ins
 
       tapa_sup = true;
 
-      std::cout << "Hay polo norte" << std::endl;
    }
 
    v.clear();
@@ -151,14 +148,12 @@ void ObjRevolucion::crearMalla(std::vector<Tupla3f> perfil_original, int num_ins
 
    if(tapa_sup && !tapa_inf){
 
-      std::cout << "Hay polo norte y no hay polo sur: genero tapaInferior" << std::endl;
 
       v.push_back(polo_sur);
       tapaSuperior(perfil_original, num_instancias, v.size()-1);
 
    }else if(tapa_inf && !tapa_sup){
 
-      std::cout << "Hay polo norte y no hay polo sur: genero tapaInferior" << std::endl;
       v.push_back(polo_norte);
       tapaInferior(perfil_original, num_instancias, v.size()-1);
 
