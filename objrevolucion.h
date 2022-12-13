@@ -39,6 +39,7 @@ private:
 
 protected:
     void crearMalla(std::vector<Tupla3f> perfil_original, int num_instancias);
+    void calcularCoordTextura();
 };
 
 #endif

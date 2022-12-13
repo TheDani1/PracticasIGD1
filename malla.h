@@ -12,6 +12,7 @@
 
 #include "auxiliar.h"
 #include "material.h"
+#include "textura.h"
 
 // *****************************************************************************
 //
@@ -40,6 +41,8 @@ class Malla3D
 
    void setMaterial(const Material &mat);
 
+   void setTextura()
+
    protected:
 
       std::vector<Tupla3f> v; // tabla de coordenadas de vértices (una tupla por vértice, con tres floats)
@@ -50,6 +53,10 @@ class Malla3D
       std::vector<Tupla3f> c_p; // tabla para los colores de los vértices (puntos)
       std::vector<Tupla3f> c_l; // tabla para los colores de los vértices (líneas)
       std::vector<Tupla3f> c_s; // tabla para los colores de los vértices (sólido)
+
+      std::vector<Tupla2f> ct; // tabla de coordenadas de textura
+
+      Textura *textura = nullptr; // Práctica 5
 
       // completar P1: tabla de colores (hecho)
       // Completar P1: vbo y método asociado (hecho)

@@ -2,7 +2,7 @@
 //
 // Informática Gráfica (Grado Informática)
 //
-// Archivo: foco.h (Práctica 2)
+// Archivo: foco.h (Práctica 4)
 //
 // #############################################################################
 
@@ -18,7 +18,7 @@
 
 // *****************************************************************************
 //
-// clases derivadas de Malla3D (definen constructores específicos)
+// Clase Modelo Jerarquico
 //
 // *****************************************************************************
 

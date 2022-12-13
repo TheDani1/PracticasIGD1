@@ -129,21 +129,21 @@ void Malla3D::draw(const GLenum modo)
    // desactivar uso de array de vértices
    glDisableClientState(GL_VERTEX_ARRAY);
 
-   //> Javier Melero:
-   //¿Tiene sentido estar enviando un vbo cada vez que cambias de color? No
-
-   //> Javier Melero:
-   // ¿Cuantos vbo has creado? 3
-
-   //> Javier Melero:
-   //¿En algún momento lo sustituyes (suponiendo que sea buena estrategia)?
-
-   //> Javier Melero:
-   // piensa que los colores son propiedades de los vértices... no tienes por qué tratarlo de forma diferente
-   
    if (glIsEnabled(GL_LIGHTING))
    {
       glDisableClientState(GL_LIGHTING);
+   }
+
+   if (textura != nullptr)
+   {
+      textura->activar();
+      glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+      glTexCoordPointer(2, GL_FLOAT, 0, ct);
+   }
+
+   if (textura != nullptr) {
+	  glDisable( GL_TEXTURE_2D );
+	  glDisable(GL_TEXTURE_COORD_ARRAY);
    }
 }
 
@@ -151,7 +151,6 @@ void Malla3D::setMaterial(const Material &mat)
 {
    m = mat;
 }
-
 
 void Malla3D::set_visual(char visual)
 {
