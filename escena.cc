@@ -1140,12 +1140,39 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
    case '+':
 
       if(grad_lib[0]) foco->addGiroY(1.0);
-      if(grad_lib[1]) foco->addGiroZ(1.0);
-      if(grad_lib[2]) foco->addTransX(1.0);
 
-      cout << "Giro Y: " << foco->getGiroY() << endl;
-      cout << "Giro Z: " << foco->getGiroZ() << endl;
+      if(grad_lib[1]){
 
+         if(foco->getGiroZ() == 90){
+
+            foco->addGiroZ(0);
+            cout << "[!] Limite de 90 alcanzado, no puede incrementar mas" << endl;
+
+         }else{
+
+            foco->addGiroZ(1.0);
+
+         }
+
+      }
+
+      if(grad_lib[2]){
+
+         if(foco->getTransX() == 17){
+
+            foco->addTransX(0);
+
+            cout << "[!] Limite de 17 alcanzado, no puede incrementar mas" << endl;
+
+         }else{
+
+            foco->addTransX(1.0);
+
+         }
+
+      }
+
+      cout << "TransX: " << foco->getTransX() << endl;
 
       if(modoMenu == MOVIMIENTO){
 
@@ -1169,11 +1196,38 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
    case '-':
 
       if(grad_lib[0]) foco->addGiroY(-1.0);
-      if(grad_lib[1]) foco->addGiroZ(-1.0);
-      if(grad_lib[2]) foco->addTransX(-1.0);
 
-      cout << "Giro Y: " << foco->getGiroY() << endl;
-      cout << "Giro Z: " << foco->getGiroZ() << endl;
+      if(grad_lib[1]){
+
+         if(foco->getGiroZ() == -90){
+
+            foco->addGiroZ(0);
+
+            cout << "[!] Limite de -90 alcanzado, no puede decrementar mas" << endl;
+
+         }else{
+
+            foco->addGiroZ(-1.0);
+
+         }
+
+      }
+
+      if(grad_lib[2]){
+
+         if(foco->getTransX() == -17){
+
+            foco->addTransX(0);
+
+            cout << "[!] Limite de -17 alcanzado, no puede decrementar mas" << endl;
+
+         }else{
+
+            foco->addTransX(-1.0);
+
+         }
+
+      }
 
       if(modoMenu == MOVIMIENTO){
 

@@ -33,6 +33,8 @@ void Foco::draw(const GLenum modo){
         
             glTranslatef(0, 2.5, 0);
 
+            glTranslatef(transX, 0, 0);
+
             // BASE
             glPushMatrix();
                 glScalef(2.5, 0.5, 2.5);
@@ -88,11 +90,8 @@ void Foco::addGiroY(float giroY){
 }
 
 void Foco::addGiroZ(float giroZ){
-
-    if(giroZ < 95 || giroZ > -95){
-        this->giroZ += giroZ;
-    }
-
+    
+    this->giroZ += giroZ;
 }
 
 void Foco::addTransX(float transX){
