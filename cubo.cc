@@ -55,6 +55,21 @@ Cubo::Cubo(float lado)
 
    color_solido(azul);
 
+   // // CUBO RGB
+   // Tupla3f c0_rgb ( 0.0f , 0.0f , 0.0f );
+   // Tupla3f c1_rgb ( 1.0f , 0.0f , 0.0f );
+   // Tupla3f c2_rgb ( 1.0f , 1.0f , 0.0f );
+   // Tupla3f c3_rgb ( 0.0f , 1.0f , 0.0f );
+
+   // Tupla3f c4_rgb ( 0.0f , 0.0f , 1.0f );
+   // Tupla3f c5_rgb ( 1.0f , 0.0f , 1.0f );
+   // Tupla3f c6_rgb ( 1.0f , 1.0f , 1.0f );
+
+   // Tupla3f c7_rgb ( 0.0f , 1.0f , 1.0f );
+
+   // c_s.resize(8);
+   // c_s = {c0_rgb, c1_rgb, c2_rgb, c3_rgb, c4_rgb, c5_rgb, c6_rgb, c7_rgb};
+
    calcularNormales();
 
 }

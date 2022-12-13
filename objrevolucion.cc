@@ -148,7 +148,6 @@ void ObjRevolucion::crearMalla(std::vector<Tupla3f> perfil_original, int num_ins
 
    if(tapa_sup && !tapa_inf){
 
-
       v.push_back(polo_sur);
       tapaSuperior(perfil_original, num_instancias, v.size()-1);
 
@@ -215,5 +214,5 @@ void ObjRevolucion::tapaInferior(std::vector<Tupla3f> perfil_original, int num_i
 
    // Union de la ultima cara con la primera
 
-   f.push_back({(int)perfil_original.size() * (num_instancias - 1), sur, 0});
+   f.push_back(Tupla3i(perfil_original.size() * (num_instancias - 1), sur, 0));
 }

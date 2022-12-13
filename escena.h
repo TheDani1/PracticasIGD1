@@ -10,6 +10,8 @@
 #include "esfera.h"
 #include "cono.h"
 #include "cilindro.h"
+#include "flecha.h"
+#include "foco.h"
 
 #include "luz.h"
 #include "luzDireccional.h"
@@ -19,7 +21,8 @@ typedef enum
 {
     NADA,
     SELOBJETO,
-    SELVISUALIZACION
+    SELVISUALIZACION,
+    MOVIMIENTO
 } menu;
 
 class Escena
@@ -28,7 +31,8 @@ class Escena
 private:
 
     bool visual_obj[4] = {false , false, true, false}; // Puntos, lineas, solido, iluminación
-    bool sel_obj[6] = {true, true, true, true, true, true}; // Piramide, cilindro, esfera, peón, cubo y escultura
+    bool sel_obj[7] = {false, false, false, false, false, false, true}; // Piramide, cilindro, esfera, peón, cubo , escultura y foco (mj)
+    bool grad_lib[3] = {false, false, false}; // Giro Y, Giro Z, Translate
 
     // ** PARÁMETROS DE LA CÁMARA (PROVISIONAL)
 
@@ -57,6 +61,11 @@ private:
     Esfera *esfera = nullptr;                  // es importante inicializarlo a 'nullptr'
     Cono *cono = nullptr;                      // es importante inicializarlo a 'nullptr'
     Cilindro *cilindro = nullptr;              // es importante inicializarlo a 'nullptr'
+    Foco *foco = nullptr;                      // es importante inicializarlo a 'nullptr'
+
+    Flecha *flecha = nullptr;
+    Flecha *flecha1 = nullptr;
+    Flecha *flecha2 = nullptr;
 
     LuzPosicional *luz0 = nullptr;
     LuzDireccional *luz1 = nullptr;

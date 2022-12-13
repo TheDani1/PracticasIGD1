@@ -16,16 +16,14 @@ Cilindro::Cilindro(const int num_vert_perfil,
                    const float radio)
 {
 
-
     std::vector<Tupla3f> perfil_original;
 
     const float d_perf = altura / num_vert_perfil;
 
     perfil_original.push_back(Tupla3f(0, 0, 0));
 
-    for (int i = 0; i < num_vert_perfil; i++)
+    for (int i = 0; i < num_vert_perfil+1; i++)
     {
-
         perfil_original.push_back(Tupla3f(radio, i*d_perf, 0));
     }
 

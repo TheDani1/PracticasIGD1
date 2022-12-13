@@ -23,7 +23,7 @@ Escena::Escena()
 
    //piramide = new PiramidePentagonal(50, 50);
 
-   objply = new ObjPLY("plys/big_dodge.ply");
+   objply = new ObjPLY("plys/base_foco2.ply");
 
    objrevolucion = new ObjRevolucion("plys/peon_polos.ply", 20);
 
@@ -34,6 +34,12 @@ Escena::Escena()
    cono = new Cono(20, 20, 50, 20);
 
    cilindro = new Cilindro(20, 20, 50, 20);
+
+   flecha = new Flecha(100.0f, 50.0f, 30);
+   flecha1 = new Flecha(1.0f, 1.0f, 30);
+   flecha2 = new Flecha(1.0f, 1.0f, 30);
+
+   foco = new Foco();
 
    // MATERIALES ------------------------------------------------
 
@@ -408,22 +414,22 @@ void Escena::dibujar()
 
       if (visual_obj[0])
       {
-         cubo->draw(GL_POINT);
+         flecha->draw(GL_POINT);
       }
       if (visual_obj[1])
       {
-         cubo->draw(GL_LINE);
+         flecha->draw(GL_LINE);
       }
       if (visual_obj[2])
       {
-         cubo->draw(GL_FILL);
+         flecha->draw(GL_FILL);
       }
 
       if (visual_obj[3])
       {
 
          glEnable(GL_LIGHTING);
-         cubo->draw(GL_FILL);
+         flecha->draw(GL_FILL);
 
          if (luz0 != nullptr)
          {
@@ -450,28 +456,76 @@ void Escena::dibujar()
    {
       // OBJETO PLY
 
+      // glPushMatrix();
+      // glTranslatef(0, 0, -100);
+      // glScalef(10, 10, 10);
+
+      // if (visual_obj[0])
+      // {
+      //    objply->draw(GL_POINT);
+      // }
+      // if (visual_obj[1])
+      // {
+      //    objply->draw(GL_LINE);
+      // }
+      // if (visual_obj[2])
+      // {
+      //    objply->draw(GL_FILL);
+      // }
+
+      // if (visual_obj[3])
+      // {
+
+      //    glEnable(GL_LIGHTING);
+      //    objply->draw(GL_FILL);
+
+      //    if (luz0 != nullptr)
+      //    {
+      //       glPushMatrix();
+      //       luz0->activar();
+      //       glPopMatrix();
+
+      //    }
+
+      //    if (luz1 != nullptr)
+      //    {
+      //       glPushMatrix();
+      //       luz1->activar();
+      //       glPopMatrix();
+
+      //    }
+
+      // }
+
+      // glPopMatrix();
+   }
+
+   if (sel_obj[6])
+   {
+      // MODELO JERARQUICO
+
       glPushMatrix();
-      glTranslatef(0, 0, -100);
+      //glTranslatef(0, 0, -100);
       glScalef(10, 10, 10);
 
       if (visual_obj[0])
       {
-         objply->draw(GL_POINT);
+         foco->draw(GL_POINT);
       }
       if (visual_obj[1])
       {
-         objply->draw(GL_LINE);
+         foco->draw(GL_LINE);
       }
       if (visual_obj[2])
       {
-         objply->draw(GL_FILL);
+         foco->draw(GL_FILL);
       }
 
       if (visual_obj[3])
       {
 
          glEnable(GL_LIGHTING);
-         objply->draw(GL_FILL);
+         foco->draw(GL_FILL);
 
          if (luz0 != nullptr)
          {
@@ -517,6 +571,7 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
          cout << "[MENU PRINCIPAL]" << endl
               << "\t [O]: Activar modo seleccion de objetos" << endl
               << "\t [V]: Activar modo seleccion de modo de visualizacion" << endl
+              << "\t [M]: Activar modo movimiento modelo jerarquico" << endl
               << "\t [Q]: Salir del programa" << endl;
       }
       else
@@ -988,6 +1043,155 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
          }
       }
 
+      break;
+
+   case 'M':
+
+      modoMenu = MOVIMIENTO;
+
+      cout << "[Evento] Modo movimiento modelo jerarquico" << endl;
+
+         cout << "[MENU MOVIMIENTO MODELO JERARQUICO]" << endl
+              << "\t [2]: Se selecciona el primer grado de libertad" << endl
+              << "\t [3]: Se selecciona el segundo grado de libertad" << endl
+              << "\t [4]: Se selecciona el tercer grado de libertad" << endl
+              << "\t [+]: Se aumenta el valor" << endl
+              << "\t [-]: Se decrementa el valor" << endl
+              << "\t [Q]: Salir del [MENU MOVIMIENTO MODELO JERARQUICO]" << endl;
+
+      break;
+
+   case '2':
+
+      grad_lib[0] = true;
+      grad_lib[1] = false;
+      grad_lib[2] = false;
+
+      if(modoMenu == MOVIMIENTO){
+
+         cout << "[Evento] Seleccionado primer (1) grado de libertad" << endl;
+
+         cout << "[MENU MOVIMIENTO MODELO JERARQUICO]" << endl
+              << "\t [2]: Se selecciona el primer grado de libertad" << endl
+              << "\t [3]: Se selecciona el segundo grado de libertad" << endl
+              << "\t [4]: Se selecciona el tercer grado de libertad" << endl
+              << "\t [+]: Se aumenta el valor" << endl
+              << "\t [-]: Se decrementa el valor" << endl
+              << "\t [Q]: Salir del [MENU MOVIMIENTO MODELO JERARQUICO]" << endl;
+
+      }else{
+
+         cout << "[!] Seleccion no valida" << endl;
+
+      }
+      break;
+
+   case '3':
+
+      grad_lib[0] = false;
+      grad_lib[1] = true;
+      grad_lib[2] = false;
+
+      if(modoMenu == MOVIMIENTO){
+
+         cout << "[Evento] Seleccionado segundo (2) grado de libertad" << endl;
+
+         cout << "[MENU MOVIMIENTO MODELO JERARQUICO]" << endl
+              << "\t [2]: Se selecciona el primer grado de libertad" << endl
+              << "\t [3]: Se selecciona el segundo grado de libertad" << endl
+              << "\t [4]: Se selecciona el tercer grado de libertad" << endl
+              << "\t [+]: Se aumenta el valor" << endl
+              << "\t [-]: Se decrementa el valor" << endl
+              << "\t [Q]: Salir del [MENU MOVIMIENTO MODELO JERARQUICO]" << endl;
+
+      }else{
+
+         cout << "[!] Seleccion no valida" << endl;
+
+      }
+
+      break;
+
+   case '4':
+
+      grad_lib[0] = false;
+      grad_lib[1] = false;
+      grad_lib[2] = true;
+
+      if(modoMenu == MOVIMIENTO){
+
+         cout << "[Evento] Seleccionado tercer (3) grado de libertad" << endl;
+
+         cout << "[MENU MOVIMIENTO MODELO JERARQUICO]" << endl
+              << "\t [2]: Se selecciona el primer grado de libertad" << endl
+              << "\t [3]: Se selecciona el segundo grado de libertad" << endl
+              << "\t [4]: Se selecciona el tercer grado de libertad" << endl
+              << "\t [+]: Se aumenta el valor" << endl
+              << "\t [-]: Se decrementa el valor" << endl
+              << "\t [Q]: Salir del [MENU MOVIMIENTO MODELO JERARQUICO]" << endl;
+
+      }else{
+
+         cout << "[!] Seleccion no valida" << endl;
+
+      }
+      break;
+
+   case '+':
+
+      if(grad_lib[0]) foco->addGiroY(1.0);
+      if(grad_lib[1]) foco->addGiroZ(1.0);
+      if(grad_lib[2]) foco->addTransX(1.0);
+
+      cout << "Giro Y: " << foco->getGiroY() << endl;
+      cout << "Giro Z: " << foco->getGiroZ() << endl;
+
+
+      if(modoMenu == MOVIMIENTO){
+
+         cout << "[Evento] Aumentado valor de grado de libertad" << endl;
+
+         cout << "[MENU MOVIMIENTO MODELO JERARQUICO]" << endl
+              << "\t [2]: Se selecciona el primer grado de libertad" << endl
+              << "\t [3]: Se selecciona el segundo grado de libertad" << endl
+              << "\t [4]: Se selecciona el tercer grado de libertad" << endl
+              << "\t [+]: Se aumenta el valor" << endl
+              << "\t [-]: Se decrementa el valor" << endl
+              << "\t [Q]: Salir del [MENU MOVIMIENTO MODELO JERARQUICO]" << endl;
+
+      }else{
+
+         cout << "[!] Seleccion no valida" << endl;
+
+      }
+      break;
+
+   case '-':
+
+      if(grad_lib[0]) foco->addGiroY(-1.0);
+      if(grad_lib[1]) foco->addGiroZ(-1.0);
+      if(grad_lib[2]) foco->addTransX(-1.0);
+
+      cout << "Giro Y: " << foco->getGiroY() << endl;
+      cout << "Giro Z: " << foco->getGiroZ() << endl;
+
+      if(modoMenu == MOVIMIENTO){
+
+         cout << "[Evento] Decrementado valor de grado de libertad" << endl;
+
+         cout << "[MENU MOVIMIENTO MODELO JERARQUICO]" << endl
+              << "\t [2]: Se selecciona el primer grado de libertad" << endl
+              << "\t [3]: Se selecciona el segundo grado de libertad" << endl
+              << "\t [4]: Se selecciona el tercer grado de libertad" << endl
+              << "\t [+]: Se aumenta el valor" << endl
+              << "\t [-]: Se decrementa el valor" << endl
+              << "\t [Q]: Salir del [MENU MOVIMIENTO MODELO JERARQUICO]" << endl;
+
+      }else{
+
+         cout << "[!] Seleccion no valida" << endl;
+
+      }
       break;
    
    }
