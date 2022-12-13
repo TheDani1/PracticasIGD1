@@ -31,7 +31,7 @@ class Escena
 private:
 
     bool visual_obj[4] = {false , false, true, false}; // Puntos, lineas, solido, iluminación
-    bool sel_obj[7] = {false, false, false, false, false, false, true}; // Piramide, cilindro, esfera, peón, cubo , escultura y foco (mj)
+    bool sel_obj[7] = {true, true, true, true, true, true, false}; // Piramide, cilindro, esfera, peón, cubo , escultura y foco (mj)
     bool grad_lib[3] = {false, false, false}; // Giro Y, Giro Z, Translate
 
     // ** PARÁMETROS DE LA CÁMARA (PROVISIONAL)

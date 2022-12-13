@@ -29,6 +29,7 @@ public:
     ObjRevolucion();
     ObjRevolucion(const std::string &archivo, int num_instancias);
     ObjRevolucion(std::vector<Tupla3f> archivo, int num_instancias);
+    void establecerTextura(const string textura);
 
 private:
 
@@ -36,10 +37,10 @@ private:
     
     void tapaSuperior(std::vector<Tupla3f> perfil_original, int num_instancias, int norte);
     void tapaInferior(std::vector<Tupla3f> perfil_original, int num_instancias, int sur);
-
 protected:
     void crearMalla(std::vector<Tupla3f> perfil_original, int num_instancias);
     void calcularCoordTextura();
+    
 };
 
 #endif

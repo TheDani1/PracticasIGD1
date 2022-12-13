@@ -12,20 +12,42 @@
 Textura::Textura(string archivo)
 {
 
-    jpg ::Imagen *pimg = NULL;
+    // leer los texels de un archivo y
+    // enviarlos a la GPU o la memoria de vídeo, inicializando el 
+    // identificador de textura de OpenGL
 
-    pimg = new jpg ::Imagen(archivo);
+    jpg::Imagen *pimg = NULL;
 
-    tamx = pimg->tamX();
-    // núm. columnas (unsigned)
+    pimg = new jpg::Imagen(archivo);
 
-    tamy = pimg->tamY();
-    // núm. filas (unsigned|)
-    
-    texels = pimg->leerPixels(); // puntero texels (unsigned char *)
+    width = pimg->tamX();
+
+    height = pimg->tamY();
+
+    data.resize(3 * width * height);
+
+    for (int i = 0; i < width; i++)
+    {
+        for (int j = 0; j < height; j++)
+        {
+            unsigned char r, g, b;
+
+            pimg->leerPixel(i, j);
+
+            data[3 * (i + j * width)] = r;
+            data[3 * (i + j * width) + 1] = g;
+            data[3 * (i + j * width) + 2] = b;
+        }
+    }
+
+    delete pimg;
+
+    textura_id = -1;
+
+    activar();
 }
 
-Textura::activar()
+void Textura::activar()
 {
 
     glEnable(GL_TEXTURE_2D);
@@ -38,7 +60,6 @@ Textura::activar()
 
     if (textura_id == -1)
     {
-
         glGenTextures(1, &textura_id);
         glBindTexture(GL_TEXTURE_2D, textura_id);
 

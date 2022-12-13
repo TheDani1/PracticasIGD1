@@ -40,7 +40,7 @@ ObjRevolucion::ObjRevolucion(const std::string &archivo, int num_instancias)
 
    color_solido(verde);
 
-   //calcularNormales();
+   // calcularNormales();
 }
 
 // *****************************************************************************
@@ -78,28 +78,28 @@ void ObjRevolucion::crearMalla(std::vector<Tupla3f> perfil_original, int num_ins
    }
 
    // Se le asignan valores basura
-   Tupla3f polo_sur   = {-1, -1, -1};
+   Tupla3f polo_sur = {-1, -1, -1};
    Tupla3f polo_norte = {-1, -1, -1};
 
    bool tapa_sup = false;
    bool tapa_inf = false;
 
-   if(fabs(perfil_inverso.front()(X)) < EPSILON && perfil_inverso.front()(Z) < EPSILON){
+   if (fabs(perfil_inverso.front()(X)) < EPSILON && perfil_inverso.front()(Z) < EPSILON)
+   {
 
       polo_sur = perfil_inverso.front();
       perfil_inverso.erase(perfil_inverso.begin());
 
       tapa_inf = true;
-
    }
 
-   if(fabs(perfil_inverso.back()(X)) < EPSILON && perfil_inverso.back()(Z) < EPSILON){
+   if (fabs(perfil_inverso.back()(X)) < EPSILON && perfil_inverso.back()(Z) < EPSILON)
+   {
 
       polo_norte = perfil_inverso.back();
       perfil_inverso.pop_back();
 
       tapa_sup = true;
-
    }
 
    v.clear();
@@ -146,23 +146,26 @@ void ObjRevolucion::crearMalla(std::vector<Tupla3f> perfil_original, int num_ins
 
    perfil_original = perfil_inverso;
 
-   if(tapa_sup && !tapa_inf){
+   if (tapa_sup && !tapa_inf)
+   {
 
       v.push_back(polo_sur);
-      tapaSuperior(perfil_original, num_instancias, v.size()-1);
-
-   }else if(tapa_inf && !tapa_sup){
+      tapaSuperior(perfil_original, num_instancias, v.size() - 1);
+   }
+   else if (tapa_inf && !tapa_sup)
+   {
 
       v.push_back(polo_norte);
-      tapaInferior(perfil_original, num_instancias, v.size()-1);
-
-   }else if(tapa_inf && tapa_sup){
+      tapaInferior(perfil_original, num_instancias, v.size() - 1);
+   }
+   else if (tapa_inf && tapa_sup)
+   {
 
       v.push_back(polo_sur);
       v.push_back(polo_norte);
 
-      tapaSuperior(perfil_original, num_instancias, v.size()-1);
-      tapaInferior(perfil_original, num_instancias, v.size()-2);
+      tapaSuperior(perfil_original, num_instancias, v.size() - 1);
+      tapaInferior(perfil_original, num_instancias, v.size() - 2);
    }
 
    calcularNormales();
@@ -217,82 +220,22 @@ void ObjRevolucion::tapaInferior(std::vector<Tupla3f> perfil_original, int num_i
    f.push_back(Tupla3i(perfil_original.size() * (num_instancias - 1), sur, 0));
 }
 
-void ObjRevolucion::calcularCoordTextura(){
+void ObjRevolucion::calcularCoordTextura()
+{
 
-	ct.resize(v.size());
+   ct.resize(v.size());
 
-	float alpha, beta, h;
+   for (int i = 0; i < ct.size(); i++)
+   {
+      ct[i] = {v[i](0), (v[i](1) - v.front()(1)) / (v.back()(1) - v.front()(1))};
+   }
 
-	float s, t;
+}
 
-	switch (modo){
-		case CILINDRICA:
-			for (int i = 0; i < ct.size(); i++){
-				alpha = atan2( v[i](2), v[i](0) );
-				h = v[i](1);
+void ObjRevolucion::establecerTextura(const string textura)
+{
+   this->textura = new Textura(textura);
 
-				s = 1 - ( 0.5 + (alpha/(M_PI*2)) );
-				s += 0.5;
-				s = fmod(s, 1.0);
-
-				//std::cout << s <<  " " << alpha << std::endl;
-				t = (h - perfil.front()(1) ) / (perfil.back()(1) - perfil.front()(1)) ;
-
-				ct[i] = {s, t};
-
-			}
-
-			for (int i = (perfil.size() * num_instancias); i < perfil.size() * (num_instancias + 1); i++){
-				alpha = atan2( v[i](2), v[i](0) );
-				h = v[i](1);
-
-				s = 1.0f;
-				t = (h - perfil.front()(1) ) / (perfil.back()(1) - perfil.front()(1)) ;
-
-				ct[i] = {s, t};
-			}
-
-			break;
-
-		case ESFERICA:
-			for (int i = 0; i < ct.size(); i++){
-				alpha = atan2( v[i](2), v[i](0) );
-				beta = atan2( v[i](1), sqrt( pow( v[i](0) ,2) + pow ( v[i](2) ,2) ) );
-
-				s = 1 - ( 0.5 + (alpha/(M_PI*2)) );
-				s += 0.5;
-				s = fmod(s, 1.0);
-				t = 0.5 + beta/M_PI;
-
-				ct[i] = {s, t};
-			}
-
-			// asignamos las coordenadas de los extremos
-			for (int i = num_instancias; i <= ct.size(); i = i + num_instancias){
-
-				ct[i - num_instancias] = {0.0f, 0.0f};
-				ct[i - 1] = {0.0f, 1.0f};
-			}
-
-			for (int i = perfil.size() * num_instancias ; i < v.size(); i++){
-				alpha = atan2( v[i](2), v[i](0) );
-				beta = atan2( v[i](1), sqrt( pow( v[i](0) ,2) + pow ( v[i](2) ,2) ) );
-
-				s = 1;
-				t = 0.5 + beta/M_PI;
-
-				ct[i] = {s, t};
-			}
-
-
-
-			break;
-		case PLANA:
-			for (int i = 0; i < ct.size(); i++){
-				ct[i] = {v[i](0), (v[i](1) - v.front()(1) ) / (v.back()(1) - v.front()(1))} ;
-			}
-			break;
-
-	}
+   calcularCoordTextura();
 
 }

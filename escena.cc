@@ -87,6 +87,30 @@ Escena::Escena()
       objply->setMaterial(esmeralda);
    }
 
+   // TEXTURAS ------------------------------------------------
+
+   if (esfera != nullptr)
+   {
+      esfera->establecerTextura("textures/text-lata-1.jpg");
+   }
+
+   if(cilindro != nullptr)
+   {
+      cilindro->establecerTextura("./textures/text-lata-1.jpg");
+   }
+
+   if(cono != nullptr)
+   {
+      cono->establecerTextura("textures/text-lata-1.jpg");
+   }
+
+   if(objrevolucion != nullptr)
+   {
+      objrevolucion->establecerTextura("textures/text-lata-1.jpg");
+   }
+
+   objply->establecerTextura("textures/text-lata-1.jpg");
+
    // LUCES ------------------------------------------------
 
    Tupla2f pos0 = {20, 100};
@@ -111,6 +135,8 @@ void Escena::inicializar(int UI_window_width, int UI_window_height)
    glEnable(GL_CULL_FACE);
 
    glEnable(GL_NORMALIZE);
+
+   glEnable(GL_TEXTURE_2D);
 
    Width = UI_window_width / 10;
    Height = UI_window_height / 10;

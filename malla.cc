@@ -138,7 +138,7 @@ void Malla3D::draw(const GLenum modo)
    {
       textura->activar();
       glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-      glTexCoordPointer(2, GL_FLOAT, 0, ct);
+      glTexCoordPointer(2, GL_FLOAT, 0, ct.data());
    }
 
    if (textura != nullptr) {
@@ -150,6 +150,12 @@ void Malla3D::draw(const GLenum modo)
 void Malla3D::setMaterial(const Material &mat)
 {
    m = mat;
+}
+
+void Malla3D::establecerTextura(const string textura)
+{
+   this->textura = new Textura(textura);
+
 }
 
 void Malla3D::set_visual(char visual)

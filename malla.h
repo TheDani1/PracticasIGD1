@@ -41,7 +41,7 @@ class Malla3D
 
    void setMaterial(const Material &mat);
 
-   void setTextura()
+   void establecerTextura(const string textura);
 
    protected:
 
@@ -73,6 +73,8 @@ class Malla3D
       Material m; // Práctica 3
 
       GLuint CrearVBO(GLuint tipo_vbo, GLuint tam, GLvoid *puntero_ram);
+
+      void establecerTextura( Textura *textura );
    
 } ;
 
