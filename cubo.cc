@@ -2,7 +2,7 @@
 #include "malla.h"
 #include "cubo.h"
 
-Cubo::Cubo(float lado)
+Cubo::Cubo(float lado=1)
 {
    Tupla3f c0 ( 0.0f , 0.0f , 0.0f );
    Tupla3f c1 ( lado , 0.0f , 0.0f );
@@ -71,5 +71,22 @@ Cubo::Cubo(float lado)
    // c_s = {c0_rgb, c1_rgb, c2_rgb, c3_rgb, c4_rgb, c5_rgb, c6_rgb, c7_rgb};
 
    calcularNormales();
+
+   ct.resize(v.size());
+
+   Tupla2f ct0 (0.0f, 0.0f);
+   Tupla2f ct1 (1.0f, 0.0f);
+   Tupla2f ct2 (0.0f, 1.0f);
+   Tupla2f ct3 (1.0f, 1.0f);
+   Tupla2f ct4 (0.0f, 0.0f);
+   Tupla2f ct5 (1.0f, 0.0f);
+   Tupla2f ct6 (0.0f, 1.0f);
+   Tupla2f ct7 (1.0f, 1.0f);
+
+   ct = {ct0, ct1, ct2, ct3, ct4, ct5, ct6, ct7};
+
+   // this->tipotext = PLANA;
+
+   // calcularCoordTextura(tipotext);
 
 }

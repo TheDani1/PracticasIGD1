@@ -6,6 +6,108 @@
 // constructor de la escena (no puede usar ordenes de OpenGL)
 //**************************************************************************
 
+void Escena::evento(string evento)
+{
+
+   using namespace std;
+
+   printf("\033[1;34m");
+
+   std::cout << "[Evento] " << evento << endl;
+
+   printf("\033[0m");
+}
+
+void Escena::error(string error)
+{
+
+   using namespace std;
+
+   printf("\033[1;31m");
+
+   std::cout << "[×] " << error << endl;
+
+   printf("\033[0m");
+}
+
+void Escena::visualizar_menu()
+{
+
+   using namespace std;
+
+   switch (modoMenu)
+   {
+   case NADA:
+
+      cout << "[MENU PRINCIPAL]" << endl
+           << "\t [O]: Activar modo seleccion de objetos" << endl
+           << "\t [V]: Activar modo seleccion de modo de visualizacion" << endl
+           << "\t [M]: Activar modo movimiento modelo jerarquico" << endl
+           << "\t [A]: Activar animacion automatica" << endl
+           << "\t [Q]: Salir del programa" << endl;
+
+      break;
+
+   case SELOBJETO:
+      //    0          1        2      3     4       5          6
+      //    P          C        E      N     U       Y          J
+      // Piramide, cilindro, esfera, peón, cubo , hormiga y foco (mj)
+      cout << "[MENU SELECCION DE OBJETO]" << endl
+           << "\t [P]: Se visualiza/oculta la Piramide △" << endl // h
+           << "\t [C]: Se visualiza/oculta el cilindro █" << endl // h
+           << "\t [E]: Se visualiza/oculta la Esfera ●" << endl   // h
+           << "\t [N]: Se visualiza/oculta el peon ♙" << endl
+           << "\t [U]: Se visualiza/oculta el cubo ■" << endl
+           << "\t [Y]: Se visualiza/oculta el objeto ply ƒ (hormiga)" << endl
+           << "\t [J]: Se visualiza/oculta el modelo jerarquico ¥" << endl
+           << "\t [Q]: Salir del [MENU SELECCION DE OBJETO]" << endl;
+
+      break;
+
+   case SELVISUALIZACION:
+
+      cout << "[MENU SELECCION DE MODO DE VISUALIZACION]" << endl
+           << "\t [D]: Se activa/desactiva la visualizacion en modo puntos ░" << endl
+           << "\t [L]: Se activa/desactiva la visualizacion en modo lineas △ □" << endl
+           << "\t [S]: Se activa/desactiva la visualizacion en modo solido (por defecto) ■ ▲" << endl
+           << "\t [T]: Se activa la visualización con iluminacion" << endl
+           << "\t [Q]: Salir del [MENU SELECCION DE MODO DE VISUALIZACION]" << endl;
+
+      break;
+
+   case MOVIMIENTO:
+
+      cout << "[MENU MOVIMIENTO MODELO JERARQUICO]" << endl
+           << "\t [2]: Se selecciona el primer grado de libertad" << endl
+           << "\t [3]: Se selecciona el segundo grado de libertad" << endl
+           << "\t [4]: Se selecciona el tercer grado de libertad" << endl
+           << "\t [+]: Se aumenta el valor" << endl
+           << "\t [-]: Se decrementa el valor" << endl
+           << "\t [Q]: Salir del [MENU MOVIMIENTO MODELO JERARQUICO]" << endl;
+
+      break;
+
+   case ANIMACION:
+
+      cout << "[MENÚ ANIMACIÓN]" << endl
+           << "\t [+]: Aumentar la velocidad de la animacion" << endl
+           << "\t [-]: Disminuir la velocidad de la animacion" << endl;
+
+      break;
+
+   default:
+
+      cout << "[MENU PRINCIPAL]" << endl
+           << "\t [O]: Activar modo seleccion de objetos" << endl
+           << "\t [V]: Activar modo seleccion de modo de visualizacion" << endl
+           << "\t [M]: Activar modo movimiento modelo jerarquico" << endl
+           << "\t [A]: Activar animacion automatica" << endl
+           << "\t [Q]: Salir del programa" << endl;
+
+      break;
+   }
+}
+
 Escena::Escena()
 {
    Front_plane = 50.0;
@@ -21,13 +123,13 @@ Escena::Escena()
    // .....
    cubo = new Cubo(50);
 
-   //piramide = new PiramidePentagonal(50, 50);
+   // piramide = new PiramidePentagonal(50, 50);
 
-   objply = new ObjPLY("plys/base_foco2.ply");
+   objply = new ObjPLY("plys/ant.ply");
 
-   objrevolucion = new ObjRevolucion("plys/peon_polos.ply", 20);
+   objrevolucion = new ObjRevolucion("plys/peon_polos.ply", 20, CILINDRICA, true);
 
-   objrevolucion1 = new ObjRevolucion("plys/peon_polos.ply", 20);
+   objrevolucion1 = new ObjRevolucion("plys/peon_polos.ply", 20, ESFERICA, true);
 
    esfera = new Esfera(20, 20, 50);
 
@@ -35,9 +137,9 @@ Escena::Escena()
 
    cilindro = new Cilindro(20, 20, 50, 20);
 
-   flecha = new Flecha(100.0f, 50.0f, 30);
-   flecha1 = new Flecha(1.0f, 1.0f, 30);
-   flecha2 = new Flecha(1.0f, 1.0f, 30);
+   // flecha = new Flecha(100.0f, 50.0f, 30);
+   // flecha1 = new Flecha(1.0f, 1.0f, 30);
+   // flecha2 = new Flecha(1.0f, 1.0f, 30);
 
    foco = new Foco();
 
@@ -62,54 +164,68 @@ Escena::Escena()
       esfera->setMaterial(oro);
    }
 
-   if(cilindro != nullptr)
+   if (cilindro != nullptr)
    {
       cilindro->setMaterial(turquesa);
    }
 
-   if(cono != nullptr)
+   if (cono != nullptr)
    {
       cono->setMaterial(perla);
    }
 
-   if(objrevolucion != nullptr)
+   if (objrevolucion != nullptr)
    {
       objrevolucion->setMaterial(peon_blanco);
    }
 
-   if(objrevolucion1 != nullptr)
+   if (objrevolucion1 != nullptr)
    {
       objrevolucion1->setMaterial(obsidian);
    }
 
-   if(objply != nullptr){
+   if (objply != nullptr)
+   {
 
       objply->setMaterial(esmeralda);
    }
 
+   if(cubo != nullptr){
+      cubo->setMaterial(oro);
+   }
+
+   if(foco != nullptr){
+      foco->setMaterial(oro);
+   }
+
    // TEXTURAS ------------------------------------------------
+
+   Textura *lata = new Textura("textures/text-lata-1.jpg");
 
    if (esfera != nullptr)
    {
-      esfera->establecerTextura("textures/text-lata-1.jpg");
+      esfera->establecerTextura(lata);
    }
 
-   if(cilindro != nullptr)
+   if (cilindro != nullptr)
    {
-      cilindro->establecerTextura("./textures/text-lata-1.jpg");
+      cilindro->establecerTextura(lata);
    }
 
-   if(cono != nullptr)
+   if (cono != nullptr)
    {
-      cono->establecerTextura("textures/text-lata-1.jpg");
+      cono->establecerTextura(lata);
    }
 
-   if(objrevolucion != nullptr)
+   if (objrevolucion != nullptr)
    {
-      objrevolucion->establecerTextura("textures/text-lata-1.jpg");
+      objrevolucion->establecerTextura(lata);
    }
 
-   objply->establecerTextura("textures/text-lata-1.jpg");
+   if (cubo != nullptr)
+   {
+      cubo->establecerTextura(lata);
+   }
 
    // LUCES ------------------------------------------------
 
@@ -143,6 +259,8 @@ void Escena::inicializar(int UI_window_width, int UI_window_height)
 
    change_projection(float(UI_window_width) / float(UI_window_height));
    glViewport(0, 0, UI_window_width, UI_window_height);
+
+   visualizar_menu();
 }
 
 // **************************************************************************
@@ -156,7 +274,6 @@ void Escena::dibujar()
 {
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Limpiar la pantalla
    change_observer();
-   
 
    glDisable(GL_LIGHTING);
 
@@ -225,7 +342,6 @@ void Escena::dibujar()
             glPushMatrix();
             luz0->activar();
             glPopMatrix();
-
          }
 
          if (luz1 != nullptr)
@@ -233,9 +349,7 @@ void Escena::dibujar()
             glPushMatrix();
             luz1->activar();
             glPopMatrix();
-
          }
-
       }
 
       glPopMatrix();
@@ -273,7 +387,6 @@ void Escena::dibujar()
             glPushMatrix();
             luz0->activar();
             glPopMatrix();
-
          }
 
          if (luz1 != nullptr)
@@ -281,9 +394,7 @@ void Escena::dibujar()
             glPushMatrix();
             luz1->activar();
             glPopMatrix();
-
          }
-
       }
 
       glPopMatrix();
@@ -307,7 +418,6 @@ void Escena::dibujar()
          esfera->draw(GL_FILL);
       }
 
-
       if (visual_obj[3])
       {
 
@@ -319,7 +429,6 @@ void Escena::dibujar()
             glPushMatrix();
             luz0->activar();
             glPopMatrix();
-
          }
 
          if (luz1 != nullptr)
@@ -327,10 +436,7 @@ void Escena::dibujar()
             glPushMatrix();
             luz1->activar();
             glPopMatrix();
-
          }
-
-
       }
    }
 
@@ -366,7 +472,6 @@ void Escena::dibujar()
             glPushMatrix();
             luz0->activar();
             glPopMatrix();
-
          }
 
          if (luz1 != nullptr)
@@ -374,9 +479,7 @@ void Escena::dibujar()
             glPushMatrix();
             luz1->activar();
             glPopMatrix();
-
          }
-
       }
 
       glPopMatrix();
@@ -414,7 +517,6 @@ void Escena::dibujar()
             glPushMatrix();
             luz0->activar();
             glPopMatrix();
-
          }
 
          if (luz1 != nullptr)
@@ -422,9 +524,7 @@ void Escena::dibujar()
             glPushMatrix();
             luz1->activar();
             glPopMatrix();
-
          }
-
       }
 
       glPopMatrix();
@@ -436,33 +536,32 @@ void Escena::dibujar()
 
       glPushMatrix();
       glTranslatef(-100, 0, 50);
-      //glScalef(, 20, 20);
+      // glScalef(, 20, 20);
 
       if (visual_obj[0])
       {
-         flecha->draw(GL_POINT);
+         cubo->draw(GL_POINT);
       }
       if (visual_obj[1])
       {
-         flecha->draw(GL_LINE);
+         cubo->draw(GL_LINE);
       }
       if (visual_obj[2])
       {
-         flecha->draw(GL_FILL);
+         cubo->draw(GL_FILL);
       }
 
       if (visual_obj[3])
       {
 
          glEnable(GL_LIGHTING);
-         flecha->draw(GL_FILL);
+         cubo->draw(GL_FILL);
 
          if (luz0 != nullptr)
          {
             glPushMatrix();
             luz0->activar();
             glPopMatrix();
-
          }
 
          if (luz1 != nullptr)
@@ -470,9 +569,7 @@ void Escena::dibujar()
             glPushMatrix();
             luz1->activar();
             glPopMatrix();
-
          }
-
       }
 
       glPopMatrix();
@@ -482,48 +579,45 @@ void Escena::dibujar()
    {
       // OBJETO PLY
 
-      // glPushMatrix();
-      // glTranslatef(0, 0, -100);
-      // glScalef(10, 10, 10);
+      glPushMatrix();
+      glTranslatef(0, 0, -100);
+      glScalef(10, 10, 10);
 
-      // if (visual_obj[0])
-      // {
-      //    objply->draw(GL_POINT);
-      // }
-      // if (visual_obj[1])
-      // {
-      //    objply->draw(GL_LINE);
-      // }
-      // if (visual_obj[2])
-      // {
-      //    objply->draw(GL_FILL);
-      // }
+      if (visual_obj[0])
+      {
+         objply->draw(GL_POINT);
+      }
+      if (visual_obj[1])
+      {
+         objply->draw(GL_LINE);
+      }
+      if (visual_obj[2])
+      {
+         objply->draw(GL_FILL);
+      }
 
-      // if (visual_obj[3])
-      // {
+      if (visual_obj[3])
+      {
 
-      //    glEnable(GL_LIGHTING);
-      //    objply->draw(GL_FILL);
+         glEnable(GL_LIGHTING);
+         objply->draw(GL_FILL);
 
-      //    if (luz0 != nullptr)
-      //    {
-      //       glPushMatrix();
-      //       luz0->activar();
-      //       glPopMatrix();
+         if (luz0 != nullptr)
+         {
+            glPushMatrix();
+            luz0->activar();
+            glPopMatrix();
+         }
 
-      //    }
+         if (luz1 != nullptr)
+         {
+            glPushMatrix();
+            luz1->activar();
+            glPopMatrix();
+         }
+      }
 
-      //    if (luz1 != nullptr)
-      //    {
-      //       glPushMatrix();
-      //       luz1->activar();
-      //       glPopMatrix();
-
-      //    }
-
-      // }
-
-      // glPopMatrix();
+      glPopMatrix();
    }
 
    if (sel_obj[6])
@@ -531,7 +625,7 @@ void Escena::dibujar()
       // MODELO JERARQUICO
 
       glPushMatrix();
-      //glTranslatef(0, 0, -100);
+      // glTranslatef(0, 0, -100);
       glScalef(10, 10, 10);
 
       if (visual_obj[0])
@@ -558,7 +652,6 @@ void Escena::dibujar()
             glPushMatrix();
             luz0->activar();
             glPopMatrix();
-
          }
 
          if (luz1 != nullptr)
@@ -566,9 +659,7 @@ void Escena::dibujar()
             glPushMatrix();
             luz1->activar();
             glPopMatrix();
-
          }
-
       }
 
       glPopMatrix();
@@ -594,11 +685,7 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
       if (modoMenu != NADA)
       {
          modoMenu = NADA;
-         cout << "[MENU PRINCIPAL]" << endl
-              << "\t [O]: Activar modo seleccion de objetos" << endl
-              << "\t [V]: Activar modo seleccion de modo de visualizacion" << endl
-              << "\t [M]: Activar modo movimiento modelo jerarquico" << endl
-              << "\t [Q]: Salir del programa" << endl;
+         visualizar_menu();
       }
       else
       {
@@ -621,13 +708,10 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
          // ■ ▲
          // ▲ ♙ █ ●
 
+         // Piramide, cilindro, esfera, peón, cubo , escultura y foco (mj)
+
          modoMenu = SELOBJETO;
-         cout << "[MENU SELECCION DE OBJETO]" << endl
-              << "\t [E]: Se visualiza/oculta el Esfera ●" << endl
-              << "\t [P]: Se visualiza/oculta la Piramide △" << endl
-              << "\t [Z]: Se visualiza/oculta el peon ♙" << endl
-              << "\t [C]: Se visualiza/oculta el cilindro █" << endl
-              << "\t [Q]: Salir del [MENU SELECCION DE OBJETO]" << endl;
+         visualizar_menu();
       }
       else
       {
@@ -635,12 +719,7 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
          // EN CUALQUIER CASO QUE NO SEA ESE,
          // LA SELECCION NO SERÁ VÁLIDA.
 
-         cout << "[MENU SELECCION DE OBJETO]" << endl
-              << "\t [E]: Se visualiza/oculta el Esfera ●" << endl
-              << "\t [P]: Se visualiza/oculta la Piramide △" << endl
-              << "\t [Z]: Se visualiza/oculta el peon ♙" << endl
-              << "\t [C]: Se visualiza/oculta el cilindro █" << endl
-              << "\t [Q]: Salir del [MENU SELECCION DE OBJETO]" << endl;
+         visualizar_menu();
       }
 
       break;
@@ -654,12 +733,7 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
          // MENU DE SELECCION DE MODO DE VISUALIZACION.
 
          modoMenu = SELVISUALIZACION;
-         cout << "[MENU SELECCION DE MODO DE VISUALIZACION]" << endl
-              << "\t [D]: Se activa/desactiva la visualizacion en modo puntos ░" << endl
-              << "\t [L]: Se activa/desactiva la visualizacion en modo lineas △ □" << endl
-              << "\t [S]: Se activa/desactiva la visualizacion en modo solido (por defecto) ■ ▲" << endl
-              << "\t [T]: Se activa la visualización con iluminacion" << endl
-              << "\t [Q]: Salir del [MENU SELECCION DE MODO DE VISUALIZACION]" << endl;
+         visualizar_menu();
       }
       else
       {
@@ -667,13 +741,8 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
          // EN CUALQUIER CASO QUE NO SEA ESE,
          // LA SELECCION NO SERÁ VÁLIDA.
 
-         cout << "[!] Seleccion no valida" << endl;
-         cout << "[MENU SELECCION DE MODO DE VISUALIZACION]" << endl
-              << "\t [D]: Se activa/desactiva la visualizacion en modo puntos ░" << endl
-              << "\t [L]: Se activa/desactiva la visualizacion en modo lineas △ □" << endl
-              << "\t [S]: Se activa/desactiva la visualizacion en modo solido (por defecto) ■ ▲" << endl
-              << "\t [T]: Se activa la visualización con iluminacion" << endl
-              << "\t [Q]: Salir del [MENU SELECCION DE MODO DE VISUALIZACION]" << endl;
+         error("Seleccion no valida");
+         visualizar_menu();
       }
 
       break;
@@ -693,21 +762,14 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
 
          if (sel_obj[2])
          {
-            cout << "[!] Se visualiza el Esfera ●" << endl;
+            evento("Se visualiza la Esfera ●");
          }
          else
          {
-            cout << "[!] Se oculta el Esfera ●" << endl;
+            evento("Se oculta la Esfera ●");
          }
 
-         cout << "[Evento] Visualizando cubo" << endl;
-
-         cout << "[MENU SELECCION DE OBJETO]" << endl
-              << "\t [E]: Se visualiza/oculta el Esfera ●" << endl
-              << "\t [P]: Se visualiza/oculta la Piramide △" << endl
-              << "\t [Z]: Se visualiza/oculta el peon ♙" << endl
-              << "\t [C]: Se visualiza/oculta el cilindro █" << endl
-              << "\t [Q]: Salir del [MENU SELECCION DE OBJETO]" << endl;
+         visualizar_menu();
       }
       else
       {
@@ -715,13 +777,8 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
          // EN CUALQUIER CASO QUE NO SEA ESE,
          // LA SELECCION NO SERÁ VÁLIDA.
 
-         cout << "[!] Seleccion no valida" << endl;
-         cout << "[MENU SELECCION DE OBJETO]" << endl
-              << "\t [E]: Se visualiza/oculta el Esfera ●" << endl
-              << "\t [P]: Se visualiza/oculta la Piramide △" << endl
-              << "\t [Z]: Se visualiza/oculta el peon ♙" << endl
-              << "\t [C]: Se visualiza/oculta el cilindro █" << endl
-              << "\t [Q]: Salir del [MENU SELECCION DE OBJETO]" << endl;
+         error("Seleccion no valida");
+         visualizar_menu();
       }
 
       break;
@@ -740,39 +797,28 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
 
          if (sel_obj[0])
          {
-            cout << "[!] Se visualiza la Piramide △" << endl;
+            evento("Se visualiza la piramide △");
          }
          else
          {
-            cout << "[!] Se oculta la Piramide △" << endl;
+            evento("Se oculta la piramide △");
          }
 
-         cout << "[MENU SELECCION DE OBJETO]" << endl
-              << "\t [E]: Se visualiza/oculta el Esfera ●" << endl
-              << "\t [P]: Se visualiza/oculta la Piramide △" << endl
-              << "\t [Z]: Se visualiza/oculta el peon ♙" << endl
-              << "\t [C]: Se visualiza/oculta el cilindro █" << endl
-              << "\t [Q]: Salir del [MENU SELECCION DE OBJETO]" << endl;
+         visualizar_menu();
       }
       else
       {
 
          // EN CUALQUIER CASO QUE NO SEA ESE,
          // LA SELECCION NO SERÁ VÁLIDA.
+         error("Seleccion no valida");
 
-         cout << "[!] Seleccion no valida" << endl;
-
-         cout << "[MENU SELECCION DE OBJETO]" << endl
-              << "\t [E]: Se visualiza/oculta el Esfera ●" << endl
-              << "\t [P]: Se visualiza/oculta la Piramide △" << endl
-              << "\t [Z]: Se visualiza/oculta el peon ♙" << endl
-              << "\t [C]: Se visualiza/oculta el cilindro █" << endl
-              << "\t [Q]: Salir del [MENU SELECCION DE OBJETO]" << endl;
+         visualizar_menu();
       }
 
       break;
 
-   case 'Z':
+   case 'N':
 
       if (modoMenu == SELOBJETO)
       {
@@ -783,19 +829,14 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
 
          if (sel_obj[3])
          {
-            cout << "[!] Se visualiza el peon ♙" << endl;
+            evento("Se visualiza el peon ♙");
          }
          else
          {
-            cout << "[!] Se oculta el peon ♙" << endl;
+            evento("Se oculta el peon ♙");
          }
 
-         cout << "[MENU SELECCION DE OBJETO]" << endl
-              << "\t [E]: Se visualiza/oculta el Esfera ●" << endl
-              << "\t [P]: Se visualiza/oculta la Piramide △" << endl
-              << "\t [Z]: Se visualiza/oculta el peon ♙" << endl
-              << "\t [C]: Se visualiza/oculta el cilindro █" << endl
-              << "\t [Q]: Salir del [MENU SELECCION DE OBJETO]" << endl;
+         visualizar_menu();
       }
       else
       {
@@ -803,14 +844,42 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
          // EN CUALQUIER CASO QUE NO SEA ESE,
          // LA SELECCION NO SERÁ VÁLIDA.
 
-         cout << "[!] Seleccion no valida" << endl;
+         error("Seleccion no valida");
 
-         cout << "[MENU SELECCION DE OBJETO]" << endl
-              << "\t [E]: Se visualiza/oculta el Esfera ●" << endl
-              << "\t [P]: Se visualiza/oculta la Piramide △" << endl
-              << "\t [Z]: Se visualiza/oculta el peon ♙" << endl
-              << "\t [C]: Se visualiza/oculta el cilindro █" << endl
-              << "\t [Q]: Salir del [MENU SELECCION DE OBJETO]" << endl;
+         visualizar_menu();
+      }
+
+      break;
+
+   case 'U':
+
+      if (modoMenu == SELOBJETO)
+      {
+         // bool sel_obj[4] = {true, true, true, true}; // Piramide, cilindro, esfera y peón
+         // VISUALIZAMOS PEON
+
+         sel_obj[4] = !sel_obj[4];
+
+         if (sel_obj[4])
+         {
+            evento("Se visualiza el cubo ■");
+         }
+         else
+         {
+            evento("Se oculta el cubo ■");
+         }
+
+         visualizar_menu();
+      }
+      else
+      {
+
+         // EN CUALQUIER CASO QUE NO SEA ESE,
+         // LA SELECCION NO SERÁ VÁLIDA.
+
+         error("Seleccion no valida");
+
+         visualizar_menu();
       }
 
       break;
@@ -826,21 +895,14 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
 
          if (sel_obj[1])
          {
-            cout << "[!] Se visualiza el cilindro █" << endl;
+            evento("Se visualiza el cilindro █");
          }
          else
          {
-            cout << "[!] Se oculta el cilindro █" << endl;
+            evento("Se oculta el cilindro █");
          }
 
-         cout << "[Evento] Visualizando piramide" << endl;
-
-         cout << "[MENU SELECCION DE OBJETO]" << endl
-              << "\t [E]: Se visualiza/oculta el Esfera ●" << endl
-              << "\t [P]: Se visualiza/oculta la Piramide △" << endl
-              << "\t [Z]: Se visualiza/oculta el peon ♙" << endl
-              << "\t [C]: Se visualiza/oculta el cilindro █" << endl
-              << "\t [Q]: Salir del [MENU SELECCION DE OBJETO]" << endl;
+         visualizar_menu();
       }
       else
       {
@@ -848,14 +910,75 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
          // EN CUALQUIER CASO QUE NO SEA ESE,
          // LA SELECCION NO SERÁ VÁLIDA.
 
-         cout << "[!] Seleccion no valida" << endl;
+         error("Seleccion no valida");
 
-         cout << "[MENU SELECCION DE OBJETO]" << endl
-              << "\t [E]: Se visualiza/oculta el Esfera ●" << endl
-              << "\t [P]: Se visualiza/oculta la Piramide △" << endl
-              << "\t [Z]: Se visualiza/oculta el peon ♙" << endl
-              << "\t [C]: Se visualiza/oculta el cilindro █" << endl
-              << "\t [Q]: Salir del [MENU SELECCION DE OBJETO]" << endl;
+         visualizar_menu();
+      }
+
+      break;
+
+   case 'Y':
+
+      if (modoMenu == SELOBJETO)
+      {
+         // bool sel_obj[4] = {true, true, true, true}; // Piramide, cilindro, esfera y peón
+         // VISUALIZAMOS PEON
+
+         sel_obj[5] = !sel_obj[5];
+
+         if (sel_obj[5])
+         {
+            evento("Se visualiza el objeto ply ƒ");
+         }
+         else
+         {
+            evento("Se oculta el objeto ply ƒ");
+         }
+
+         visualizar_menu();
+      }
+      else
+      {
+
+         // EN CUALQUIER CASO QUE NO SEA ESE,
+         // LA SELECCION NO SERÁ VÁLIDA.
+
+         error("Seleccion no valida");
+
+         visualizar_menu();
+      }
+
+      break;
+
+   case 'J':
+
+      if (modoMenu == SELOBJETO)
+      {
+         // bool sel_obj[4] = {true, true, true, true}; // Piramide, cilindro, esfera y peón
+         // VISUALIZAMOS PEON
+
+         sel_obj[6] = !sel_obj[6];
+
+         if (sel_obj[6])
+         {
+            evento("Se visualiza el modelo jerarquico ¥");
+         }
+         else
+         {
+            evento("Se oculta el modelo jerarquico ¥");
+         }
+
+         visualizar_menu();
+      }
+      else
+      {
+
+         // EN CUALQUIER CASO QUE NO SEA ESE,
+         // LA SELECCION NO SERÁ VÁLIDA.
+
+         error("Seleccion no valida");
+
+         visualizar_menu();
       }
 
       break;
@@ -871,26 +994,16 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
          if (visual_obj[0])
          {
 
-            cout << "[Evento] Activado modo puntos" << endl;
+            evento("Activado modo puntos");
 
-            cout << "[MENU SELECCION DE MODO DE VISUALIZACION]" << endl
-                 << "\t [D]: Se activa/desactiva la visualizacion en modo puntos ░" << endl
-                 << "\t [L]: Se activa/desactiva la visualizacion en modo lineas △ □" << endl
-                 << "\t [S]: Se activa/desactiva la visualizacion en modo solido (por defecto) ■ ▲" << endl
-                 << "\t [T]: Se activa la visualización con iluminacion" << endl
-                 << "\t [Q]: Salir del [MENU SELECCION DE MODO DE VISUALIZACION]" << endl;
+            visualizar_menu();
          }
          else
          {
 
-            cout << "[Evento] Desactivado modo puntos" << endl;
+            evento("Desactivado modo puntos");
 
-            cout << "[MENU SELECCION DE MODO DE VISUALIZACION]" << endl
-                 << "\t [D]: Se activa/desactiva la visualizacion en modo puntos ░" << endl
-                 << "\t [L]: Se activa/desactiva la visualizacion en modo lineas △ □" << endl
-                 << "\t [S]: Se activa/desactiva la visualizacion en modo solido (por defecto) ■ ▲" << endl
-                 << "\t [T]: Se activa la visualización con iluminacion" << endl
-                 << "\t [Q]: Salir del [MENU SELECCION DE MODO DE VISUALIZACION]" << endl;
+            visualizar_menu();
          }
       }
       else
@@ -899,13 +1012,8 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
          // EN CUALQUIER CASO QUE NO SEA ESE,
          // LA SELECCION NO SERÁ VÁLIDA.
 
-         cout << "[!] Seleccion no valida" << endl;
-         cout << "[MENU SELECCION DE MODO DE VISUALIZACION]" << endl
-              << "\t [D]: Se activa/desactiva la visualizacion en modo puntos ░" << endl
-              << "\t [L]: Se activa/desactiva la visualizacion en modo lineas △ □" << endl
-              << "\t [S]: Se activa/desactiva la visualizacion en modo solido (por defecto) ■ ▲" << endl
-              << "\t [T]: Se activa la visualización con iluminacion" << endl
-              << "\t [Q]: Salir del [MENU SELECCION DE MODO DE VISUALIZACION]" << endl;
+         error("Seleccion no valida");
+         visualizar_menu();
       }
 
       break;
@@ -921,26 +1029,16 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
          if (visual_obj[1])
          {
 
-            cout << "[Evento] Modo lineas activado" << endl;
+            evento("Activado modo lineas");
 
-            cout << "[MENU SELECCION DE MODO DE VISUALIZACION]" << endl
-                 << "\t [D]: Se activa/desactiva la visualizacion en modo puntos ░" << endl
-                 << "\t [L]: Se activa/desactiva la visualizacion en modo lineas △ □" << endl
-                 << "\t [S]: Se activa/desactiva la visualizacion en modo solido (por defecto) ■ ▲" << endl
-                 << "\t [T]: Se activa la visualización con iluminacion" << endl
-                 << "\t [Q]: Salir del [MENU SELECCION DE MODO DE VISUALIZACION]" << endl;
+            visualizar_menu();
          }
          else
          {
 
-            cout << "[Evento] Modo lineas desactivado" << endl;
+            evento("Desactivado modo lineas");
 
-            cout << "[MENU SELECCION DE MODO DE VISUALIZACION]" << endl
-                 << "\t [D]: Se activa/desactiva la visualizacion en modo puntos ░" << endl
-                 << "\t [L]: Se activa/desactiva la visualizacion en modo lineas △ □" << endl
-                 << "\t [S]: Se activa/desactiva la visualizacion en modo solido (por defecto) ■ ▲" << endl
-                 << "\t [T]: Se activa la visualización con iluminacion" << endl
-                 << "\t [Q]: Salir del [MENU SELECCION DE MODO DE VISUALIZACION]" << endl;
+            visualizar_menu();
          }
       }
       else
@@ -949,14 +1047,9 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
          // EN CUALQUIER CASO QUE NO SEA ESE,
          // LA SELECCION NO SERÁ VÁLIDA.
 
-         cout << "[!] Seleccion no valida" << endl;
+         error("Seleccion no valida");
 
-         cout << "[MENU SELECCION DE MODO DE VISUALIZACION]" << endl
-              << "\t [D]: Se activa/desactiva la visualizacion en modo puntos ░" << endl
-              << "\t [L]: Se activa/desactiva la visualizacion en modo lineas △ □" << endl
-              << "\t [S]: Se activa/desactiva la visualizacion en modo solido (por defecto) ■ ▲" << endl
-              << "\t [T]: Se activa la visualización con iluminacion" << endl
-              << "\t [Q]: Salir del [MENU SELECCION DE MODO DE VISUALIZACION]" << endl;
+         visualizar_menu();
       }
 
       break;
@@ -972,26 +1065,16 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
          if (visual_obj[2])
          {
 
-            cout << "[Evento] Modo solido activado" << endl;
+            evento("Activado modo solido");
 
-            cout << "[MENU SELECCION DE MODO DE VISUALIZACION]" << endl
-                 << "\t [D]: Se activa/desactiva la visualizacion en modo puntos ░" << endl
-                 << "\t [L]: Se activa/desactiva la visualizacion en modo lineas △ □" << endl
-                 << "\t [S]: Se activa/desactiva la visualizacion en modo solido (por defecto) ■ ▲" << endl
-                 << "\t [T]: Se activa la visualización con iluminacion" << endl
-                 << "\t [Q]: Salir del [MENU SELECCION DE MODO DE VISUALIZACION]" << endl;
+            visualizar_menu();
          }
          else
          {
 
-            cout << "[Evento] Modo solido desactivado" << endl;
+            evento("Desactivado modo solido");
 
-            cout << "[MENU SELECCION DE MODO DE VISUALIZACION]" << endl
-                 << "\t [D]: Se activa/desactiva la visualizacion en modo puntos ░" << endl
-                 << "\t [L]: Se activa/desactiva la visualizacion en modo lineas △ □" << endl
-                 << "\t [S]: Se activa/desactiva la visualizacion en modo solido (por defecto) ■ ▲" << endl
-                 << "\t [T]: Se activa la visualización con iluminacion" << endl
-                 << "\t [Q]: Salir del [MENU SELECCION DE MODO DE VISUALIZACION]" << endl;
+            visualizar_menu();
          }
       }
       else
@@ -1000,14 +1083,9 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
          // EN CUALQUIER CASO QUE NO SEA ESE,
          // LA SELECCION NO SERÁ VÁLIDA.
 
-         cout << "[!] Seleccion no valida" << endl;
+         error("Seleccion no valida");
 
-         cout << "[MENU SELECCION DE MODO DE VISUALIZACION]" << endl
-              << "\t [D]: Se activa/desactiva la visualizacion en modo puntos ░" << endl
-              << "\t [L]: Se activa/desactiva la visualizacion en modo lineas △ □" << endl
-              << "\t [S]: Se activa/desactiva la visualizacion en modo solido (por defecto) ■ ▲" << endl
-              << "\t [T]: Se activa la visualización con iluminacion" << endl
-              << "\t [Q]: Salir del [MENU SELECCION DE MODO DE VISUALIZACION]" << endl;
+         visualizar_menu();
       }
 
       break;
@@ -1023,26 +1101,16 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
       if (visual_obj[3])
       {
 
-         cout << "[Evento] Modo iluminación activado" << endl;
+         evento("Activado modo iluminación");
 
-         cout << "[MENU SELECCION DE MODO DE VISUALIZACION]" << endl
-              << "\t [D]: Se activa/desactiva la visualizacion en modo puntos ░" << endl
-              << "\t [L]: Se activa/desactiva la visualizacion en modo lineas △ □" << endl
-              << "\t [S]: Se activa/desactiva la visualizacion en modo solido (por defecto) ■ ▲" << endl
-              << "\t [T]: Se activa la visualización con iluminacion" << endl
-              << "\t [Q]: Salir del [MENU SELECCION DE MODO DE VISUALIZACION]" << endl;
+         visualizar_menu();
       }
       else
       {
 
-         cout << "[Evento] Modo solido desactivado" << endl;
+         evento("Desactivado modo iluminación");
 
-         cout << "[MENU SELECCION DE MODO DE VISUALIZACION]" << endl
-              << "\t [D]: Se activa/desactiva la visualizacion en modo puntos ░" << endl
-              << "\t [L]: Se activa/desactiva la visualizacion en modo lineas △ □" << endl
-              << "\t [S]: Se activa/desactiva la visualizacion en modo solido (por defecto) ■ ▲" << endl
-              << "\t [T]: Se activa la visualización con iluminacion" << endl
-              << "\t [Q]: Salir del [MENU SELECCION DE MODO DE VISUALIZACION]" << endl;
+         visualizar_menu();
       }
 
       break;
@@ -1075,15 +1143,9 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
 
       modoMenu = MOVIMIENTO;
 
-      cout << "[Evento] Modo movimiento modelo jerarquico" << endl;
+      evento("Modo movimiento modelo jerarquico");
 
-         cout << "[MENU MOVIMIENTO MODELO JERARQUICO]" << endl
-              << "\t [2]: Se selecciona el primer grado de libertad" << endl
-              << "\t [3]: Se selecciona el segundo grado de libertad" << endl
-              << "\t [4]: Se selecciona el tercer grado de libertad" << endl
-              << "\t [+]: Se aumenta el valor" << endl
-              << "\t [-]: Se decrementa el valor" << endl
-              << "\t [Q]: Salir del [MENU MOVIMIENTO MODELO JERARQUICO]" << endl;
+      visualizar_menu();
 
       break;
 
@@ -1093,22 +1155,16 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
       grad_lib[1] = false;
       grad_lib[2] = false;
 
-      if(modoMenu == MOVIMIENTO){
+      if (modoMenu == MOVIMIENTO)
+      {
 
-         cout << "[Evento] Seleccionado primer (1) grado de libertad" << endl;
+         evento("Seleccionado primer (1) grado de libertad");
 
-         cout << "[MENU MOVIMIENTO MODELO JERARQUICO]" << endl
-              << "\t [2]: Se selecciona el primer grado de libertad" << endl
-              << "\t [3]: Se selecciona el segundo grado de libertad" << endl
-              << "\t [4]: Se selecciona el tercer grado de libertad" << endl
-              << "\t [+]: Se aumenta el valor" << endl
-              << "\t [-]: Se decrementa el valor" << endl
-              << "\t [Q]: Salir del [MENU MOVIMIENTO MODELO JERARQUICO]" << endl;
-
-      }else{
-
-         cout << "[!] Seleccion no valida" << endl;
-
+         visualizar_menu();
+      }
+      else
+      {
+         error("Seleccion no valida");
       }
       break;
 
@@ -1118,22 +1174,16 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
       grad_lib[1] = true;
       grad_lib[2] = false;
 
-      if(modoMenu == MOVIMIENTO){
+      if (modoMenu == MOVIMIENTO)
+      {
+         evento("Seleccionado segundo (2) grado de libertad");
 
-         cout << "[Evento] Seleccionado segundo (2) grado de libertad" << endl;
+         visualizar_menu();
+      }
+      else
+      {
 
-         cout << "[MENU MOVIMIENTO MODELO JERARQUICO]" << endl
-              << "\t [2]: Se selecciona el primer grado de libertad" << endl
-              << "\t [3]: Se selecciona el segundo grado de libertad" << endl
-              << "\t [4]: Se selecciona el tercer grado de libertad" << endl
-              << "\t [+]: Se aumenta el valor" << endl
-              << "\t [-]: Se decrementa el valor" << endl
-              << "\t [Q]: Salir del [MENU MOVIMIENTO MODELO JERARQUICO]" << endl;
-
-      }else{
-
-         cout << "[!] Seleccion no valida" << endl;
-
+         error("Seleccion no valida");
       }
 
       break;
@@ -1144,136 +1194,172 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
       grad_lib[1] = false;
       grad_lib[2] = true;
 
-      if(modoMenu == MOVIMIENTO){
+      if (modoMenu == MOVIMIENTO)
+      {
 
          cout << "[Evento] Seleccionado tercer (3) grado de libertad" << endl;
 
-         cout << "[MENU MOVIMIENTO MODELO JERARQUICO]" << endl
-              << "\t [2]: Se selecciona el primer grado de libertad" << endl
-              << "\t [3]: Se selecciona el segundo grado de libertad" << endl
-              << "\t [4]: Se selecciona el tercer grado de libertad" << endl
-              << "\t [+]: Se aumenta el valor" << endl
-              << "\t [-]: Se decrementa el valor" << endl
-              << "\t [Q]: Salir del [MENU MOVIMIENTO MODELO JERARQUICO]" << endl;
+         evento("Seleccionado tercer (3) grado de libertad");
 
-      }else{
+         visualizar_menu();
+      }
+      else
+      {
 
          cout << "[!] Seleccion no valida" << endl;
-
       }
       break;
 
    case '+':
 
-      if(grad_lib[0]) foco->addGiroY(1.0);
+      if (modoMenu == MOVIMIENTO)
+      {
 
-      if(grad_lib[1]){
-
-         if(foco->getGiroZ() == 90){
-
-            foco->addGiroZ(0);
-            cout << "[!] Limite de 90 alcanzado, no puede incrementar mas" << endl;
-
-         }else{
-
-            foco->addGiroZ(1.0);
-
+         if (grad_lib[0]){
+            foco->addGiroY(1.0);
+            evento("Aumentado valor del primer grado de libertad");
          }
 
-      }
+         if (grad_lib[1])
+         {
 
-      if(grad_lib[2]){
+            if (foco->getGiroZ() == 90)
+            {
 
-         if(foco->getTransX() == 17){
+               foco->addGiroZ(0);
+               error("Limite de 90 alcanzado, no puede incrementar mas");
+               
+            }
+            else
+            {
 
-            foco->addTransX(0);
-
-            cout << "[!] Limite de 17 alcanzado, no puede incrementar mas" << endl;
-
-         }else{
-
-            foco->addTransX(1.0);
-
+               foco->addGiroZ(1.0);
+               evento("Aumentado valor del segundo grado de libertad)");
+            }
          }
 
+         if (grad_lib[2])
+         {
+
+            if (foco->getTransX() == 17)
+            {
+
+               foco->addTransX(0);
+
+               error("Limite de 17 alcanzado, no puede incrementar mas");
+            }
+            else
+            {
+
+               foco->addTransX(1.0);
+               evento("Aumentado valor del tercer grado de libertad)");
+            }
+         }
+
+         
+
+         visualizar_menu();
       }
-
-      cout << "TransX: " << foco->getTransX() << endl;
-
-      if(modoMenu == MOVIMIENTO){
-
-         cout << "[Evento] Aumentado valor de grado de libertad" << endl;
-
-         cout << "[MENU MOVIMIENTO MODELO JERARQUICO]" << endl
-              << "\t [2]: Se selecciona el primer grado de libertad" << endl
-              << "\t [3]: Se selecciona el segundo grado de libertad" << endl
-              << "\t [4]: Se selecciona el tercer grado de libertad" << endl
-              << "\t [+]: Se aumenta el valor" << endl
-              << "\t [-]: Se decrementa el valor" << endl
-              << "\t [Q]: Salir del [MENU MOVIMIENTO MODELO JERARQUICO]" << endl;
-
-      }else{
-
-         cout << "[!] Seleccion no valida" << endl;
-
+      else if (modoMenu == ANIMACION)
+      {
+         velocidadAnimacionX *= 1.2f;
+         velocidadAnimacionZY *= 1.2f;
+         evento("Aumentada velocidad de animacion");
+      }
+      else
+      {
+         error("Seleccion no valida");
       }
       break;
 
    case '-':
 
-      if(grad_lib[0]) foco->addGiroY(-1.0);
+      if (modoMenu == MOVIMIENTO)
+      {
 
-      if(grad_lib[1]){
+         if (grad_lib[0]){
+            evento("Decrementado valor del primero grado de libertad");
+            foco->addGiroY(-1.0);
+         }
+         if (grad_lib[1])
+         {
 
-         if(foco->getGiroZ() == -90){
+            if (foco->getGiroZ() == -90)
+            {
 
-            foco->addGiroZ(0);
+               foco->addGiroZ(0);
+               error("Limite de -90 alcanzado, no puede decrementar mas");
+            }
+            else
+            {
 
-            cout << "[!] Limite de -90 alcanzado, no puede decrementar mas" << endl;
-
-         }else{
-
-            foco->addGiroZ(-1.0);
-
+               foco->addGiroZ(-1.0);
+               evento("Decrementado valor del segundo grado de libertad");
+            }
          }
 
-      }
+         if (grad_lib[2])
+         {
 
-      if(grad_lib[2]){
+            if (foco->getTransX() == -17)
+            {
 
-         if(foco->getTransX() == -17){
+               foco->addTransX(0);
 
-            foco->addTransX(0);
+               error("Limite de -17 alcanzado, no puede decrementar mas");
+            }
+            else
+            {
 
-            cout << "[!] Limite de -17 alcanzado, no puede decrementar mas" << endl;
-
-         }else{
-
-            foco->addTransX(-1.0);
-
+               foco->addTransX(-1.0);
+               evento("Decrementado valor del tercer grado de libertad");
+            }
          }
 
+         visualizar_menu();
       }
+      else if (modoMenu == ANIMACION)
+      {
 
-      if(modoMenu == MOVIMIENTO){
+         velocidadAnimacionX *= 0.8f;
+         velocidadAnimacionZY *= 0.8f;
 
-         cout << "[Evento] Decrementado valor de grado de libertad" << endl;
-
-         cout << "[MENU MOVIMIENTO MODELO JERARQUICO]" << endl
-              << "\t [2]: Se selecciona el primer grado de libertad" << endl
-              << "\t [3]: Se selecciona el segundo grado de libertad" << endl
-              << "\t [4]: Se selecciona el tercer grado de libertad" << endl
-              << "\t [+]: Se aumenta el valor" << endl
-              << "\t [-]: Se decrementa el valor" << endl
-              << "\t [Q]: Salir del [MENU MOVIMIENTO MODELO JERARQUICO]" << endl;
-
-      }else{
-
-         cout << "[!] Seleccion no valida" << endl;
-
+         evento("Decrementada velocidad de animacion");
+         
+      }
+      else
+      {
+         error("Seleccion no valida");
       }
       break;
-   
+
+   case 'A':
+      // ENTRAMOS EN MENÚ ANIMACIÓN
+
+      if (modoMenu == NADA)
+      {
+
+         // SI NO ESTAMOS EN NINGUN MENU ENTRAMOS EN
+         // MENU DE SELECCION DE MODO DE VISUALIZACION.
+
+         animacion = !animacion;
+
+         modoMenu = ANIMACION;
+         visualizar_menu();
+      }
+      else if (modoMenu == ANIMACION)
+      {
+
+         animacion = !animacion;
+
+         visualizar_menu();
+      }
+      else
+      {
+         error("Seleccion no valida");
+      }
+
+      break;
    }
 
    return salir;
@@ -1345,4 +1431,34 @@ void Escena::change_observer()
    glTranslatef(0.0, 0.0, -Observer_distance);
    glRotatef(Observer_angle_y, 0.0, 1.0, 0.0);
    glRotatef(Observer_angle_x, 1.0, 0.0, 0.0);
+}
+
+void Escena::animarModeloJerarquico()
+{
+
+   if (animacion)
+   {
+
+      if (foco->getTransX() > 17)
+      {
+         velocidadAnimacionX = velocidadAnimacionX * -1;
+      }
+      else if (foco->getTransX() < -17)
+      {
+         velocidadAnimacionX = velocidadAnimacionX * -1;
+      }
+
+      foco->addTransX(velocidadAnimacionX);
+
+      if(foco->getGiroZ() > 90){
+         velocidadAnimacionZY = velocidadAnimacionZY * -1;
+      }
+      else if(foco->getGiroZ() < -90){
+         velocidadAnimacionZY = velocidadAnimacionZY * -1;
+      }
+
+      foco->addGiroZ(velocidadAnimacionZY);
+      foco->addGiroY(velocidadAnimacionZY);
+      
+   }
 }

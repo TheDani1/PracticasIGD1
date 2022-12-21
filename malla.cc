@@ -33,6 +33,11 @@ void Malla3D::draw(const GLenum modo)
       id_vbo_nv = CrearVBO(GL_ARRAY_BUFFER, 3 * nv.size() * sizeof(float), nv.data());
    }
 
+   if(id_vbo_ct == 0)
+   {
+      id_vbo_ct = CrearVBO(GL_ARRAY_BUFFER, 2 * ct.size() * sizeof(float), ct.data());
+   }
+
    glEnableClientState(GL_COLOR_ARRAY);
 
    // PUNTOS
@@ -114,6 +119,21 @@ void Malla3D::draw(const GLenum modo)
       m.aplicar();
    }
 
+
+   // Si existen las coordenadas de textura
+
+   // if(!ct.empty())
+   // {
+
+   //    textura->activar();
+
+   //    glEnable(GL_TEXTURE_2D);
+   //    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+   //    // usar como buffer de coordenadas de textura el actualmente activo
+   //    glTexCoordPointer(2, GL_FLOAT, 0, 0);
+
+   // }
+   
    // habilitar el uso de tabla de vértices
    glEnableClientState(GL_VERTEX_ARRAY);
 
@@ -134,17 +154,14 @@ void Malla3D::draw(const GLenum modo)
       glDisableClientState(GL_LIGHTING);
    }
 
-   if (textura != nullptr)
-   {
-      textura->activar();
-      glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-      glTexCoordPointer(2, GL_FLOAT, 0, ct.data());
-   }
+   // TEXTURAS -------------------------------------
 
-   if (textura != nullptr) {
-	  glDisable( GL_TEXTURE_2D );
-	  glDisable(GL_TEXTURE_COORD_ARRAY);
-   }
+   // if (!ct.empty())
+   // {
+   //    glDisable(GL_TEXTURE_2D);
+   //    glDisable(GL_TEXTURE_COORD_ARRAY);
+   // }
+
 }
 
 void Malla3D::setMaterial(const Material &mat)
@@ -152,15 +169,13 @@ void Malla3D::setMaterial(const Material &mat)
    m = mat;
 }
 
-void Malla3D::establecerTextura(const string textura)
+void Malla3D::establecerTextura(Textura *text )
 {
-   this->textura = new Textura(textura);
-
+   textura = text;
 }
 
 void Malla3D::set_visual(char visual)
 {
-
    visual_obj = visual;
 }
 

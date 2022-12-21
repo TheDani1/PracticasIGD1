@@ -20,6 +20,8 @@
 //
 // *****************************************************************************
 
+typedef enum {CILINDRICA, ESFERICA, PLANA} tipoTextura;
+
 class Malla3D
 {
    public:
@@ -41,7 +43,7 @@ class Malla3D
 
    void setMaterial(const Material &mat);
 
-   void establecerTextura(const string textura);
+   void establecerTextura(Textura *text);
 
    protected:
 
@@ -55,7 +57,6 @@ class Malla3D
       std::vector<Tupla3f> c_s; // tabla para los colores de los vértices (sólido)
 
       std::vector<Tupla2f> ct; // tabla de coordenadas de textura
-
       Textura *textura = nullptr; // Práctica 5
 
       // completar P1: tabla de colores (hecho)
@@ -70,12 +71,14 @@ class Malla3D
       GLuint id_vbo_c_l = 0; // Se inicializa a 0
       GLuint id_vbo_c_s = 0; // Se inicializa a 0
 
+      GLuint id_vbo_ct = 0; // Se inicializa a 0
+
       Material m; // Práctica 3
 
       GLuint CrearVBO(GLuint tipo_vbo, GLuint tam, GLvoid *puntero_ram);
 
-      void establecerTextura( Textura *textura );
-   
+		tipoTextura tipotext = CILINDRICA;
+
 } ;
 
 #endif

@@ -1,0 +1,262 @@
+==13160== Memcheck, a memory error detector
+==13160== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==13160== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==13160== Command: ./pracs_exe
+==13160== Parent PID: 5502
+==13160== 
+==13160== Invalid read of size 4
+==13160==    at 0x11D32E: ObjRevolucion::crearMalla(std::vector<TuplaG3<float>, std::allocator<TuplaG3<float> > >, int, tipoTextura const&) (objrevolucion.cc:69)
+==13160==    by 0x11D043: ObjRevolucion::ObjRevolucion(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, int, tipoTextura const&, bool) (objrevolucion.cc:29)
+==13160==    by 0x114A65: Escena::Escena() (escena.cc:28)
+==13160==    by 0x12280C: main (practicas.cc:102)
+==13160==  Address 0x533fc10 is 4 bytes after a block of size 156 alloc'd
+==13160==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==13160==    by 0x10F464: __gnu_cxx::new_allocator<TuplaG3<float> >::allocate(unsigned long, void const*) (new_allocator.h:127)
+==13160==    by 0x10F132: std::allocator_traits<std::allocator<TuplaG3<float> > >::allocate(std::allocator<TuplaG3<float> >&, unsigned long) (alloc_traits.h:464)
+==13160==    by 0x10ECEF: std::_Vector_base<TuplaG3<float>, std::allocator<TuplaG3<float> > >::_M_allocate(unsigned long) (stl_vector.h:346)
+==13160==    by 0x10EAEA: std::_Vector_base<TuplaG3<float>, std::allocator<TuplaG3<float> > >::_M_create_storage(unsigned long) (stl_vector.h:361)
+==13160==    by 0x10DFAE: std::_Vector_base<TuplaG3<float>, std::allocator<TuplaG3<float> > >::_Vector_base(unsigned long, std::allocator<TuplaG3<float> > const&) (stl_vector.h:305)
+==13160==    by 0x10DA64: std::vector<TuplaG3<float>, std::allocator<TuplaG3<float> > >::vector(std::vector<TuplaG3<float>, std::allocator<TuplaG3<float> > > const&) (stl_vector.h:555)
+==13160==    by 0x11D02A: ObjRevolucion::ObjRevolucion(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, int, tipoTextura const&, bool) (objrevolucion.cc:29)
+==13160==    by 0x114A65: Escena::Escena() (escena.cc:28)
+==13160==    by 0x12280C: main (practicas.cc:102)
+==13160== 
+==13160== Invalid read of size 4
+==13160==    at 0x11D32E: ObjRevolucion::crearMalla(std::vector<TuplaG3<float>, std::allocator<TuplaG3<float> > >, int, tipoTextura const&) (objrevolucion.cc:69)
+==13160==    by 0x11D043: ObjRevolucion::ObjRevolucion(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, int, tipoTextura const&, bool) (objrevolucion.cc:29)
+==13160==    by 0x114AF5: Escena::Escena() (escena.cc:30)
+==13160==    by 0x12280C: main (practicas.cc:102)
+==13160==  Address 0x534cc40 is 4 bytes after a block of size 156 alloc'd
+==13160==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==13160==    by 0x10F464: __gnu_cxx::new_allocator<TuplaG3<float> >::allocate(unsigned long, void const*) (new_allocator.h:127)
+==13160==    by 0x10F132: std::allocator_traits<std::allocator<TuplaG3<float> > >::allocate(std::allocator<TuplaG3<float> >&, unsigned long) (alloc_traits.h:464)
+==13160==    by 0x10ECEF: std::_Vector_base<TuplaG3<float>, std::allocator<TuplaG3<float> > >::_M_allocate(unsigned long) (stl_vector.h:346)
+==13160==    by 0x10EAEA: std::_Vector_base<TuplaG3<float>, std::allocator<TuplaG3<float> > >::_M_create_storage(unsigned long) (stl_vector.h:361)
+==13160==    by 0x10DFAE: std::_Vector_base<TuplaG3<float>, std::allocator<TuplaG3<float> > >::_Vector_base(unsigned long, std::allocator<TuplaG3<float> > const&) (stl_vector.h:305)
+==13160==    by 0x10DA64: std::vector<TuplaG3<float>, std::allocator<TuplaG3<float> > >::vector(std::vector<TuplaG3<float>, std::allocator<TuplaG3<float> > > const&) (stl_vector.h:555)
+==13160==    by 0x11D02A: ObjRevolucion::ObjRevolucion(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, int, tipoTextura const&, bool) (objrevolucion.cc:29)
+==13160==    by 0x114AF5: Escena::Escena() (escena.cc:30)
+==13160==    by 0x12280C: main (practicas.cc:102)
+==13160== 
+==13160== Invalid read of size 4
+==13160==    at 0x11D32E: ObjRevolucion::crearMalla(std::vector<TuplaG3<float>, std::allocator<TuplaG3<float> > >, int, tipoTextura const&) (objrevolucion.cc:69)
+==13160==    by 0x119B4A: Esfera::Esfera(int, int, float) (esfera.cc:37)
+==13160==    by 0x114B47: Escena::Escena() (escena.cc:32)
+==13160==    by 0x12280C: main (practicas.cc:102)
+==13160==  Address 0x53569c4 is 4 bytes after a block of size 240 alloc'd
+==13160==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==13160==    by 0x10F464: __gnu_cxx::new_allocator<TuplaG3<float> >::allocate(unsigned long, void const*) (new_allocator.h:127)
+==13160==    by 0x10F132: std::allocator_traits<std::allocator<TuplaG3<float> > >::allocate(std::allocator<TuplaG3<float> >&, unsigned long) (alloc_traits.h:464)
+==13160==    by 0x10ECEF: std::_Vector_base<TuplaG3<float>, std::allocator<TuplaG3<float> > >::_M_allocate(unsigned long) (stl_vector.h:346)
+==13160==    by 0x10EAEA: std::_Vector_base<TuplaG3<float>, std::allocator<TuplaG3<float> > >::_M_create_storage(unsigned long) (stl_vector.h:361)
+==13160==    by 0x10DFAE: std::_Vector_base<TuplaG3<float>, std::allocator<TuplaG3<float> > >::_Vector_base(unsigned long, std::allocator<TuplaG3<float> > const&) (stl_vector.h:305)
+==13160==    by 0x10DA64: std::vector<TuplaG3<float>, std::allocator<TuplaG3<float> > >::vector(std::vector<TuplaG3<float>, std::allocator<TuplaG3<float> > > const&) (stl_vector.h:555)
+==13160==    by 0x119B32: Esfera::Esfera(int, int, float) (esfera.cc:37)
+==13160==    by 0x114B47: Escena::Escena() (escena.cc:32)
+==13160==    by 0x12280C: main (practicas.cc:102)
+==13160== 
+==13160== Invalid read of size 4
+==13160==    at 0x11D32E: ObjRevolucion::crearMalla(std::vector<TuplaG3<float>, std::allocator<TuplaG3<float> > >, int, tipoTextura const&) (objrevolucion.cc:69)
+==13160==    by 0x10FA65: Cono::Cono(int, int, float, float) (cono.cc:34)
+==13160==    by 0x114B86: Escena::Escena() (escena.cc:34)
+==13160==    by 0x12280C: main (practicas.cc:102)
+==13160==  Address 0x5366fec is 4 bytes after a block of size 264 alloc'd
+==13160==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==13160==    by 0x10F464: __gnu_cxx::new_allocator<TuplaG3<float> >::allocate(unsigned long, void const*) (new_allocator.h:127)
+==13160==    by 0x10F132: std::allocator_traits<std::allocator<TuplaG3<float> > >::allocate(std::allocator<TuplaG3<float> >&, unsigned long) (alloc_traits.h:464)
+==13160==    by 0x10ECEF: std::_Vector_base<TuplaG3<float>, std::allocator<TuplaG3<float> > >::_M_allocate(unsigned long) (stl_vector.h:346)
+==13160==    by 0x10EAEA: std::_Vector_base<TuplaG3<float>, std::allocator<TuplaG3<float> > >::_M_create_storage(unsigned long) (stl_vector.h:361)
+==13160==    by 0x10DFAE: std::_Vector_base<TuplaG3<float>, std::allocator<TuplaG3<float> > >::_Vector_base(unsigned long, std::allocator<TuplaG3<float> > const&) (stl_vector.h:305)
+==13160==    by 0x10DA64: std::vector<TuplaG3<float>, std::allocator<TuplaG3<float> > >::vector(std::vector<TuplaG3<float>, std::allocator<TuplaG3<float> > > const&) (stl_vector.h:555)
+==13160==    by 0x10FA4D: Cono::Cono(int, int, float, float) (cono.cc:34)
+==13160==    by 0x114B86: Escena::Escena() (escena.cc:34)
+==13160==    by 0x12280C: main (practicas.cc:102)
+==13160== 
+==13160== Invalid read of size 4
+==13160==    at 0x11D32E: ObjRevolucion::crearMalla(std::vector<TuplaG3<float>, std::allocator<TuplaG3<float> > >, int, tipoTextura const&) (objrevolucion.cc:69)
+==13160==    by 0x10D3A8: Cilindro::Cilindro(int, int, float, float) (cilindro.cc:34)
+==13160==    by 0x114BC5: Escena::Escena() (escena.cc:36)
+==13160==    by 0x12280C: main (practicas.cc:102)
+==13160==  Address 0x5377c08 is 4 bytes after a block of size 276 alloc'd
+==13160==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==13160==    by 0x10F464: __gnu_cxx::new_allocator<TuplaG3<float> >::allocate(unsigned long, void const*) (new_allocator.h:127)
+==13160==    by 0x10F132: std::allocator_traits<std::allocator<TuplaG3<float> > >::allocate(std::allocator<TuplaG3<float> >&, unsigned long) (alloc_traits.h:464)
+==13160==    by 0x10ECEF: std::_Vector_base<TuplaG3<float>, std::allocator<TuplaG3<float> > >::_M_allocate(unsigned long) (stl_vector.h:346)
+==13160==    by 0x10EAEA: std::_Vector_base<TuplaG3<float>, std::allocator<TuplaG3<float> > >::_M_create_storage(unsigned long) (stl_vector.h:361)
+==13160==    by 0x10DFAE: std::_Vector_base<TuplaG3<float>, std::allocator<TuplaG3<float> > >::_Vector_base(unsigned long, std::allocator<TuplaG3<float> > const&) (stl_vector.h:305)
+==13160==    by 0x10DA64: std::vector<TuplaG3<float>, std::allocator<TuplaG3<float> > >::vector(std::vector<TuplaG3<float>, std::allocator<TuplaG3<float> > > const&) (stl_vector.h:555)
+==13160==    by 0x10D390: Cilindro::Cilindro(int, int, float, float) (cilindro.cc:34)
+==13160==    by 0x114BC5: Escena::Escena() (escena.cc:36)
+==13160==    by 0x12280C: main (practicas.cc:102)
+==13160== 
+==13160== Conditional jump or move depends on uninitialised value(s)
+==13160==    at 0x4D15C2D: atan2 (w_atan2_compat.c:35)
+==13160==    by 0x11E273: ObjRevolucion::calcularCoordTextura(tipoTextura const&, std::vector<TuplaG3<float>, std::allocator<TuplaG3<float> > >, int) (objrevolucion.cc:255)
+==13160==    by 0x10D3F3: Cilindro::Cilindro(int, int, float, float) (cilindro.cc:36)
+==13160==    by 0x114BC5: Escena::Escena() (escena.cc:36)
+==13160==    by 0x12280C: main (practicas.cc:102)
+==13160== 
+==13160== Conditional jump or move depends on uninitialised value(s)
+==13160==    at 0x4D15C3B: atan2 (w_atan2_compat.c:35)
+==13160==    by 0x11E273: ObjRevolucion::calcularCoordTextura(tipoTextura const&, std::vector<TuplaG3<float>, std::allocator<TuplaG3<float> > >, int) (objrevolucion.cc:255)
+==13160==    by 0x10D3F3: Cilindro::Cilindro(int, int, float, float) (cilindro.cc:36)
+==13160==    by 0x114BC5: Escena::Escena() (escena.cc:36)
+==13160==    by 0x12280C: main (practicas.cc:102)
+==13160== 
+==13160== Conditional jump or move depends on uninitialised value(s)
+==13160==    at 0x4D7D0BB: __ieee754_atan2_fma (e_atan2.c:73)
+==13160==    by 0x4D15C54: atan2 (w_atan2_compat.c:38)
+==13160==    by 0x11E273: ObjRevolucion::calcularCoordTextura(tipoTextura const&, std::vector<TuplaG3<float>, std::allocator<TuplaG3<float> > >, int) (objrevolucion.cc:255)
+==13160==    by 0x10D3F3: Cilindro::Cilindro(int, int, float, float) (cilindro.cc:36)
+==13160==    by 0x114BC5: Escena::Escena() (escena.cc:36)
+==13160==    by 0x12280C: main (practicas.cc:102)
+==13160== 
+==13160== Conditional jump or move depends on uninitialised value(s)
+==13160==    at 0x4D7D0DD: __ieee754_atan2_fma (e_atan2.c:81)
+==13160==    by 0x4D15C54: atan2 (w_atan2_compat.c:38)
+==13160==    by 0x11E273: ObjRevolucion::calcularCoordTextura(tipoTextura const&, std::vector<TuplaG3<float>, std::allocator<TuplaG3<float> > >, int) (objrevolucion.cc:255)
+==13160==    by 0x10D3F3: Cilindro::Cilindro(int, int, float, float) (cilindro.cc:36)
+==13160==    by 0x114BC5: Escena::Escena() (escena.cc:36)
+==13160==    by 0x12280C: main (practicas.cc:102)
+==13160== 
+==13160== Conditional jump or move depends on uninitialised value(s)
+==13160==    at 0x4D7D0E1: __ieee754_atan2_fma (e_atan2.c:88)
+==13160==    by 0x4D15C54: atan2 (w_atan2_compat.c:38)
+==13160==    by 0x11E273: ObjRevolucion::calcularCoordTextura(tipoTextura const&, std::vector<TuplaG3<float>, std::allocator<TuplaG3<float> > >, int) (objrevolucion.cc:255)
+==13160==    by 0x10D3F3: Cilindro::Cilindro(int, int, float, float) (cilindro.cc:36)
+==13160==    by 0x114BC5: Escena::Escena() (escena.cc:36)
+==13160==    by 0x12280C: main (practicas.cc:102)
+==13160== 
+==13160== Conditional jump or move depends on uninitialised value(s)
+==13160==    at 0x4D7D0E5: __ieee754_atan2_fma (e_atan2.c:90)
+==13160==    by 0x4D15C54: atan2 (w_atan2_compat.c:38)
+==13160==    by 0x11E273: ObjRevolucion::calcularCoordTextura(tipoTextura const&, std::vector<TuplaG3<float>, std::allocator<TuplaG3<float> > >, int) (objrevolucion.cc:255)
+==13160==    by 0x10D3F3: Cilindro::Cilindro(int, int, float, float) (cilindro.cc:36)
+==13160==    by 0x114BC5: Escena::Escena() (escena.cc:36)
+==13160==    by 0x12280C: main (practicas.cc:102)
+==13160== 
+==13160== Conditional jump or move depends on uninitialised value(s)
+==13160==    at 0x4D7D28A: __ieee754_atan2_fma (e_atan2.c:92)
+==13160==    by 0x4D15C54: atan2 (w_atan2_compat.c:38)
+==13160==    by 0x11E273: ObjRevolucion::calcularCoordTextura(tipoTextura const&, std::vector<TuplaG3<float>, std::allocator<TuplaG3<float> > >, int) (objrevolucion.cc:255)
+==13160==    by 0x10D3F3: Cilindro::Cilindro(int, int, float, float) (cilindro.cc:36)
+==13160==    by 0x114BC5: Escena::Escena() (escena.cc:36)
+==13160==    by 0x12280C: main (practicas.cc:102)
+==13160== 
+==13160== Conditional jump or move depends on uninitialised value(s)
+==13160==    at 0x4D15C88: atan2 (w_atan2_compat.c:39)
+==13160==    by 0x11E273: ObjRevolucion::calcularCoordTextura(tipoTextura const&, std::vector<TuplaG3<float>, std::allocator<TuplaG3<float> > >, int) (objrevolucion.cc:255)
+==13160==    by 0x10D3F3: Cilindro::Cilindro(int, int, float, float) (cilindro.cc:36)
+==13160==    by 0x114BC5: Escena::Escena() (escena.cc:36)
+==13160==    by 0x12280C: main (practicas.cc:102)
+==13160== 
+==13160== Invalid write of size 8
+==13160==    at 0x11E375: ObjRevolucion::calcularCoordTextura(tipoTextura const&, std::vector<TuplaG3<float>, std::allocator<TuplaG3<float> > >, int) (objrevolucion.cc:261)
+==13160==    by 0x10D3F3: Cilindro::Cilindro(int, int, float, float) (cilindro.cc:36)
+==13160==    by 0x114BC5: Escena::Escena() (escena.cc:36)
+==13160==    by 0x12280C: main (practicas.cc:102)
+==13160==  Address 0x53857b0 is 240 bytes inside an unallocated block of size 3,791,136 in arena "client"
+==13160== 
+==13160== Invalid read of size 4
+==13160==    at 0x11D32E: ObjRevolucion::crearMalla(std::vector<TuplaG3<float>, std::allocator<TuplaG3<float> > >, int, tipoTextura const&) (objrevolucion.cc:69)
+==13160==    by 0x10D3A8: Cilindro::Cilindro(int, int, float, float) (cilindro.cc:34)
+==13160==    by 0x11A2CC: Foco::Foco() (foco.cc:14)
+==13160==    by 0x114BE8: Escena::Escena() (escena.cc:42)
+==13160==    by 0x12280C: main (practicas.cc:102)
+==13160==  Address 0x5389a68 is 4 bytes after a block of size 276 alloc'd
+==13160==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==13160==    by 0x10F464: __gnu_cxx::new_allocator<TuplaG3<float> >::allocate(unsigned long, void const*) (new_allocator.h:127)
+==13160==    by 0x10F132: std::allocator_traits<std::allocator<TuplaG3<float> > >::allocate(std::allocator<TuplaG3<float> >&, unsigned long) (alloc_traits.h:464)
+==13160==    by 0x10ECEF: std::_Vector_base<TuplaG3<float>, std::allocator<TuplaG3<float> > >::_M_allocate(unsigned long) (stl_vector.h:346)
+==13160==    by 0x10EAEA: std::_Vector_base<TuplaG3<float>, std::allocator<TuplaG3<float> > >::_M_create_storage(unsigned long) (stl_vector.h:361)
+==13160==    by 0x10DFAE: std::_Vector_base<TuplaG3<float>, std::allocator<TuplaG3<float> > >::_Vector_base(unsigned long, std::allocator<TuplaG3<float> > const&) (stl_vector.h:305)
+==13160==    by 0x10DA64: std::vector<TuplaG3<float>, std::allocator<TuplaG3<float> > >::vector(std::vector<TuplaG3<float>, std::allocator<TuplaG3<float> > > const&) (stl_vector.h:555)
+==13160==    by 0x10D390: Cilindro::Cilindro(int, int, float, float) (cilindro.cc:34)
+==13160==    by 0x11A2CC: Foco::Foco() (foco.cc:14)
+==13160==    by 0x114BE8: Escena::Escena() (escena.cc:42)
+==13160==    by 0x12280C: main (practicas.cc:102)
+==13160== 
+==13160== Conditional jump or move depends on uninitialised value(s)
+==13160==    at 0x4D15C2D: atan2 (w_atan2_compat.c:35)
+==13160==    by 0x11E273: ObjRevolucion::calcularCoordTextura(tipoTextura const&, std::vector<TuplaG3<float>, std::allocator<TuplaG3<float> > >, int) (objrevolucion.cc:255)
+==13160==    by 0x10D3F3: Cilindro::Cilindro(int, int, float, float) (cilindro.cc:36)
+==13160==    by 0x11A2CC: Foco::Foco() (foco.cc:14)
+==13160==    by 0x114BE8: Escena::Escena() (escena.cc:42)
+==13160==    by 0x12280C: main (practicas.cc:102)
+==13160== 
+==13160== Conditional jump or move depends on uninitialised value(s)
+==13160==    at 0x4D15C3B: atan2 (w_atan2_compat.c:35)
+==13160==    by 0x11E273: ObjRevolucion::calcularCoordTextura(tipoTextura const&, std::vector<TuplaG3<float>, std::allocator<TuplaG3<float> > >, int) (objrevolucion.cc:255)
+==13160==    by 0x10D3F3: Cilindro::Cilindro(int, int, float, float) (cilindro.cc:36)
+==13160==    by 0x11A2CC: Foco::Foco() (foco.cc:14)
+==13160==    by 0x114BE8: Escena::Escena() (escena.cc:42)
+==13160==    by 0x12280C: main (practicas.cc:102)
+==13160== 
+==13160== Conditional jump or move depends on uninitialised value(s)
+==13160==    at 0x4D15C88: atan2 (w_atan2_compat.c:39)
+==13160==    by 0x11E273: ObjRevolucion::calcularCoordTextura(tipoTextura const&, std::vector<TuplaG3<float>, std::allocator<TuplaG3<float> > >, int) (objrevolucion.cc:255)
+==13160==    by 0x10D3F3: Cilindro::Cilindro(int, int, float, float) (cilindro.cc:36)
+==13160==    by 0x11A2CC: Foco::Foco() (foco.cc:14)
+==13160==    by 0x114BE8: Escena::Escena() (escena.cc:42)
+==13160==    by 0x12280C: main (practicas.cc:102)
+==13160== 
+==13160== Invalid write of size 8
+==13160==    at 0x11E375: ObjRevolucion::calcularCoordTextura(tipoTextura const&, std::vector<TuplaG3<float>, std::allocator<TuplaG3<float> > >, int) (objrevolucion.cc:261)
+==13160==    by 0x10D3F3: Cilindro::Cilindro(int, int, float, float) (cilindro.cc:36)
+==13160==    by 0x11A2CC: Foco::Foco() (foco.cc:14)
+==13160==    by 0x114BE8: Escena::Escena() (escena.cc:42)
+==13160==    by 0x12280C: main (practicas.cc:102)
+==13160==  Address 0x5397610 is 240 bytes inside an unallocated block of size 3,717,824 in arena "client"
+==13160== 
+==13160== Warning: noted but unhandled ioctl 0x6444 with no size/direction hints.
+==13160==    This could cause spurious value errors to appear.
+==13160==    See README_MISSING_SYSCALL_OR_IOCTL for guidance on writing a proper wrapper.
+==13160== Invalid read of size 4
+==13160==    at 0x122C1E: Textura::activar() (textura.cc:57)
+==13160==    by 0x11B410: Malla3D::draw(unsigned int) (malla.cc:128)
+==13160==    by 0x11A46E: Foco::draw(unsigned int) (foco.cc:26)
+==13160==    by 0x1168FF: Escena::dibujar() (escena.cc:551)
+==13160==    by 0x1226DB: draw_scene() (practicas.cc:28)
+==13160==    by 0x4A2772A: ??? (in /usr/lib/x86_64-linux-gnu/libglut.so.3.9.0)
+==13160==    by 0x4A2B0C0: fgEnumWindows (in /usr/lib/x86_64-linux-gnu/libglut.so.3.9.0)
+==13160==    by 0x4A27CBA: glutMainLoopEvent (in /usr/lib/x86_64-linux-gnu/libglut.so.3.9.0)
+==13160==    by 0x4A28578: glutMainLoop (in /usr/lib/x86_64-linux-gnu/libglut.so.3.9.0)
+==13160==    by 0x12292E: main (practicas.cc:158)
+==13160==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
+==13160== 
+==13160== 
+==13160== Process terminating with default action of signal 11 (SIGSEGV)
+==13160==  Access not within mapped region at address 0x0
+==13160==    at 0x122C1E: Textura::activar() (textura.cc:57)
+==13160==    by 0x11B410: Malla3D::draw(unsigned int) (malla.cc:128)
+==13160==    by 0x11A46E: Foco::draw(unsigned int) (foco.cc:26)
+==13160==    by 0x1168FF: Escena::dibujar() (escena.cc:551)
+==13160==    by 0x1226DB: draw_scene() (practicas.cc:28)
+==13160==    by 0x4A2772A: ??? (in /usr/lib/x86_64-linux-gnu/libglut.so.3.9.0)
+==13160==    by 0x4A2B0C0: fgEnumWindows (in /usr/lib/x86_64-linux-gnu/libglut.so.3.9.0)
+==13160==    by 0x4A27CBA: glutMainLoopEvent (in /usr/lib/x86_64-linux-gnu/libglut.so.3.9.0)
+==13160==    by 0x4A28578: glutMainLoop (in /usr/lib/x86_64-linux-gnu/libglut.so.3.9.0)
+==13160==    by 0x12292E: main (practicas.cc:158)
+==13160==  If you believe this happened as a result of a stack
+==13160==  overflow in your program's main thread (unlikely but
+==13160==  possible), you can try to increase the size of the
+==13160==  main thread stack using the --main-stacksize= flag.
+==13160==  The main thread stack size used in this run was 8388608.
+==13160== 
+==13160== HEAP SUMMARY:
+==13160==     in use at exit: 12,253,943 bytes in 5,470 blocks
+==13160==   total heap usage: 8,795 allocs, 3,325 frees, 410,152,129 bytes allocated
+==13160== 
+==13160== LEAK SUMMARY:
+==13160==    definitely lost: 1,107,313 bytes in 7 blocks
+==13160==    indirectly lost: 162,667 bytes in 908 blocks
+==13160==      possibly lost: 3,237,059 bytes in 70 blocks
+==13160==    still reachable: 7,746,904 bytes in 4,485 blocks
+==13160==                       of which reachable via heuristic:
+==13160==                         multipleinheritance: 192 bytes in 1 blocks
+==13160==         suppressed: 0 bytes in 0 blocks
+==13160== Rerun with --leak-check=full to see details of leaked memory
+==13160== 
+==13160== Use --track-origins=yes to see where uninitialised values come from
+==13160== For lists of detected and suppressed errors, rerun with: -s
+==13160== ERROR SUMMARY: 421 errors from 20 contexts (suppressed: 0 from 0)

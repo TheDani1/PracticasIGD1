@@ -15,7 +15,7 @@
 
 ObjRevolucion::ObjRevolucion() {}
 
-ObjRevolucion::ObjRevolucion(const std::string &archivo, int num_instancias)
+ObjRevolucion::ObjRevolucion(const std::string &archivo, int num_instancias, const tipoTextura & modo, bool conTextura)
 {
    // completar ......(práctica 2)
 
@@ -24,7 +24,9 @@ ObjRevolucion::ObjRevolucion(const std::string &archivo, int num_instancias)
 
    ply::read_vertices(archivo, this->v);
 
-   crearMalla(v, num_instancias);
+   this->tipotext = modo;
+
+   crearMalla(v, num_instancias, tipotext);
 
    c_p.resize(v.size());
    c_l.resize(v.size());
@@ -46,12 +48,14 @@ ObjRevolucion::ObjRevolucion(const std::string &archivo, int num_instancias)
 // *****************************************************************************
 // objeto de revolución obtenido a partir de un perfil (en un vector de puntos)
 
-ObjRevolucion::ObjRevolucion(std::vector<Tupla3f> archivo, int num_instancias)
+ObjRevolucion::ObjRevolucion(std::vector<Tupla3f> archivo, int num_instancias, bool conTextura)
 {
 }
 
-void ObjRevolucion::crearMalla(std::vector<Tupla3f> perfil_original, int num_instancias)
+void ObjRevolucion::crearMalla(std::vector<Tupla3f> perfil_original, int num_instancias, const tipoTextura & modo)
 {
+
+   this->conTextura = conTextura;
 
    // VERIFICAMOS QUE ESTÉ EN EL SENTIDO QUE NOSOTROS QUEREMOS Y SI NO LO INVERTIMOS
 
@@ -169,6 +173,7 @@ void ObjRevolucion::crearMalla(std::vector<Tupla3f> perfil_original, int num_ins
    }
 
    calcularNormales();
+
 }
 
 void ObjRevolucion::tapaSuperior(std::vector<Tupla3f> perfil_original, int num_instancias, int norte)
@@ -220,22 +225,81 @@ void ObjRevolucion::tapaInferior(std::vector<Tupla3f> perfil_original, int num_i
    f.push_back(Tupla3i(perfil_original.size() * (num_instancias - 1), sur, 0));
 }
 
-void ObjRevolucion::calcularCoordTextura()
+void ObjRevolucion::calcularCoordTextura(const tipoTextura & modo, std::vector<Tupla3f> perfil_original, int num_instancias)
 {
 
    ct.resize(v.size());
 
-   for (int i = 0; i < ct.size(); i++)
-   {
-      ct[i] = {v[i](0), (v[i](1) - v.front()(1)) / (v.back()(1) - v.front()(1))};
-   }
+	float alpha, beta, h;
 
-}
+	float s, t;
 
-void ObjRevolucion::establecerTextura(const string textura)
-{
-   this->textura = new Textura(textura);
+	switch (modo){
+		case CILINDRICA:
+			for (int i = 0; i < ct.size(); i++){
+				alpha = atan2( v[i](2), v[i](0) );
+				h = v[i](1);
 
-   calcularCoordTextura();
+				s = 1 - ( 0.5 + (alpha/(M_PI*2)) );
+				s += 0.5;
+				s = fmod(s, 1.0);
+
+				//std::cout << s <<  " " << alpha << std::endl;
+				t = (h - perfil_original.front()(1) ) / (perfil_original.back()(1) - perfil_original.front()(1)) ;
+
+				ct[i] = {s, t};
+
+			}
+
+			for (int i = (perfil_original.size() * num_instancias); i < perfil_original.size() * (num_instancias + 1); i++){
+				alpha = atan2( v[i](2), v[i](0) );
+				h = v[i](1);
+
+				s = 1.0f;
+				t = (h - perfil_original.front()(1) ) / (perfil_original.back()(1) - perfil_original.front()(1)) ;
+
+				ct[i] = {s, t};
+			}
+
+			break;
+
+		case ESFERICA:
+			for (int i = 0; i < ct.size(); i++){
+				alpha = atan2( v[i](2), v[i](0) );
+				beta = atan2( v[i](1), sqrt( pow( v[i](0) ,2) + pow ( v[i](2) ,2) ) );
+
+				s = 1 - ( 0.5 + (alpha/(M_PI*2)) );
+				s += 0.5;
+				s = fmod(s, 1.0);
+				t = 0.5 + beta/M_PI;
+
+				ct[i] = {s, t};
+			}
+
+			// asignamos las coordenadas de los extremos
+			for (int i = num_instancias; i <= ct.size(); i = i + num_instancias){
+
+				ct[i - num_instancias] = {0.0f, 0.0f};
+				ct[i - 1] = {0.0f, 1.0f};
+			}
+
+			for (int i = perfil_original.size() * num_instancias ; i < v.size(); i++){
+				alpha = atan2( v[i](2), v[i](0) );
+				beta = atan2( v[i](1), sqrt( pow( v[i](0) ,2) + pow ( v[i](2) ,2) ) );
+
+				s = 1;
+				t = 0.5 + beta/M_PI;
+
+				ct[i] = {s, t};
+			}
+
+			break;
+		case PLANA:
+			for (int i = 0; i < ct.size(); i++){
+				ct[i] = {v[i](0), (v[i](1) - v.front()(1) ) / (v.back()(1) - v.front()(1))} ;
+			}
+			break;
+
+	}
 
 }

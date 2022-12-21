@@ -32,7 +32,9 @@ Esfera::Esfera(const int num_vert_perfil, const int num_instancias_perf, const f
     }
     perfil_original.push_back(Tupla3f(0, radio * -1, 0));
 
-    crearMalla(perfil_original, num_instancias_perf);
+    tipotext = ESFERICA;
+
+    crearMalla(perfil_original, num_instancias_perf, tipotext);
 
     c_p.resize(v.size());
     c_l.resize(v.size());
@@ -47,5 +49,6 @@ Esfera::Esfera(const int num_vert_perfil, const int num_instancias_perf, const f
     color_lineas(azul);
 
     color_solido(verde);
+
 
 }

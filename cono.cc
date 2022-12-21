@@ -29,7 +29,9 @@ Cono::Cono(const int num_vert_perfil,
         perfil_original.push_back({sep_h * (num_vert_perfil - i), sep_v * i, 0});
     }
 
-    crearMalla(perfil_original, num_instancias_perf);
+    tipotext = CILINDRICA;
+
+    crearMalla(perfil_original, num_instancias_perf, tipotext);
 
     c_p.resize(v.size());
     c_l.resize(v.size());

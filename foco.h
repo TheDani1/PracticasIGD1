@@ -37,6 +37,8 @@ class Foco
    
    void addTransX(float transX);
 
+   void setMaterial(const Material &mat);
+
    float getGiroY();
    float getGiroZ();
    float getTransX();
@@ -50,6 +52,7 @@ class Foco
    float giroZ = 0; // GIRO Z COMO MÁXIMO 95 Y COMO MÍNIMO -95
 
    float transX = 0;
+
 
 };
 

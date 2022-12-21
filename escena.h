@@ -22,7 +22,8 @@ typedef enum
     NADA,
     SELOBJETO,
     SELVISUALIZACION,
-    MOVIMIENTO
+    MOVIMIENTO,
+    ANIMACION
 } menu;
 
 class Escena
@@ -31,8 +32,13 @@ class Escena
 private:
 
     bool visual_obj[4] = {false , false, true, false}; // Puntos, lineas, solido, iluminación
-    bool sel_obj[7] = {true, true, true, true, true, true, false}; // Piramide, cilindro, esfera, peón, cubo , escultura y foco (mj)
+    bool sel_obj[7] = {false, false, false, false, false, false, true}; // Piramide, cilindro, esfera, peón, cubo , escultura y foco (mj)
     bool grad_lib[3] = {false, false, false}; // Giro Y, Giro Z, Translate
+
+    float velocidadAnimacionX = 1.0f; // LIMITE DE 17 y -17
+    float velocidadAnimacionZY = 1.0f; // LIMITE DE 90 y -90
+
+    bool animacion = false;
 
     // ** PARÁMETROS DE LA CÁMARA (PROVISIONAL)
 
@@ -63,12 +69,16 @@ private:
     Cilindro *cilindro = nullptr;              // es importante inicializarlo a 'nullptr'
     Foco *foco = nullptr;                      // es importante inicializarlo a 'nullptr'
 
-    Flecha *flecha = nullptr;
-    Flecha *flecha1 = nullptr;
-    Flecha *flecha2 = nullptr;
+    // Flecha *flecha = nullptr;
+    // Flecha *flecha1 = nullptr;
+    // Flecha *flecha2 = nullptr;
 
     LuzPosicional *luz0 = nullptr;
     LuzDireccional *luz1 = nullptr;
+
+    void visualizar_menu();
+    void evento(string evento);
+    void error(string error);
 
 public:
     Escena();
@@ -81,5 +91,7 @@ public:
     // Interacción con la escena
     bool teclaPulsada(unsigned char Tecla1, int x, int y);
     void teclaEspecial(int Tecla1, int x, int y);
+
+    void animarModeloJerarquico();
 };
 #endif

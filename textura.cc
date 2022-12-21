@@ -13,7 +13,7 @@ Textura::Textura(string archivo)
 {
 
     // leer los texels de un archivo y
-    // enviarlos a la GPU o la memoria de vídeo, inicializando el 
+    // enviarlos a la GPU o la memoria de vídeo, inicializando el
     // identificador de textura de OpenGL
 
     jpg::Imagen *pimg = NULL;
@@ -24,46 +24,44 @@ Textura::Textura(string archivo)
 
     height = pimg->tamY();
 
-    data.resize(3 * width * height);
+    unsigned char *leidos;
 
-    for (int i = 0; i < width; i++)
+    for (unsigned i = 0; i < height; i++)
     {
-        for (int j = 0; j < height; j++)
+        for (unsigned j = 0; j < width; j++)
         {
-            unsigned char r, g, b;
+            leidos = pimg->leerPixel(j, height - i - 1);
+            // introducimos R
+            data.push_back(*leidos);
+            leidos++;
 
-            pimg->leerPixel(i, j);
+            // introducimos
+            data.push_back(*leidos);
+            leidos++;
 
-            data[3 * (i + j * width)] = r;
-            data[3 * (i + j * width) + 1] = g;
-            data[3 * (i + j * width) + 2] = b;
+            // introducimos B
+            data.push_back(*leidos);
+            leidos++;
         }
     }
 
-    delete pimg;
-
     textura_id = -1;
-
-    activar();
 }
 
 void Textura::activar()
 {
 
-    glEnable(GL_TEXTURE_2D);
-
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
     // sin esta linea no funcionan
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
     if (textura_id == -1)
     {
         glGenTextures(1, &textura_id);
-        glBindTexture(GL_TEXTURE_2D, textura_id);
 
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data.data());
+        gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGB, width, height, GL_RGB, GL_UNSIGNED_BYTE, data.data());
     }
 
     glBindTexture(GL_TEXTURE_2D, textura_id);

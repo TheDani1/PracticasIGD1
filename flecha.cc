@@ -17,7 +17,7 @@ Flecha::Flecha(float hPunta=1.0f, float hAstil=1.0f, int nRev=30){
 
     perfil_original.push_back(Tupla3f(0, hAstil, 0));
 
-    crearMalla(perfil_original, nRev);
+    crearMalla(perfil_original, nRev, CILINDRICA);
 
     c_p.resize(v.size());
     c_l.resize(v.size());
