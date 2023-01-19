@@ -12,6 +12,7 @@
 #include "cilindro.h"
 #include "flecha.h"
 #include "foco.h"
+#include "cuadro.h"
 
 #include "luz.h"
 #include "luzDireccional.h"
@@ -23,7 +24,8 @@ typedef enum
     SELOBJETO,
     SELVISUALIZACION,
     MOVIMIENTO,
-    ANIMACION
+    ANIMACION,
+    LUZ
 } menu;
 
 class Escena
@@ -32,13 +34,20 @@ class Escena
 private:
 
     bool visual_obj[4] = {false , false, true, false}; // Puntos, lineas, solido, iluminación
-    bool sel_obj[7] = {false, false, false, false, false, false, true}; // Piramide, cilindro, esfera, peón, cubo , escultura y foco (mj)
+    bool sel_obj[7] = {true, true, true, false, true, false, false}; // Piramide, cilindro, esfera, peón, cubo , escultura y foco (mj)
     bool grad_lib[3] = {false, false, false}; // Giro Y, Giro Z, Translate
 
     float velocidadAnimacionX = 1.0f; // LIMITE DE 17 y -17
     float velocidadAnimacionZY = 1.0f; // LIMITE DE 90 y -90
 
+    float rotacionLuzPuntual = 0.0f;
+    float velocidadLuzPuntual = 1.3f;
+
+    float factor_aumento = 0.001F;
+
     bool animacion = false;
+    bool animacion_luz = false;
+    bool animacion_color = false;
 
     // ** PARÁMETROS DE LA CÁMARA (PROVISIONAL)
 
@@ -68,6 +77,7 @@ private:
     Cono *cono = nullptr;                      // es importante inicializarlo a 'nullptr'
     Cilindro *cilindro = nullptr;              // es importante inicializarlo a 'nullptr'
     Foco *foco = nullptr;                      // es importante inicializarlo a 'nullptr'
+    Cuadro *cuadro = nullptr;                  // es importante inicializarlo a 'nullptr'
 
     // Flecha *flecha = nullptr;
     // Flecha *flecha1 = nullptr;

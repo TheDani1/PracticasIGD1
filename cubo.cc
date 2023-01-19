@@ -48,12 +48,13 @@ Cubo::Cubo(float lado=1)
    Tupla3f rojo  ( 1 , 0 , 0 );
    Tupla3f verde ( 0 , 1 , 0 );
    Tupla3f azul  ( 0 , 0 , 1 );
+   Tupla3f blanco(0.9f, 0.9f, 0.9f);
 
    color_puntos(rojo);
 
    color_lineas(verde);
 
-   color_solido(azul);
+   color_solido(blanco);
 
    // // CUBO RGB
    // Tupla3f c0_rgb ( 0.0f , 0.0f , 0.0f );

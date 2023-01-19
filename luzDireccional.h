@@ -25,8 +25,7 @@ public:
                      const Tupla4f colorEspecular = Tupla4f(1.0f, 1.0f, 1.0f, 1.0f),
                      const Tupla4f colorDifuso = Tupla4f(1.0f, 1.0f, 1.0f, 1.0f));
 
-    void variarAnguloAlpha(float incremento);
-    void variarAnguloBeta(float incremento);
+    void variarColorDifuso(float incremento);
 };
 
 #endif

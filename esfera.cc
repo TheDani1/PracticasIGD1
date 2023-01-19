@@ -36,6 +36,9 @@ Esfera::Esfera(const int num_vert_perfil, const int num_instancias_perf, const f
 
     crearMalla(perfil_original, num_instancias_perf, tipotext);
 
+    std::cout << "Tamano de perfil: " << perfil_original.size() << std::endl;
+    std::cout << "Tamano de vertices: " << v.size() << std::endl;
+
     c_p.resize(v.size());
     c_l.resize(v.size());
     c_s.resize(v.size());
@@ -43,12 +46,13 @@ Esfera::Esfera(const int num_vert_perfil, const int num_instancias_perf, const f
     Tupla3f rojo(1, 0, 0);
     Tupla3f verde(0, 1, 0);
     Tupla3f azul(0, 0, 1);
+    Tupla3f blanco(0.9f, 0.9f, 0.9f);
 
     color_puntos(rojo);
 
     color_lineas(azul);
 
-    color_solido(verde);
+    color_solido(blanco);
 
 
 }

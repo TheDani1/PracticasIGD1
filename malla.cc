@@ -9,13 +9,21 @@
 // -----------------------------------------------------------------------------
 // Función de visualización de la malla,
 
+#define EPSILON 0.0001
+
 void Malla3D::draw(const GLenum modo)
 {
+
+   if (!coordenadas_textura_creadas)
+   {
+      calcularCoordTextura();
+   }
+
    // (la primera vez, se deben crear los VBOs y guardar sus identificadores en el objeto)
    // completar (práctica 1)
    // .....
 
-   glShadeModel(GL_SMOOTH);
+   // glShadeModel(GL_SMOOTH);
 
    if (id_vbo_tri == 0)
    {
@@ -33,7 +41,7 @@ void Malla3D::draw(const GLenum modo)
       id_vbo_nv = CrearVBO(GL_ARRAY_BUFFER, 3 * nv.size() * sizeof(float), nv.data());
    }
 
-   if(id_vbo_ct == 0)
+   if (id_vbo_ct == 0)
    {
       id_vbo_ct = CrearVBO(GL_ARRAY_BUFFER, 2 * ct.size() * sizeof(float), ct.data());
    }
@@ -119,21 +127,19 @@ void Malla3D::draw(const GLenum modo)
       m.aplicar();
    }
 
-
    // Si existen las coordenadas de textura
 
-   // if(!ct.empty())
-   // {
+   if (textura.texturaActivada())
+   {
 
-   //    textura->activar();
+      glEnable(GL_TEXTURE_2D);
+      glBindBuffer(GL_ARRAY_BUFFER, id_vbo_ct);
+      glTexCoordPointer(2, GL_FLOAT, 0, 0);
+      glBindBuffer(GL_ARRAY_BUFFER, 0);
+      glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+      textura.activar();
+   }
 
-   //    glEnable(GL_TEXTURE_2D);
-   //    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-   //    // usar como buffer de coordenadas de textura el actualmente activo
-   //    glTexCoordPointer(2, GL_FLOAT, 0, 0);
-
-   // }
-   
    // habilitar el uso de tabla de vértices
    glEnableClientState(GL_VERTEX_ARRAY);
 
@@ -148,20 +154,21 @@ void Malla3D::draw(const GLenum modo)
 
    // desactivar uso de array de vértices
    glDisableClientState(GL_VERTEX_ARRAY);
+   glDisableClientState(GL_COLOR_ARRAY);
 
    if (glIsEnabled(GL_LIGHTING))
    {
-      glDisableClientState(GL_LIGHTING);
+      glDisable(GL_NORMALIZE);
+      glDisableClientState(GL_NORMAL_ARRAY);
    }
 
    // TEXTURAS -------------------------------------
 
-   // if (!ct.empty())
-   // {
-   //    glDisable(GL_TEXTURE_2D);
-   //    glDisable(GL_TEXTURE_COORD_ARRAY);
-   // }
-
+   if (textura.texturaActivada())
+   {
+      glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+      glDisable(GL_TEXTURE_2D);
+   }
 }
 
 void Malla3D::setMaterial(const Material &mat)
@@ -169,9 +176,9 @@ void Malla3D::setMaterial(const Material &mat)
    m = mat;
 }
 
-void Malla3D::establecerTextura(Textura *text )
+void Malla3D::setTextura(const std::string &archivo)
 {
-   textura = text;
+   textura.crearTextura(archivo);
 }
 
 void Malla3D::set_visual(char visual)
@@ -250,4 +257,134 @@ void Malla3D::calcularNormales()
    {
       nv[i] = nv[i].normalized();
    }
+}
+
+bool Malla3D::calcular_coordscilindricas()
+{
+   Tupla3f pMax = v[0];
+
+   // Se recorren todos los vértices
+   for (int i = 1; i < v.size(); i++)
+   {
+      if (v[i][0] > pMax[0]) // x
+         pMax[0] = v[i][0];
+
+      if (v[i][1] > pMax[1]) // y
+         pMax[1] = v[i][1];
+
+      if (v[i][2] > pMax[2]) // z
+         pMax[2] = v[i][2];
+   }
+
+   Tupla3f pMin = v[0];
+
+   // Se recorren todos los vértices
+   for (int i = 1; i < v.size(); i++)
+   {
+      if (v[i][0] < pMax[0]) // x
+         pMax[0] = v[i][0];
+
+      if (v[i][1] < pMax[1]) // y
+         pMax[1] = v[i][1];
+
+      if (v[i][2] < pMax[2]) // z
+         pMax[2] = v[i][2];
+   }
+
+   // Se calcula alfa u y v como indica la teoría
+   for (int i = 0; i < v.size(); i++)
+   {
+
+      // Se crea alfa
+      float alfa = atan2(v[i][2], v[i][0]);
+
+      // u = 0.5 + alfa/2PI
+      float u = 0.5 + (alfa / (2 * M_PI));
+
+      // w = altura-altura mínima / altura máxima-altura mínima
+      float w = (v[i][1] - pMin[1]) / (pMax[1] - pMin[1]);
+
+      // Se guardan los valores en ct
+      ct.push_back(Tupla2f(u, w));
+   }
+
+   return true;
+}
+
+bool Malla3D::calcularCoordTextura()
+{
+
+   if (tipotext == 0)
+   {
+      calcular_coordscilindricas();
+   }
+   else if (tipotext == 1)
+   {
+      calcular_coordsesfericas();
+   }
+   else
+   {
+      Tupla3f pMax = v[0];
+
+      // Se recorren todos los vértices
+      for (int i = 1; i < v.size(); i++)
+      {
+         if (v[i][0] > pMax[0]) // x
+            pMax[0] = v[i][0];
+
+         if (v[i][1] > pMax[1]) // y
+            pMax[1] = v[i][1];
+
+         if (v[i][2] > pMax[2]) // z
+            pMax[2] = v[i][2];
+      }
+
+      Tupla3f pMin = v[0];
+
+      // Se recorren todos los vértices
+      for (int i = 1; i < v.size(); i++)
+      {
+         if (v[i][0] < pMax[0]) // x
+            pMax[0] = v[i][0];
+
+         if (v[i][1] < pMax[1]) // y
+            pMax[1] = v[i][1];
+
+         if (v[i][2] < pMax[2]) // z
+            pMax[2] = v[i][2];
+      }
+
+      for (int i = 0; i < v.size(); i++)
+      {
+         float u = (v[i][0] - pMin[0]) / (pMax[0] - pMin[0]);
+
+         float w = (v[i][1] - pMin[1]) / (pMax[1] - pMin[1]);
+
+         // Se guardan los valores en ct
+         ct.push_back(Tupla2f(u, w));
+      }
+      return true;
+   }
+}
+
+bool Malla3D::calcular_coordsesfericas()
+{
+
+   float alpha, beta, h;
+
+	float s, t;
+
+   for (int i = 0; i < v.size(); i++)
+   {
+      alpha = atan2(v[i](2), v[i](0));                                // Cálculo del ángulo en el plano XY
+      beta = atan2(v[i](1), sqrt(pow(v[i](0), 2) + pow(v[i](2), 2))); // Cálculo del ángulo en el plano YZ
+      s = 1 - (0.5 + (alpha / (M_PI * 2)));                           // Cálculo de la coordenada S
+      t = 0.5 + beta / M_PI;                                          // Cálculo de la coordenada T
+      // Corrección de costura
+      s = fmod(s, 1.0);
+
+      ct.push_back(Tupla2f(s, t));
+   }
+
+   return true;
 }

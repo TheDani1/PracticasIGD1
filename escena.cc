@@ -95,6 +95,15 @@ void Escena::visualizar_menu()
 
       break;
 
+   case LUZ:
+
+      cout << "[MENÚ LUZ ¤]" << endl
+           << "\t [P]: Se anima automáticamente la luz puntual" << endl
+           << "\t [D]: Se anima automáticamente el color de la luz direccional" << endl;
+
+
+      break;
+
    default:
 
       cout << "[MENU PRINCIPAL]" << endl
@@ -118,12 +127,9 @@ Escena::Escena()
 
    ejes.changeAxisSize(5000);
 
-   // crear los objetos de la escena....
-   // .......completar: ...
-   // .....
-   cubo = new Cubo(50);
+   // Creación de objetos de la escena
 
-   // piramide = new PiramidePentagonal(50, 50);
+   cubo = new Cubo(50);
 
    objply = new ObjPLY("plys/ant.ply");
 
@@ -137,11 +143,9 @@ Escena::Escena()
 
    cilindro = new Cilindro(20, 20, 50, 20);
 
-   // flecha = new Flecha(100.0f, 50.0f, 30);
-   // flecha1 = new Flecha(1.0f, 1.0f, 30);
-   // flecha2 = new Flecha(1.0f, 1.0f, 30);
+   //foco = new Foco();
 
-   foco = new Foco();
+   cuadro = new Cuadro(50);
 
    // MATERIALES ------------------------------------------------
 
@@ -200,40 +204,33 @@ Escena::Escena()
 
    // TEXTURAS ------------------------------------------------
 
-   Textura *lata = new Textura("textures/text-lata-1.jpg");
+   string textura = "textures/text-madera.jpg";
 
-   if (esfera != nullptr)
-   {
-      esfera->establecerTextura(lata);
-   }
+   cuadro->setTextura("textures/pigscene.jpg");
 
-   if (cilindro != nullptr)
-   {
-      cilindro->establecerTextura(lata);
-   }
+   cubo->setTextura(textura);
 
-   if (cono != nullptr)
-   {
-      cono->establecerTextura(lata);
-   }
+   //objrevolucion->setTextura(textura);
 
-   if (objrevolucion != nullptr)
-   {
-      objrevolucion->establecerTextura(lata);
-   }
+   //objrevolucion1->setTextura(textura);
 
-   if (cubo != nullptr)
-   {
-      cubo->establecerTextura(lata);
-   }
+   //objply->setTextura(textura);
+
+   esfera->setTextura("textures/textura-tierra.jpg");
+
+   //cono->setTextura(textura);
+
+   cilindro->setTextura("textures/text-lata-1.jpg");
+   
+   // Como el cuadro se autodefine la textura no hace falta ponerlo   
 
    // LUCES ------------------------------------------------
 
-   Tupla2f pos0 = {20, 100};
+   Tupla3f pos0 = {200, 150, 200};
    Tupla2f pos1 = {20, 100};
 
    luz0 = new LuzPosicional(pos0, GL_LIGHT0, {0, 0, 0, 1}, {1, 1, 1, 1}, {1, 1, 1, 1});
-   luz1 = new LuzDireccional(pos1, GL_LIGHT1, {0, 0, 0, 1}, {1, 1, 1, 1}, {1, 1, 1, 1});
+   luz1 = new LuzDireccional(pos1, GL_LIGHT1, {1, 1, 1, 1}, {0.0f, 0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 0.0f, 0.0f});
 }
 
 //**************************************************************************
@@ -251,8 +248,6 @@ void Escena::inicializar(int UI_window_width, int UI_window_height)
    glEnable(GL_CULL_FACE);
 
    glEnable(GL_NORMALIZE);
-
-   glEnable(GL_TEXTURE_2D);
 
    Width = UI_window_width / 10;
    Height = UI_window_height / 10;
@@ -279,68 +274,35 @@ void Escena::dibujar()
 
    ejes.draw();
 
-   // if (visual_obj[3])
-   // {
-   //    glEnable(GL_LIGHTING);
-   //    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
-   //    if (luz0 != nullptr)
-   //    {
-   //       glPushMatrix();
-   //       luz0->activar();
-   //       glPopMatrix();
-   //    }
-
-   //    if (luz1 != nullptr)
-   //    {
-   //       luz1->activar();
-   //    }
-
-   //    esfera->draw(GL_FILL);
-
-   // }
-
-   //  COMPLETAR
-   //    Dibujar los diferentes elementos de la escena
-   //  Habrá que tener en esta primera práctica una variable que indique qué objeto se ha de visualizar
-   //  y hacer
-   //  cubo->draw()
-   //  o    piramide->draw()
-   // glPointSize(5);
-   // glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
-
    if (sel_obj[0])
    {
 
-      // PIRAMIDE
-
-      glPushMatrix();
-      glTranslatef(-100, 0, 0);
-
       if (visual_obj[0])
       {
-         cono->draw(GL_POINT);
+         cuadro->draw(GL_POINT);
       }
 
       if (visual_obj[1])
       {
-         cono->draw(GL_LINE);
+         cuadro->draw(GL_LINE);
       }
       if (visual_obj[2])
       {
-         cono->draw(GL_FILL);
+         cuadro->draw(GL_FILL);
       }
 
       if (visual_obj[3])
       {
 
          glEnable(GL_LIGHTING);
-         cono->draw(GL_FILL);
+         cuadro->draw(GL_FILL);
 
          if (luz0 != nullptr)
          {
             glPushMatrix();
-            luz0->activar();
+               // std::cout << "Rotacion luz puntual: " << rotacionLuzPuntual << std::endl;
+               glRotatef(rotacionLuzPuntual, 0.0f, 1.0f, 0.0f);
+               luz0->activar();
             glPopMatrix();
          }
 
@@ -352,7 +314,7 @@ void Escena::dibujar()
          }
       }
 
-      glPopMatrix();
+      //glPopMatrix();
    }
 
    if (sel_obj[1])
@@ -806,14 +768,25 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
 
          visualizar_menu();
       }
-      else
+      else if(modoMenu == LUZ)
       {
+
+         animacion_luz = !animacion_luz;
+
+         if(animacion_luz){
+            evento("Animacion automatica luz puntual activada");
+         }else{
+            evento("Animacion automatica luz puntual desactivada");
+         }
+         
+      }else{
 
          // EN CUALQUIER CASO QUE NO SEA ESE,
          // LA SELECCION NO SERÁ VÁLIDA.
          error("Seleccion no valida");
 
          visualizar_menu();
+
       }
 
       break;
@@ -1006,9 +979,19 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
             visualizar_menu();
          }
       }
-      else
+      else if(modoMenu == LUZ)
       {
 
+         animacion_color = !animacion_color;
+
+         if(animacion_color){
+            evento("Animacion automatica color luz direccional activada");
+         }else{
+            evento("Animacion automatica color luz direccional desactivada");
+         }
+
+         
+      }else{
          // EN CUALQUIER CASO QUE NO SEA ESE,
          // LA SELECCION NO SERÁ VÁLIDA.
 
@@ -1092,6 +1075,8 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
 
    case 'T':
 
+      modoMenu = LUZ;
+
       visual_obj[3] = !visual_obj[3];
 
       visual_obj[1] = false;
@@ -1117,7 +1102,7 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
 
    case '1':
 
-      if (modoMenu == SELVISUALIZACION)
+      if (modoMenu == LUZ)
       {
          if (visual_obj[3])
          {
@@ -1129,7 +1114,7 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
 
    case '0':
 
-      if (modoMenu == SELVISUALIZACION)
+      if (modoMenu == LUZ)
       {
          if (visual_obj[3])
          {
@@ -1435,6 +1420,20 @@ void Escena::change_observer()
 
 void Escena::animarModeloJerarquico()
 {
+
+   if(animacion_luz){
+
+      rotacionLuzPuntual += velocidadLuzPuntual;
+      rotacionLuzPuntual = fmod(rotacionLuzPuntual, 360.0F);
+
+   }
+
+   if(animacion_color){
+         
+      // std::cout << "Animacion color" << std::endl;
+      luz1->variarColorDifuso(factor_aumento);
+   
+   }
 
    if (animacion)
    {

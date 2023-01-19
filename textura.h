@@ -24,9 +24,14 @@ class Textura
     std::vector<unsigned char> data;
     int width, height;
 
+    jpg::Imagen *pimg = NULL;
+
     public:
 
-    Textura(string archivo) ;
+    Textura();
+    void crearTextura(const std::string &archivo);
+
+    bool texturaActivada();
 
     void activar();
 };

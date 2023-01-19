@@ -10,7 +10,7 @@
 
 // *****************************************************************************
 
-LuzPosicional::LuzPosicional(const Tupla2f direccion,
+LuzPosicional::LuzPosicional(const Tupla3f direccion,
                      const GLenum idLuzOpenGL,
                      const Tupla4f colorAmbiente,
                      const Tupla4f colorEspecular,
@@ -21,6 +21,6 @@ LuzPosicional::LuzPosicional(const Tupla2f direccion,
     this->colorEspecular = colorEspecular;
     this->colorDifuso = colorDifuso;
 
-    this->posicion = {direccion(0), direccion(1), 0.0f, 1.0f};
+    this->posicion = {direccion(0), direccion(1), direccion(2), 1};
     
 }

@@ -43,7 +43,9 @@ class Malla3D
 
    void setMaterial(const Material &mat);
 
-   void establecerTextura(Textura *text);
+   void setTextura(const std::string &archivo);
+
+   bool calcularCoordTextura();
 
    protected:
 
@@ -57,7 +59,7 @@ class Malla3D
       std::vector<Tupla3f> c_s; // tabla para los colores de los vértices (sólido)
 
       std::vector<Tupla2f> ct; // tabla de coordenadas de textura
-      Textura *textura = nullptr; // Práctica 5
+      Textura textura; // Práctica 5
 
       // completar P1: tabla de colores (hecho)
       // Completar P1: vbo y método asociado (hecho)
@@ -77,7 +79,11 @@ class Malla3D
 
       GLuint CrearVBO(GLuint tipo_vbo, GLuint tam, GLvoid *puntero_ram);
 
-		tipoTextura tipotext = CILINDRICA;
+		tipoTextura tipotext = PLANA;
+      bool coordenadas_textura_creadas = false;
+
+      bool calcular_coordscilindricas();
+      bool calcular_coordsesfericas();
 
 } ;
 
