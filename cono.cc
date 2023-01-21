@@ -41,10 +41,26 @@ Cono::Cono(const int num_vert_perfil,
     Tupla3f verde(0, 1, 0);
     Tupla3f azul(0, 0, 1);
 
-    color_puntos(rojo);
+    // color_puntos(rojo);
 
-    color_lineas(azul);
+    // color_lineas(azul);
 
-    color_solido(verde);
+    // color_solido(verde);
+    Tupla3f blanco(1.0f, 1.0f, 1.0f);
 
+    point_color = rojo;
+
+    line_color = azul;
+
+    solid_color = blanco;
+
+    tipotext = ESFERICA;
+
+    selection_colors = new unsigned char[128 * 3 * v.size()];
+
+    selection_color[0] = 0;
+    selection_color[1] = 0;
+    selection_color[2] = 0;
+
+    calcular_centro_malla();
 }

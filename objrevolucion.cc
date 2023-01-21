@@ -13,9 +13,44 @@
 // *****************************************************************************
 // objeto de revolución obtenido a partir de un perfil (en un PLY)
 
+ObjRevolucion::ObjRevolucion(const std::string &archivo) {
+
+   ply::read_vertices(archivo, this->v);
+
+   c_p.resize(v.size());
+   c_l.resize(v.size());
+   c_s.resize(v.size());
+
+   Tupla3f rojo(1, 0, 0);
+   Tupla3f verde(0, 1, 0);
+   Tupla3f azul(0, 0, 1);
+
+   Tupla3f blanco(0.9f, 0.9f, 0.9f);
+
+   Tupla3f negro(0.0f, 0.0f, 0.0f);
+
+   // color_puntos(rojo);
+
+   // color_lineas(verde);
+
+   // color_solido(blanco);
+
+   point_color = rojo;
+
+   line_color = verde;
+
+   solid_color = blanco;
+
+   selection_colors = new unsigned char[128 * 3 * v.size()];
+
+   selection_color[0] = 0;
+   selection_color[1] = 255;
+   selection_color[2] = 0;
+}
+
 ObjRevolucion::ObjRevolucion() {}
 
-ObjRevolucion::ObjRevolucion(const std::string &archivo, int num_instancias, const tipoTextura & modo, bool conTextura)
+ObjRevolucion::ObjRevolucion(const std::string &archivo, int num_instancias, const tipoTextura &modo, bool conTextura)
 {
    // completar ......(práctica 2)
 
@@ -36,13 +71,30 @@ ObjRevolucion::ObjRevolucion(const std::string &archivo, int num_instancias, con
    Tupla3f verde(0, 1, 0);
    Tupla3f azul(0, 0, 1);
 
-   color_puntos(rojo);
+   Tupla3f blanco(0.9f, 0.9f, 0.9f);
 
-   color_lineas(azul);
+   Tupla3f negro(0.0f, 0.0f, 0.0f);
 
-   color_solido(verde);
+   // color_puntos(rojo);
+
+   // color_lineas(verde);
+
+   // color_solido(blanco);
+
+   point_color = rojo;
+
+   line_color = verde;
+
+   solid_color = blanco;
+
+   selection_colors = new unsigned char[128 * 3 * v.size()];
+
+   selection_color[0] = 0;
+   selection_color[1] = 255;
+   selection_color[2] = 0;
 
    // calcularNormales();
+   //calcular_centro_malla();
 }
 
 // *****************************************************************************
@@ -52,10 +104,8 @@ ObjRevolucion::ObjRevolucion(std::vector<Tupla3f> archivo, int num_instancias, b
 {
 }
 
-void ObjRevolucion::crearMalla(std::vector<Tupla3f> perfil_original, int num_instancias, const tipoTextura & modo)
+void ObjRevolucion::crearMalla(std::vector<Tupla3f> perfil_original, int num_instancias, const tipoTextura &modo)
 {
-
-   this->conTextura = conTextura;
 
    // VERIFICAMOS QUE ESTÉ EN EL SENTIDO QUE NOSOTROS QUEREMOS Y SI NO LO INVERTIMOS
 
@@ -63,7 +113,7 @@ void ObjRevolucion::crearMalla(std::vector<Tupla3f> perfil_original, int num_ins
 
    bool inverso = false;
 
-   for (int i = 0; i < perfil_original.size(); i++)
+   for (int i = 0; i < perfil_original.size(); i++) // HE CAMBIADO ESTO A +1
    {
 
       if (perfil_original[i](1) < perfil_original[i + 1](1))
@@ -225,81 +275,69 @@ void ObjRevolucion::tapaInferior(std::vector<Tupla3f> perfil_original, int num_i
    f.push_back(Tupla3i(perfil_original.size() * (num_instancias - 1), sur, 0));
 }
 
-void ObjRevolucion::calcularCoordTextura(const tipoTextura & modo, std::vector<Tupla3f> perfil_original, int num_instancias)
+void ObjRevolucion::calcularCoordTextura(const tipoTextura &modo, std::vector<Tupla3f> perfil_original, int num_instancias)
 {
 
    ct.resize(v.size());
 
-	float alpha, beta, h;
+   float alpha, beta, h;
 
-	float s, t;
+   float s, t;
 
-	switch (modo){
-		case CILINDRICA:
-			for (int i = 0; i < ct.size(); i++){
-				alpha = atan2( v[i](2), v[i](0) );
-				h = v[i](1);
+   switch (modo)
+   {
+   case CILINDRICA:{
+      std::cout << "CILINDRICA" << std::endl;
+      for (int i = 0; i < ct.size(); i++)
+      {
+         alpha = atan2(v[i](2), v[i](0));
+         h = v[i](1);
 
-				s = 1 - ( 0.5 + (alpha/(M_PI*2)) );
-				s += 0.5;
-				s = fmod(s, 1.0);
+         s = 1 - (0.5 + (alpha / (M_PI * 2)));
+         s += 0.5;
+         s = fmod(s, 1.0);
 
-				//std::cout << s <<  " " << alpha << std::endl;
-				t = (h - perfil_original.front()(1) ) / (perfil_original.back()(1) - perfil_original.front()(1)) ;
+         // std::cout << s <<  " " << alpha << std::endl;
+         t = (h - perfil_original.front()(1)) / (perfil_original.back()(1) - perfil_original.front()(1));
 
-				ct[i] = {s, t};
+         ct[i] = {s, t};
+      }
 
-			}
+      /*for (int i = (perfil_original.size() * num_instancias); i < perfil_original.size() * (num_instancias + 1); i++)
+      {
+         alpha = atan2(v[i](2), v[i](0));
+         h = v[i](1);
 
-			for (int i = (perfil_original.size() * num_instancias); i < perfil_original.size() * (num_instancias + 1); i++){
-				alpha = atan2( v[i](2), v[i](0) );
-				h = v[i](1);
+         s = 1.0f;
+         t = (h - perfil_original.front()(1)) / (perfil_original.back()(1) - perfil_original.front()(1));
 
-				s = 1.0f;
-				t = (h - perfil_original.front()(1) ) / (perfil_original.back()(1) - perfil_original.front()(1)) ;
+         ct[i] = {s, t};
+      }*/
 
-				ct[i] = {s, t};
-			}
+      break;
+   }
 
-			break;
+   case ESFERICA:{
+      for (int i = 0; i < ct.size(); i++)
+      {
+         alpha = atan2(v[i](2), v[i](0));
+         beta = atan2(v[i](1), sqrt(pow(v[i](0), 2) + pow(v[i](2), 2)));
 
-		case ESFERICA:
-			for (int i = 0; i < ct.size(); i++){
-				alpha = atan2( v[i](2), v[i](0) );
-				beta = atan2( v[i](1), sqrt( pow( v[i](0) ,2) + pow ( v[i](2) ,2) ) );
+         s = 1 - (0.5 + (alpha / (M_PI * 2)));
+         s += 0.5;
+         s = fmod(s, 1.0);
+         t = 0.5 + beta / M_PI;
 
-				s = 1 - ( 0.5 + (alpha/(M_PI*2)) );
-				s += 0.5;
-				s = fmod(s, 1.0);
-				t = 0.5 + beta/M_PI;
+         ct[i] = {s, t};
+      }
 
-				ct[i] = {s, t};
-			}
-
-			// asignamos las coordenadas de los extremos
-			for (int i = num_instancias; i <= ct.size(); i = i + num_instancias){
-
-				ct[i - num_instancias] = {0.0f, 0.0f};
-				ct[i - 1] = {0.0f, 1.0f};
-			}
-
-			for (int i = perfil_original.size() * num_instancias ; i < v.size(); i++){
-				alpha = atan2( v[i](2), v[i](0) );
-				beta = atan2( v[i](1), sqrt( pow( v[i](0) ,2) + pow ( v[i](2) ,2) ) );
-
-				s = 1;
-				t = 0.5 + beta/M_PI;
-
-				ct[i] = {s, t};
-			}
-
-			break;
-		case PLANA:
-			for (int i = 0; i < ct.size(); i++){
-				ct[i] = {v[i](0), (v[i](1) - v.front()(1) ) / (v.back()(1) - v.front()(1))} ;
-			}
-			break;
-
-	}
-
+      break;
+   }
+   case PLANA:
+      for (int i = 0; i < ct.size(); i++)
+      {
+         ct[i] = {v[i](0), (v[i](1) - v.front()(1)) / (v.back()(1) - v.front()(1))};
+      }
+      break;
+   }
 }

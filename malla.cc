@@ -11,8 +11,24 @@
 
 #define EPSILON 0.0001
 
-void Malla3D::draw(const GLenum modo)
+void Malla3D::draw(const modoVisual modo)
 {
+
+   if (modo == SELECCION)
+   {
+
+      GLfloat mat[16];
+      glGetFloatv(GL_MODELVIEW_MATRIX, mat);
+
+      Tupla3f n_centro;
+
+      // aplicamos la transformacion de la matriz al punto
+      n_centro(0) = mat[0] * centro_malla(0) + mat[4] * centro_malla(1) + mat[8] * centro_malla(2) + mat[12];
+      n_centro(1) = mat[1] * centro_malla(0) + mat[5] * centro_malla(1) + mat[9] * centro_malla(2) + mat[13];
+      n_centro(2) = mat[2] * centro_malla(0) + mat[6] * centro_malla(1) + mat[10] * centro_malla(2) + mat[14];
+
+      centro_transformado = n_centro;
+   }
 
    if (!coordenadas_textura_creadas)
    {
@@ -23,7 +39,7 @@ void Malla3D::draw(const GLenum modo)
    // completar (práctica 1)
    // .....
 
-   // glShadeModel(GL_SMOOTH);
+   glShadeModel(GL_SMOOTH);
 
    if (id_vbo_tri == 0)
    {
@@ -49,11 +65,55 @@ void Malla3D::draw(const GLenum modo)
    glEnableClientState(GL_COLOR_ARRAY);
 
    // PUNTOS
-   if (modo == GL_POINT)
+   if (modo == PUNTOS)
    {
-
       glPointSize(5);
       glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
+   }
+
+   // LINEAS
+   if (modo == LINEAS)
+   {
+      glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+   }
+
+   // SOLIDO
+   if (modo == SOLIDO)
+   {
+      glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+   }
+
+   if (modo == SELECCION)
+   {
+
+      glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+      colorear(modo);
+
+      std::cout << "Color de seleccion " << (int) selection_color[0] << (int) selection_color[1] << (int) selection_color[2] << std::endl;
+
+      // for(int i = 0 ; i < 128 * 3 * v.size() ; i += 3)
+      // {
+      //    std::cout << "Color de seleccion(v) " << i << (int) selection_colors[i] << (int) selection_colors[i + 1] << (int) selection_colors[i + 2] << std::endl;
+      // }
+
+      if (id_vbo_c_s == 0)
+      {
+         id_vbo_c_s = CrearVBO(GL_ARRAY_BUFFER, 128 * 3 * v.size(), selection_colors);
+      }
+
+      glBindBuffer(GL_ARRAY_BUFFER, id_vbo_c_s);
+
+      // Usar el buffer activo para el color
+      glColorPointer(3, GL_UNSIGNED_BYTE, 0, 0);
+
+      // desactivar
+      glBindBuffer(GL_ARRAY_BUFFER, 0);
+   }
+   else if (modo == SELECCIONADO)
+   {
+
+      colorear(modo);
 
       if (id_vbo_c_p == 0)
       {
@@ -61,41 +121,33 @@ void Malla3D::draw(const GLenum modo)
       }
 
       glBindBuffer(GL_ARRAY_BUFFER, id_vbo_c_p);
+
+      // Usar el buffer activo para el color
+      glColorPointer(3, GL_FLOAT, 0, 0);
+
+      // desactivar
+      glBindBuffer(GL_ARRAY_BUFFER, 0);
    }
-
-   // LINEAS
-   if (modo == GL_LINE)
+   else
    {
+      colorear(modo);
 
-      glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-
-      if (id_vbo_c_l == 0)
+      if (id_vbo_c_p == 0)
       {
-         id_vbo_c_l = CrearVBO(GL_ARRAY_BUFFER, 3 * c_l.size() * sizeof(float), c_l.data());
+         id_vbo_c_p = CrearVBO(GL_ARRAY_BUFFER, 3 * c_p.size() * sizeof(float), c_p.data());
       }
 
-      glBindBuffer(GL_ARRAY_BUFFER, id_vbo_c_l);
+      glBindBuffer(GL_ARRAY_BUFFER, id_vbo_c_p);
+
+      // Usar el buffer activo para el color
+      glColorPointer(3, GL_FLOAT, 0, 0);
+
+      // desactivar
+      glBindBuffer(GL_ARRAY_BUFFER, 0);
    }
 
-   // SOLIDO
-   if (modo == GL_FILL)
-   {
-
-      glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
-      if (id_vbo_c_s == 0)
-      {
-         id_vbo_c_s = CrearVBO(GL_ARRAY_BUFFER, 3 * c_s.size() * sizeof(float), c_s.data());
-      }
-
-      glBindBuffer(GL_ARRAY_BUFFER, id_vbo_c_s);
-   }
-
-   // Usar el buffer activo para el color
-   glColorPointer(3, GL_FLOAT, 0, 0);
-
-   // desactivar
-   glBindBuffer(GL_ARRAY_BUFFER, 0);
+   id_vbo_c_p = 0;
+   id_vbo_c_s = 0;
 
    // VERTICES -------------------------------------
 
@@ -129,7 +181,7 @@ void Malla3D::draw(const GLenum modo)
 
    // Si existen las coordenadas de textura
 
-   if (textura.texturaActivada())
+   if (textura.texturaActivada() && modo != SELECCION)
    {
 
       glEnable(GL_TEXTURE_2D);
@@ -216,15 +268,6 @@ void Malla3D::color_lineas(const Tupla3f color)
 {
 
    for (auto it = c_l.begin(); it != c_l.end(); ++it)
-   {
-      (*it) = color;
-   }
-}
-
-void Malla3D::color_solido(const Tupla3f color)
-{
-
-   for (auto it = c_s.begin(); it != c_s.end(); ++it)
    {
       (*it) = color;
    }
@@ -363,8 +406,9 @@ bool Malla3D::calcularCoordTextura()
          // Se guardan los valores en ct
          ct.push_back(Tupla2f(u, w));
       }
-      return true;
    }
+
+   return true;
 }
 
 bool Malla3D::calcular_coordsesfericas()
@@ -372,7 +416,7 @@ bool Malla3D::calcular_coordsesfericas()
 
    float alpha, beta, h;
 
-	float s, t;
+   float s, t;
 
    for (int i = 0; i < v.size(); i++)
    {
@@ -387,4 +431,108 @@ bool Malla3D::calcular_coordsesfericas()
    }
 
    return true;
+}
+
+void Malla3D::calcular_centro_malla()
+{
+   for (int i = 0; i < v.size(); i++)
+   {
+      centro_malla[0] += v[i][0];
+      centro_malla[1] += v[i][1];
+      centro_malla[2] += v[i][2];
+   }
+
+   centro_malla[0] /= v.size();
+   centro_malla[1] /= v.size();
+   centro_malla[2] /= v.size();
+}
+
+Tupla3f Malla3D::getCentro() const
+{
+   return centro_transformado;
+}
+
+Tupla3f Malla3D::getColorSolido() const
+{
+   return solid_color;
+}
+
+unsigned char *Malla3D::getColorSeleccion() const
+{
+   return selection_color;
+}
+
+void Malla3D::setColorSolido(const Tupla3f &color)
+{
+   solid_color = color;
+}
+
+void Malla3D::setColorSeleccion(unsigned char selec[3])
+{
+   this->selection_color = selec;
+}
+
+void Malla3D::colorear(const modoVisual modo)
+{
+   switch (modo)
+   {
+   case PUNTOS:
+      for (auto it = c_p.begin(); it != c_p.end(); ++it)
+      {
+         (*it) = point_color;
+      }
+      break;
+   case LINEAS:
+      for (auto it = c_p.begin(); it != c_p.end(); ++it)
+      {
+         (*it) = line_color;
+      }
+      break;
+   case SOLIDO:
+      for (auto it = c_p.begin(); it != c_p.end(); ++it)
+      {
+         (*it) = solid_color;
+      }
+      break;
+   case SELECCION:
+   {
+      int c = 0;
+
+      for (int i = 0; i < v.size(); i++)
+      {
+         for (int j = 0; j < 128; j++)
+         {
+            unsigned char val = 0;
+
+            selection_colors[c + 0] = (unsigned char)selection_color[0];
+            selection_colors[c + 1] = (unsigned char)selection_color[1];
+            selection_colors[c + 2] = (unsigned char)selection_color[2];
+
+            c += 3;
+         }
+      }
+      break;
+   }
+   case SELECCIONADO:
+   {
+      Tupla3f color_real(solid_color(0) - 0.4, solid_color(1) - 0.4, solid_color(2) - 0.4);
+      for (auto it = c_p.begin(); it != c_p.end(); ++it)
+      {
+         (*it) = color_real;
+      }
+      break;
+   }
+   default:
+      break;
+   }
+}
+
+void Malla3D::invertirCaras() {
+	int tmp;
+
+	for (int i = 0; i < f.size(); i++){
+		tmp = f[i](0);
+		f[i](0) = f[i](2);
+		f[i](2) = tmp;
+	}
 }

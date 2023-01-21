@@ -18,6 +18,8 @@ private:
     Tupla4f especular;
     Tupla4f ambiente;
 
+    Tupla4f emision;
+
     float brillo;
 
 public:
@@ -28,6 +30,8 @@ public:
              Tupla4f mespecular,
              Tupla4f mambiente,
              float brillo);
+
+    void setEmision(Tupla4f emision);
 
     void aplicar();
 

@@ -15,9 +15,6 @@ Cilindro::Cilindro(const int num_vert_perfil,
                    const float altura,
                    const float radio)
 {
-
-    tipotext = CILINDRICA;
-
     std::vector<Tupla3f> perfil_original;
 
     const float d_perf = altura / num_vert_perfil;
@@ -42,16 +39,28 @@ Cilindro::Cilindro(const int num_vert_perfil,
     c_l.resize(v.size());
     c_s.resize(v.size());
 
+    selection_colors = new unsigned char[128 * 3 * v.size()];
+
     Tupla3f rojo(1, 0, 0);
     Tupla3f verde(0, 1, 0);
-    Tupla3f azul(0, 0, 1);
+    Tupla3f azul(0, 1, 0);
     Tupla3f blanco(0.9f, 0.9f, 0.9f);
 
-    color_puntos(rojo);
+    point_color = blanco;
 
-    color_lineas(azul);
+    line_color = verde;
 
-    color_solido(blanco);
+    solid_color = blanco;
+
+    selection_color[0] = 255;
+    selection_color[1] = 0;
+    selection_color[2] = 0;
+
+    // Amarillo RGB
 
     calcularCoordTextura(tipotext, perfil_original, num_instancias_perf);
+    
+    calcular_centro_malla();
+
+
 }

@@ -27,11 +27,17 @@ Flecha::Flecha(float hPunta=1.0f, float hAstil=1.0f, int nRev=30){
     Tupla3f verde(0, 1, 0);
     Tupla3f azul(0, 0, 1);
 
-    color_puntos(rojo);
+    // color_puntos(rojo);
 
-    color_lineas(azul);
+    // color_lineas(azul);
 
-    color_solido(verde);
+    // color_solido(verde);
+
+    point_color = rojo;
+
+    line_color = azul;
+
+    solid_color = verde;
 
 
 }

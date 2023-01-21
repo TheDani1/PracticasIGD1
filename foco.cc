@@ -15,9 +15,12 @@ Foco::Foco()
     cilindro = new Cilindro(20, 20, 1, 1);
     objply = new ObjPLY("plys/base_foco2.ply");
     cubo = new Cubo(1);
+
+    cubo->calcular_centro_cubo();
+
 }
 
-void Foco::draw(const GLenum modo)
+void Foco::draw(const modoVisual modo)
 {
 
     glPushMatrix();
@@ -116,9 +119,28 @@ float Foco::getTransX()
     return transX;
 }
 
+Tupla3f Foco::getCentro()
+{
+    return cubo->getCentro();
+}
+
 void Foco::setMaterial(const Material &mat)
 {
     cilindro->setMaterial(mat);
     objply->setMaterial(mat);
     cubo->setMaterial(mat);
+}
+
+void Foco::setTextura(const std::string &archivo1, const std::string &archivo2, const std::string &archivo3)
+{
+    cilindro->setTextura(archivo1);
+    objply->setTextura(archivo2);
+    cubo->setTextura(archivo3);
+}
+
+void Foco::setColorSeleccion(unsigned char selec[3])
+{
+    cilindro->setColorSeleccion(selec);
+    objply->setColorSeleccion(selec);
+    cubo->setColorSeleccion(selec);
 }

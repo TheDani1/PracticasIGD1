@@ -6,16 +6,18 @@
 // constructor de la escena (no puede usar ordenes de OpenGL)
 //**************************************************************************
 
+#define EPSILON 0.0001
+
 void Escena::evento(string evento)
 {
 
    using namespace std;
 
-   printf("\033[1;34m");
+   printf("\033[1;42m");
 
-   std::cout << "[Evento] " << evento << endl;
+   std::cout << "[Evento] " << evento << "\033[0m" << endl;
 
-   printf("\033[0m");
+   // printf("\033[0m");
 }
 
 void Escena::error(string error)
@@ -23,11 +25,9 @@ void Escena::error(string error)
 
    using namespace std;
 
-   printf("\033[1;31m");
+   printf("\033[1;41m");
 
-   std::cout << "[×] " << error << endl;
-
-   printf("\033[0m");
+   std::cout << "[×] " << error << "\033[0m" << endl;
 }
 
 void Escena::visualizar_menu()
@@ -39,79 +39,94 @@ void Escena::visualizar_menu()
    {
    case NADA:
 
-      cout << "[MENU PRINCIPAL]" << endl
-           << "\t [O]: Activar modo seleccion de objetos" << endl
-           << "\t [V]: Activar modo seleccion de modo de visualizacion" << endl
-           << "\t [M]: Activar modo movimiento modelo jerarquico" << endl
-           << "\t [A]: Activar animacion automatica" << endl
-           << "\t [Q]: Salir del programa" << endl;
+      cout << "\033[1;35m[MENU PRINCIPAL]\033[0m" << endl
+           << "\t\033[1;34m [O]: Activar modo seleccion de objetos\033[0m" << endl
+           << "\t\033[1;33m [V]: Activar modo seleccion de modo de visualizacion\033[0m" << endl
+           << "\t\033[1;36m [M]: Activar modo movimiento modelo jerarquico\033[0m" << endl
+           << "\t\033[1;31m [A]: Activar animacion automatica\033[0m" << endl
+           << "\t\033[1;32m [T]: Activar modo iluminacion\033[0m" << endl
+           << "\t\033[1;30m [C]: Cambiar cámaras\033[0m" << endl
+           << "\t\033[4;30m [Q]: Salir del programa\033[0m" << endl;
 
       break;
 
    case SELOBJETO:
       //    0          1        2      3     4       5          6
-      //    P          C        E      N     U       Y          J
-      // Piramide, cilindro, esfera, peón, cubo , hormiga y foco (mj)
-      cout << "[MENU SELECCION DE OBJETO]" << endl
-           << "\t [P]: Se visualiza/oculta la Piramide △" << endl // h
-           << "\t [C]: Se visualiza/oculta el cilindro █" << endl // h
-           << "\t [E]: Se visualiza/oculta la Esfera ●" << endl   // h
-           << "\t [N]: Se visualiza/oculta el peon ♙" << endl
-           << "\t [U]: Se visualiza/oculta el cubo ■" << endl
-           << "\t [Y]: Se visualiza/oculta el objeto ply ƒ (hormiga)" << endl
-           << "\t [J]: Se visualiza/oculta el modelo jerarquico ¥" << endl
-           << "\t [Q]: Salir del [MENU SELECCION DE OBJETO]" << endl;
+      //    P          C        E      N     U       Y          L       J         F
+      // peon,      cono,    esfera,  peón, cilindro, columna lampara   escultura FOCO
+      // cono, escultura, peon, esfera, cilindro, foco, columna, lampara
+      cout << "\033[1;34m[MENU SELECCION DE OBJETO]" << endl
+           << "\t [C]: Se visualiza/oculta el cono ᐃ" << endl      // h
+           << "\t [J]: Se visualiza/oculta la escultura ®" << endl // h
+           << "\t [P]: Se visualiza/oculta el peon ♙" << endl      // h
+           << "\t [E]: Se visualiza/oculta la esfera ●" << endl
+           << "\t [U]: Se visualiza/oculta el cilindro 🗙" << endl
+           << "\t [F]: Se visualiza/oculta el foco ⏀" << endl
+           << "\t [Y]: Se visualiza/oculta la columna 𐇦" << endl
+           << "\t [L]: Se visualiza/oculta la lampara ⚬\033[0m" << endl
+           << "\t\033[4;30m [Q]: Salir del [MENU SELECCION DE OBJETO]\033[0m" << endl;
 
       break;
 
    case SELVISUALIZACION:
 
-      cout << "[MENU SELECCION DE MODO DE VISUALIZACION]" << endl
+      cout << "\033[1;33m[MENU SELECCION DE MODO DE VISUALIZACION]" << endl
            << "\t [D]: Se activa/desactiva la visualizacion en modo puntos ░" << endl
            << "\t [L]: Se activa/desactiva la visualizacion en modo lineas △ □" << endl
            << "\t [S]: Se activa/desactiva la visualizacion en modo solido (por defecto) ■ ▲" << endl
-           << "\t [T]: Se activa la visualización con iluminacion" << endl
-           << "\t [Q]: Salir del [MENU SELECCION DE MODO DE VISUALIZACION]" << endl;
+           << "\t [T]: Se activa la visualización con iluminacion\033[0m" << endl
+           << "\t\033[4;30m [Q]: Salir del [MENU SELECCION DE MODO DE VISUALIZACION]\033[0m" << endl;
 
       break;
 
    case MOVIMIENTO:
 
-      cout << "[MENU MOVIMIENTO MODELO JERARQUICO]" << endl
+      cout << "\033[1;36m[MENU MOVIMIENTO MODELO JERARQUICO]" << endl
            << "\t [2]: Se selecciona el primer grado de libertad" << endl
            << "\t [3]: Se selecciona el segundo grado de libertad" << endl
            << "\t [4]: Se selecciona el tercer grado de libertad" << endl
            << "\t [+]: Se aumenta el valor" << endl
-           << "\t [-]: Se decrementa el valor" << endl
-           << "\t [Q]: Salir del [MENU MOVIMIENTO MODELO JERARQUICO]" << endl;
+           << "\t [-]: Se decrementa el valor\033[0m" << endl
+           << "\t\033[4;30m [Q]: Salir del [MENU MOVIMIENTO MODELO JERARQUICO]\033[0m" << endl;
 
       break;
 
    case ANIMACION:
 
-      cout << "[MENÚ ANIMACIÓN]" << endl
+      cout << "\033[1;31m[MENÚ ANIMACIÓN]" << endl
            << "\t [+]: Aumentar la velocidad de la animacion" << endl
-           << "\t [-]: Disminuir la velocidad de la animacion" << endl;
+           << "\t [-]: Disminuir la velocidad de la animacion\033[0m" << endl;
 
       break;
 
    case LUZ:
 
-      cout << "[MENÚ LUZ ¤]" << endl
+      cout << "\033[1;32m[MENÚ LUZ ¤]" << endl
            << "\t [P]: Se anima automáticamente la luz puntual" << endl
-           << "\t [D]: Se anima automáticamente el color de la luz direccional" << endl;
+           << "\t [D]: Se anima automáticamente el color de la luz direccional\033[0m" << endl
+           << "\t\033[4;30m [Q]: Salir del [MENU MOVIMIENTO MODELO JERARQUICO]\033[0m" << endl;
 
+      break;
+
+   case CAMARAS:
+
+      cout << "\033[1;30m[MENÚ CAMARAS ƒ]" << endl
+           << "\t [0]: Camara perspectiva" << endl
+           << "\t [1]: Ortogonal" << endl
+           << "\t [2]: Camara perspectiva\033[0m" << endl
+           << "\t\033[4;30m [Q]: Salir del [MENU CÁMARAS ƒ]\033[0m" << endl;
 
       break;
 
    default:
 
-      cout << "[MENU PRINCIPAL]" << endl
-           << "\t [O]: Activar modo seleccion de objetos" << endl
-           << "\t [V]: Activar modo seleccion de modo de visualizacion" << endl
-           << "\t [M]: Activar modo movimiento modelo jerarquico" << endl
-           << "\t [A]: Activar animacion automatica" << endl
-           << "\t [Q]: Salir del programa" << endl;
+      cout << "\033[1;35m[MENU PRINCIPAL]\033[0m" << endl
+           << "\t\033[1;34m [O]: Activar modo seleccion de objetos\033[0m" << endl
+           << "\t\033[1;33m [V]: Activar modo seleccion de modo de visualizacion\033[0m" << endl
+           << "\t\033[1;36m [M]: Activar modo movimiento modelo jerarquico\033[0m" << endl
+           << "\t\033[1;31m [A]: Activar animacion automatica\033[0m" << endl
+           << "\t\033[1;32m [T]: Activar modo iluminacion\033[0m" << endl
+           << "\t\033[4;30m [Q]: Salir del programa\033[0m" << endl;
 
       break;
    }
@@ -119,33 +134,72 @@ void Escena::visualizar_menu()
 
 Escena::Escena()
 {
-   Front_plane = 50.0;
-   Back_plane = 2000.0;
-   Observer_distance = 4 * Front_plane;
-   Observer_angle_x = 0.0;
-   Observer_angle_y = 0.0;
 
    ejes.changeAxisSize(5000);
 
+   unsigned char *selection_color = new unsigned char[3];
+   unsigned char *selection_color2 = new unsigned char[3];
+   unsigned char *selection_color3 = new unsigned char[3];
+   unsigned char *selection_color4 = new unsigned char[3];
+
    // Creación de objetos de la escena
 
-   cubo = new Cubo(50);
+   cono = new Cono(10, 10, 10, 5);
+   // selection_color4[0] = 64;
+   // selection_color4[1] = 32;
+   // selection_color4[2] = 2;
+   // cono->setColorSeleccion(selection_color4);
 
-   objply = new ObjPLY("plys/ant.ply");
+   escultura = new ObjPLY("plys/untitled.ply");
+   // selection_color3[0] = 0;
+   // selection_color3[1] = 0;
+   // selection_color3[2] = 255;
+   // escultura->setColorSeleccion(selection_color3);
 
-   objrevolucion = new ObjRevolucion("plys/peon_polos.ply", 20, CILINDRICA, true);
+   columna = new ObjPLY("plys/can.ply");
+   selection_color3[0] = 255;
+   selection_color3[1] = 255;
+   selection_color3[2] = 0;
+   columna->setColorSeleccion(selection_color3);
 
-   objrevolucion1 = new ObjRevolucion("plys/peon_polos.ply", 20, ESFERICA, true);
+   lampara = new ObjPLY("plys/lampara.ply");
+   selection_color[0] = 254;
+   selection_color[1] = 255;
+   selection_color[2] = 255;
+   lampara->setColorSeleccion(selection_color);
+
+   peon = new ObjRevolucion("plys/peon_polos.ply", 20, CILINDRICA, true);
+   peon->setColorSolido({0.5568627451, 0.6549019608, 0.9137254902});
+   // selection_color[0] = 0;
+   // selection_color[1] = 255;
+   // selection_color[2] = 0;
+   // peon->setColorSeleccion(selection_color);
 
    esfera = new Esfera(20, 20, 50);
+   // selection_color[0] = 0;
+   // selection_color[1] = 255;
+   // selection_color[2] = 255;
+   // esfera->setColorSeleccion(selection_color);
 
-   cono = new Cono(20, 20, 50, 20);
+   // cono = new Cono(20, 20, 50, 20);
+   // cono->setColorSeleccion({0.0f, 0.0f, 1.0f});
 
    cilindro = new Cilindro(20, 20, 50, 20);
+   // selection_color[0] = 255;
+   // selection_color[1] = 0;
+   // selection_color[2] = 0;
+   // cilindro->setColorSeleccion(selection_color);
 
-   //foco = new Foco();
+   foco = new Foco();
+   selection_color2[0] = 255;
+   selection_color2[1] = 0;
+   selection_color2[2] = 255;
+   foco->setColorSeleccion(selection_color2);
 
    cuadro = new Cuadro(50);
+
+   cielo = new Esfera(20, 20, 1);
+   cielo->invertirCaras();
 
    // MATERIALES ------------------------------------------------
 
@@ -153,8 +207,13 @@ Escena::Escena()
    Material turquesa({0.1, 0.18725, 0.1745, 1}, {0.396, 0.74151, 0.69102, 1}, {0.297254, 0.30829, 0.306678, 1}, 0.1 * 128.0f);
    Material perla({0.25, 0.20725, 0.20725, 1}, {1, 0.829, 0.829, 1}, {0.296648, 0.296648, 0.296648, 1}, 128.0f * 0.088);
    Material esmeralda({0.0215, 0.1745, 0.0215, 1}, {0.07568, 0.61424, 0.07568, 1}, {0.633, 0.727811, 0.633, 1}, 0.6 * 128.0f);
+   Material plata({0.19225, 0.19225, 0.19225, 1}, {0.50754, 0.50754, 0.50754, 1}, {0.508273, 0.508273, 0.508273, 1}, 0.4 * 128.0f);
 
    Material peon_blanco({1, 1, 1, 1}, {0, 0, 0, 0}, {0, 0, 0, 0}, 0);
+
+   Material perla_emisiva({0.25, 0.20725, 0.20725, 1}, {1, 0.829, 0.829, 1}, {0.296648, 0.296648, 0.296648, 1}, 128.0f * 0.088);
+
+   perla_emisiva.setEmision({0.988235294, 0.352941176, 0.31372549, 1.0});
 
    // Material especular sin apenas reflectividad difusa
 
@@ -178,51 +237,62 @@ Escena::Escena()
       cono->setMaterial(perla);
    }
 
-   if (objrevolucion != nullptr)
+   if (peon != nullptr)
    {
-      objrevolucion->setMaterial(peon_blanco);
+      peon->setMaterial(peon_blanco);
    }
 
-   if (objrevolucion1 != nullptr)
-   {
-      objrevolucion1->setMaterial(obsidian);
-   }
-
-   if (objply != nullptr)
+   if (escultura != nullptr)
    {
 
-      objply->setMaterial(esmeralda);
+      escultura->setMaterial(peon_blanco);
    }
 
-   if(cubo != nullptr){
+   if (columna != nullptr)
+   {
+
+      columna->setMaterial(peon_blanco);
+   }
+
+   if (cubo != nullptr)
+   {
       cubo->setMaterial(oro);
    }
 
-   if(foco != nullptr){
+   if (foco != nullptr)
+   {
       foco->setMaterial(oro);
+   }
+
+   if (cielo != nullptr)
+   {
+      cielo->setMaterial(peon_blanco);
+   }
+
+   if (lampara != nullptr)
+   {
+
+      lampara->setMaterial(oro);
    }
 
    // TEXTURAS ------------------------------------------------
 
-   string textura = "textures/text-madera.jpg";
-
    cuadro->setTextura("textures/pigscene.jpg");
 
-   cubo->setTextura(textura);
+   cono->setTextura("textures/cono.jpg");
 
-   //objrevolucion->setTextura(textura);
+   escultura->setTextura("textures/texture-marmol.jpg");
+   columna->setTextura("textures/texture-marmol.jpg");
 
-   //objrevolucion1->setTextura(textura);
+   esfera->setTextura("textures/8k_sun.jpg");
 
-   //objply->setTextura(textura);
+   cilindro->setTextura("textures/columna.jpg");
 
-   esfera->setTextura("textures/textura-tierra.jpg");
+   cielo->setTextura("textures/comprimida.jpg");
 
-   //cono->setTextura(textura);
+   lampara->setTextura("textures/metal.jpg");
 
-   cilindro->setTextura("textures/text-lata-1.jpg");
-   
-   // Como el cuadro se autodefine la textura no hace falta ponerlo   
+   foco->setTextura("textures/foco.jpg", "textures/text-madera.jpg", "textures/beam.jpg");
 
    // LUCES ------------------------------------------------
 
@@ -231,6 +301,29 @@ Escena::Escena()
 
    luz0 = new LuzPosicional(pos0, GL_LIGHT0, {0, 0, 0, 1}, {1, 1, 1, 1}, {1, 1, 1, 1});
    luz1 = new LuzDireccional(pos1, GL_LIGHT1, {1, 1, 1, 1}, {0.0f, 0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 0.0f, 0.0f});
+
+   // Cámaras (Práctica 6) ------------------------------------------------
+
+   Tupla3f eye = {0, 100, 200};
+   Tupla3f at = {0, 0, 0};
+   Tupla3f up = {0, 1, 0};
+   Camara c1(eye, at, up, PERSPECTIVA, 50.0, 2000.0);
+
+   eye = {0, 100, 300};
+   at = {0, 0, 0};
+   up = {0, 1, 0};
+   Camara c2(eye, at, up, ORTOGONAL, 50.0, 2000.0);
+
+   eye = {0, 100, 100};
+   at = {0, 60, -115};
+   up = {0, 1, 0};
+   Camara c3(eye, {0, 0, 0}, up, PERSPECTIVA, 50.0, 2000.0);
+
+   camaras.push_back(c1);
+   camaras.push_back(c2);
+   camaras.push_back(c3);
+
+   camaraActiva = 0;
 }
 
 //**************************************************************************
@@ -252,10 +345,22 @@ void Escena::inicializar(int UI_window_width, int UI_window_height)
    Width = UI_window_width / 10;
    Height = UI_window_height / 10;
 
-   change_projection(float(UI_window_width) / float(UI_window_height));
+   for (int i = 0; i < camaras.size(); i++)
+   {
+
+      camaras[i].setAspect(-UI_window_width / 10);
+      camaras[i].setFov(UI_window_width / 10);
+      camaras[i].setBottom(-UI_window_height / 10);
+      camaras[i].setTop(UI_window_height / 10);
+   }
+
+   // change_projection(float(UI_window_width) / float(UI_window_height));
+   change_projection();
    glViewport(0, 0, UI_window_width, UI_window_height);
 
    visualizar_menu();
+
+   perla_emisiva.setEmision({0.988235294, 0.352941176, 0.31372549, 1.0});
 }
 
 // **************************************************************************
@@ -274,75 +379,98 @@ void Escena::dibujar()
 
    ejes.draw();
 
+   // CIELO ------------------------
+   glPushMatrix();
+   glTranslatef(-500, 0, 0);
+   glScalef(1000, 1000, 1000);
+   cielo->draw(SOLIDO);
+   glPopMatrix();
+   // ------------------------------
+
+   // CUADRO -----------------------
+   glPushMatrix();
+   glTranslatef(-25, 150, 0);
+   cuadro->draw(SOLIDO);
+   if (visual_obj[0])
+   {
+      cuadro->draw(PUNTOS);
+   }
+
+   if (visual_obj[1])
+   {
+      cuadro->draw(LINEAS);
+   }
+   if (visual_obj[2])
+   {
+      cuadro->draw(SOLIDO);
+   }
+
+   if (visual_obj[3])
+   {
+
+      glEnable(GL_LIGHTING);
+      cuadro->draw(SOLIDO);
+
+      if (luz0 != nullptr)
+      {
+         glPushMatrix();
+         // std::cout << "Rotacion luz puntual: " << rotacionLuzPuntual << std::endl;
+         glRotatef(rotacionLuzPuntual, 0.0f, 1.0f, 0.0f);
+         luz0->activar();
+         glPopMatrix();
+      }
+
+      if (luz1 != nullptr)
+      {
+         glPushMatrix();
+         luz1->activar();
+         glPopMatrix();
+      }
+   }
+   glPopMatrix();
+   // ------------------------------
+
+   // CONO --------------------------
    if (sel_obj[0])
    {
 
-      if (visual_obj[0])
-      {
-         cuadro->draw(GL_POINT);
-      }
-
-      if (visual_obj[1])
-      {
-         cuadro->draw(GL_LINE);
-      }
-      if (visual_obj[2])
-      {
-         cuadro->draw(GL_FILL);
-      }
-
-      if (visual_obj[3])
-      {
-
-         glEnable(GL_LIGHTING);
-         cuadro->draw(GL_FILL);
-
-         if (luz0 != nullptr)
-         {
-            glPushMatrix();
-               // std::cout << "Rotacion luz puntual: " << rotacionLuzPuntual << std::endl;
-               glRotatef(rotacionLuzPuntual, 0.0f, 1.0f, 0.0f);
-               luz0->activar();
-            glPopMatrix();
-         }
-
-         if (luz1 != nullptr)
-         {
-            glPushMatrix();
-            luz1->activar();
-            glPopMatrix();
-         }
-      }
-
-      //glPopMatrix();
-   }
-
-   if (sel_obj[1])
-   {
-
-      // CILINDRO
-
       glPushMatrix();
-      glTranslatef(0, 0, 100);
+      glTranslatef(-50, 0, 125);
+      glScalef(5, 5, 5);
 
       if (visual_obj[0])
       {
-         cilindro->draw(GL_POINT);
+         cono->draw(PUNTOS);
       }
       if (visual_obj[1])
       {
-         cilindro->draw(GL_LINE);
+         cono->draw(LINEAS);
       }
       if (visual_obj[2])
       {
-         cilindro->draw(GL_FILL);
+         if (camaras[camaraActiva].getObjetoSeleccionado() == CONO)
+         {
+            cono->draw(SELECCIONADO);
+         }
+         else
+         {
+            cono->draw(SOLIDO);
+         }
       }
 
       if (visual_obj[3])
       {
 
          glEnable(GL_LIGHTING);
-         cilindro->draw(GL_FILL);
+         if (camaras[camaraActiva].getObjetoSeleccionado() == CONO)
+         {
+            cono->setMaterial(perla_emisiva);
+         }
+         else
+         {
+            cono->setMaterial(oro);
+         }
+         cono->draw(SOLIDO);
 
          if (luz0 != nullptr)
          {
@@ -362,29 +490,52 @@ void Escena::dibujar()
       glPopMatrix();
    }
 
-   if (sel_obj[2])
+   if (sel_obj[1])
    {
+      // ESCULTURA (OBJPLY) --------
 
-      // ESFERA
+      glPushMatrix();
+      glTranslatef(100, 95, 100);
+      glScalef(0.1, 0.1, 0.1);
 
       if (visual_obj[0])
       {
-         esfera->draw(GL_POINT);
+
+         escultura->draw(PUNTOS);
       }
       if (visual_obj[1])
       {
-         esfera->draw(GL_LINE);
+
+         escultura->draw(LINEAS);
       }
       if (visual_obj[2])
       {
-         esfera->draw(GL_FILL);
+         if (camaras[camaraActiva].getObjetoSeleccionado() == ESCULTURA)
+         {
+
+            escultura->draw(SELECCIONADO);
+         }
+         else
+         {
+
+            escultura->draw(SOLIDO);
+         }
       }
 
       if (visual_obj[3])
       {
 
          glEnable(GL_LIGHTING);
-         esfera->draw(GL_FILL);
+         if (camaras[camaraActiva].getObjetoSeleccionado() == ESCULTURA)
+         {
+            escultura->setMaterial(perla_emisiva);
+         }
+         else
+         {
+            escultura->setMaterial(peon_blanco);
+         }
+
+         escultura->draw(SOLIDO);
 
          if (luz0 != nullptr)
          {
@@ -400,10 +551,15 @@ void Escena::dibujar()
             glPopMatrix();
          }
       }
+
+      glPopMatrix();
+
+      // ---------------------------
    }
 
-   if (sel_obj[3])
+   if (sel_obj[2])
    {
+
       // PEÓN
 
       glPushMatrix();
@@ -412,22 +568,37 @@ void Escena::dibujar()
 
       if (visual_obj[0])
       {
-         objrevolucion->draw(GL_POINT);
+         peon->draw(PUNTOS);
       }
       if (visual_obj[1])
       {
-         objrevolucion->draw(GL_LINE);
+         peon->draw(LINEAS);
       }
       if (visual_obj[2])
       {
-         objrevolucion->draw(GL_FILL);
+         if (camaras[camaraActiva].getObjetoSeleccionado() == PEON)
+         {
+            peon->draw(SELECCIONADO);
+         }
+         else
+         {
+            peon->draw(SOLIDO);
+         }
       }
 
       if (visual_obj[3])
       {
 
          glEnable(GL_LIGHTING);
-         objrevolucion->draw(GL_FILL);
+         if (camaras[camaraActiva].getObjetoSeleccionado() == PEON)
+         {
+            peon->setMaterial(perla_emisiva);
+         }
+         else
+         {
+            peon->setMaterial(peon_blanco);
+         }
+         peon->draw(SOLIDO);
 
          if (luz0 != nullptr)
          {
@@ -449,30 +620,44 @@ void Escena::dibujar()
 
    if (sel_obj[3])
    {
-      // PEÓN 2
+      // ESFERA
 
       glPushMatrix();
-      glTranslatef(100, 0, 50);
-      glScalef(20, 20, 20);
+      glTranslatef(0, 50, -200);
 
       if (visual_obj[0])
       {
-         objrevolucion1->draw(GL_POINT);
+         esfera->draw(PUNTOS);
       }
       if (visual_obj[1])
       {
-         objrevolucion1->draw(GL_LINE);
+         esfera->draw(LINEAS);
       }
       if (visual_obj[2])
       {
-         objrevolucion1->draw(GL_FILL);
+         if (camaras[camaraActiva].getObjetoSeleccionado() == ESFERA)
+         {
+            esfera->draw(SELECCIONADO);
+         }
+         else
+         {
+            esfera->draw(SOLIDO);
+         }
       }
 
       if (visual_obj[3])
       {
 
          glEnable(GL_LIGHTING);
-         objrevolucion1->draw(GL_FILL);
+         if (camaras[camaraActiva].getObjetoSeleccionado() == ESFERA)
+         {
+            esfera->setMaterial(perla_emisiva);
+         }
+         else
+         {
+            esfera->setMaterial(oro);
+         }
+         esfera->draw(SOLIDO);
 
          if (luz0 != nullptr)
          {
@@ -494,30 +679,48 @@ void Escena::dibujar()
 
    if (sel_obj[4])
    {
-      // CUBO
+      // CILINDRO
 
       glPushMatrix();
-      glTranslatef(-100, 0, 50);
-      // glScalef(, 20, 20);
+      glTranslatef(-50, 0, 50);
 
       if (visual_obj[0])
       {
-         cubo->draw(GL_POINT);
+
+         cilindro->draw(PUNTOS);
       }
       if (visual_obj[1])
       {
-         cubo->draw(GL_LINE);
+
+         cilindro->draw(LINEAS);
       }
       if (visual_obj[2])
       {
-         cubo->draw(GL_FILL);
+         if (camaras[camaraActiva].getObjetoSeleccionado() == CILINDRO)
+         {
+
+            cilindro->draw(SELECCIONADO);
+         }
+         else
+         {
+            cilindro->draw(SOLIDO);
+         }
       }
 
       if (visual_obj[3])
       {
 
          glEnable(GL_LIGHTING);
-         cubo->draw(GL_FILL);
+         if (camaras[camaraActiva].getObjetoSeleccionado() == CILINDRO)
+         {
+            cilindro->setMaterial(perla_emisiva);
+         }
+         else
+         {
+            cilindro->setMaterial(perla);
+         }
+
+         cilindro->draw(SOLIDO);
 
          if (luz0 != nullptr)
          {
@@ -539,30 +742,48 @@ void Escena::dibujar()
 
    if (sel_obj[5])
    {
-      // OBJETO PLY
+      // MODELO JERARQUICO
 
       glPushMatrix();
-      glTranslatef(0, 0, -100);
+      glTranslatef(-270, 100, 130);
+      glRotatef(90.0f, 0.0f, 0.0f, 1.0f);
       glScalef(10, 10, 10);
 
       if (visual_obj[0])
       {
-         objply->draw(GL_POINT);
+         foco->draw(PUNTOS);
       }
       if (visual_obj[1])
       {
-         objply->draw(GL_LINE);
+         foco->draw(LINEAS);
       }
       if (visual_obj[2])
       {
-         objply->draw(GL_FILL);
+         if (camaras[camaraActiva].getObjetoSeleccionado() == FOCO)
+         {
+
+            foco->draw(SELECCIONADO);
+         }
+         else
+         {
+            foco->draw(SOLIDO);
+         }
       }
 
       if (visual_obj[3])
       {
 
          glEnable(GL_LIGHTING);
-         objply->draw(GL_FILL);
+         if (camaras[camaraActiva].getObjetoSeleccionado() == FOCO)
+         {
+            foco->setMaterial(perla_emisiva);
+         }
+         else
+         {
+            foco->setMaterial(perla);
+         }
+
+         foco->draw(SOLIDO);
 
          if (luz0 != nullptr)
          {
@@ -584,30 +805,112 @@ void Escena::dibujar()
 
    if (sel_obj[6])
    {
-      // MODELO JERARQUICO
 
       glPushMatrix();
-      // glTranslatef(0, 0, -100);
-      glScalef(10, 10, 10);
+      glTranslatef(100, 25, 100);
+      glScalef(500, 500, 500);
 
       if (visual_obj[0])
       {
-         foco->draw(GL_POINT);
+         columna->draw(PUNTOS);
       }
+
       if (visual_obj[1])
       {
-         foco->draw(GL_LINE);
+         columna->draw(LINEAS);
       }
+
       if (visual_obj[2])
       {
-         foco->draw(GL_FILL);
+
+         if (camaras[camaraActiva].getObjetoSeleccionado() == COLUMNA)
+         {
+            columna->draw(SELECCIONADO);
+         }
+         else
+         {
+
+            columna->draw(SOLIDO);
+         }
       }
 
       if (visual_obj[3])
       {
 
          glEnable(GL_LIGHTING);
-         foco->draw(GL_FILL);
+         if (camaras[camaraActiva].getObjetoSeleccionado() == COLUMNA)
+         {
+            columna->setMaterial(perla_emisiva);
+         }
+         else
+         {
+            columna->setMaterial(peon_blanco);
+         }
+
+         columna->draw(SOLIDO);
+
+         if (luz0 != nullptr)
+         {
+            glPushMatrix();
+            luz0->activar();
+            glPopMatrix();
+         }
+
+         if (luz1 != nullptr)
+         {
+            glPushMatrix();
+            luz1->activar();
+            glPopMatrix();
+         }
+      }
+
+      glPopMatrix();
+   }
+
+   if (sel_obj[7])
+   {
+
+      glPushMatrix();
+      glTranslatef(-50, 90, 70);
+      glScalef(0.1, 0.1, 0.1);
+
+      if (visual_obj[0])
+      {
+
+         lampara->draw(PUNTOS);
+      }
+      if (visual_obj[1])
+      {
+         lampara->draw(LINEAS);
+      }
+      if (visual_obj[2])
+      {
+         if (camaras[camaraActiva].getObjetoSeleccionado() == LAMPARA)
+         {
+
+            lampara->draw(SELECCIONADO);
+         }
+         else
+         {
+
+            lampara->draw(SOLIDO);
+         }
+      }
+
+      if (visual_obj[3])
+      {
+
+         glEnable(GL_LIGHTING);
+         if (camaras[camaraActiva].getObjetoSeleccionado() == CILINDRO)
+         {
+            lampara->setMaterial(perla_emisiva);
+         }
+         else
+         {
+            lampara->setMaterial(oro);
+         }
+
+         lampara->draw(SOLIDO);
 
          if (luz0 != nullptr)
          {
@@ -639,7 +942,7 @@ void Escena::dibujar()
 bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
 {
    using namespace std;
-   cout << "Tecla pulsada: '" << tecla << "'" << endl;
+   evento("Tecla pulsada: '" + string(1, tecla) + "'");
    bool salir = false;
    switch (toupper(tecla))
    {
@@ -670,7 +973,7 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
          // ■ ▲
          // ▲ ♙ █ ●
 
-         // Piramide, cilindro, esfera, peón, cubo , escultura y foco (mj)
+         // Piramide, cilindro, esfera, peón, cono , escultura y foco (mj)
 
          modoMenu = SELOBJETO;
          visualizar_menu();
@@ -710,7 +1013,7 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
       break;
 
       // COMPLETAR con los diferentes opciones de teclado
-      // SE VISUALIZA CUBO
+      // SE VISUALIZA cono
    case 'E':
 
       // SI ESTAMOS EN EL MENU DE SELECCION DE OBJETO
@@ -720,15 +1023,15 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
 
          // VISUALIZAMOS ESFERA sel_obj[2]
 
-         sel_obj[2] = !sel_obj[2];
+         sel_obj[3] = !sel_obj[3];
 
-         if (sel_obj[2])
+         if (sel_obj[3])
          {
-            evento("Se visualiza la Esfera ●");
+            evento("Se visualiza la esfera ●");
          }
          else
          {
-            evento("Se oculta la Esfera ●");
+            evento("Se oculta la esfera ●");
          }
 
          visualizar_menu();
@@ -755,38 +1058,41 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
 
          // VISUALIZAMOS PIRAMIDE
 
-         sel_obj[0] = !sel_obj[0];
+         sel_obj[2] = !sel_obj[2];
 
-         if (sel_obj[0])
+         if (sel_obj[2])
          {
-            evento("Se visualiza la piramide △");
+            evento("Se visualiza el peon ♙");
          }
          else
          {
-            evento("Se oculta la piramide △");
+            evento("Se oculta el peon ♙");
          }
 
          visualizar_menu();
       }
-      else if(modoMenu == LUZ)
+      else if (modoMenu == LUZ)
       {
 
          animacion_luz = !animacion_luz;
 
-         if(animacion_luz){
+         if (animacion_luz)
+         {
             evento("Animacion automatica luz puntual activada");
-         }else{
+         }
+         else
+         {
             evento("Animacion automatica luz puntual desactivada");
          }
-         
-      }else{
+      }
+      else
+      {
 
          // EN CUALQUIER CASO QUE NO SEA ESE,
          // LA SELECCION NO SERÁ VÁLIDA.
          error("Seleccion no valida");
 
          visualizar_menu();
-
       }
 
       break;
@@ -835,11 +1141,11 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
 
          if (sel_obj[4])
          {
-            evento("Se visualiza el cubo ■");
+            evento("Se visualiza el cilindro 🗙");
          }
          else
          {
-            evento("Se oculta el cubo ■");
+            evento("Se oculta el cilindro 🗙");
          }
 
          visualizar_menu();
@@ -864,17 +1170,23 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
 
          // VISUALIZAMOS CILINDRO
 
-         sel_obj[1] = !sel_obj[1];
+         sel_obj[0] = !sel_obj[0];
 
-         if (sel_obj[1])
+         if (sel_obj[0])
          {
-            evento("Se visualiza el cilindro █");
+            evento("Se visualiza el cono ᐃ");
          }
          else
          {
-            evento("Se oculta el cilindro █");
+            evento("Se oculta el cono ᐃ");
          }
 
+         visualizar_menu();
+      }
+      else if (modoMenu == NADA)
+      {
+
+         modoMenu = CAMARAS;
          visualizar_menu();
       }
       else
@@ -897,15 +1209,15 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
          // bool sel_obj[4] = {true, true, true, true}; // Piramide, cilindro, esfera y peón
          // VISUALIZAMOS PEON
 
-         sel_obj[5] = !sel_obj[5];
+         sel_obj[6] = !sel_obj[6];
 
-         if (sel_obj[5])
+         if (sel_obj[6])
          {
-            evento("Se visualiza el objeto ply ƒ");
+            evento("Se visualiza la columna 𐇦");
          }
          else
          {
-            evento("Se oculta el objeto ply ƒ");
+            evento("Se oculta la columna 𐇦");
          }
 
          visualizar_menu();
@@ -930,15 +1242,15 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
          // bool sel_obj[4] = {true, true, true, true}; // Piramide, cilindro, esfera y peón
          // VISUALIZAMOS PEON
 
-         sel_obj[6] = !sel_obj[6];
+         sel_obj[1] = !sel_obj[1];
 
-         if (sel_obj[6])
+         if (sel_obj[1])
          {
-            evento("Se visualiza el modelo jerarquico ¥");
+            evento("Se visualiza la escultura ®");
          }
          else
          {
-            evento("Se oculta el modelo jerarquico ¥");
+            evento("Se oculta la escultura ®");
          }
 
          visualizar_menu();
@@ -979,19 +1291,22 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
             visualizar_menu();
          }
       }
-      else if(modoMenu == LUZ)
+      else if (modoMenu == LUZ)
       {
 
          animacion_color = !animacion_color;
 
-         if(animacion_color){
+         if (animacion_color)
+         {
             evento("Animacion automatica color luz direccional activada");
-         }else{
+         }
+         else
+         {
             evento("Animacion automatica color luz direccional desactivada");
          }
-
-         
-      }else{
+      }
+      else
+      {
          // EN CUALQUIER CASO QUE NO SEA ESE,
          // LA SELECCION NO SERÁ VÁLIDA.
 
@@ -1004,7 +1319,25 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
       // SE VISUALIZA EL OBJETO MODO LINEAS
    case 'L':
 
-      if (modoMenu == SELVISUALIZACION)
+      if (modoMenu == SELOBJETO)
+      {
+
+         // VISUALIZAMOS ESFERA sel_obj[2]
+
+         sel_obj[7] = !sel_obj[7];
+
+         if (sel_obj[7])
+         {
+            evento("Se visualiza la esfera ●");
+         }
+         else
+         {
+            evento("Se oculta la esfera ●");
+         }
+
+         visualizar_menu();
+      }
+      else if (modoMenu == SELVISUALIZACION)
       {
 
          visual_obj[1] = !visual_obj[1];
@@ -1102,11 +1435,20 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
 
    case '1':
 
+      if (modoMenu == CAMARAS)
+      {
+         camaraActiva = 1;
+         change_projection();
+         change_observer();
+         evento("Cambiada cámara activa a 1 (Ortogonal)");
+      }
+
       if (modoMenu == LUZ)
       {
          if (visual_obj[3])
          {
             luz1->activate();
+            evento("Activada/desactivada luz 1 (direccional)");
          }
       }
 
@@ -1114,11 +1456,20 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
 
    case '0':
 
+      if (modoMenu == CAMARAS)
+      {
+         camaraActiva = 0;
+         change_projection();
+         change_observer();
+         evento("Cambiada cámara activa a 0 (Perspectiva)");
+      }
+
       if (modoMenu == LUZ)
       {
          if (visual_obj[3])
          {
             luz0->activate();
+            evento("Activada/desactivada luz 0 (posicional)");
          }
       }
 
@@ -1136,12 +1487,19 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
 
    case '2':
 
-      grad_lib[0] = true;
-      grad_lib[1] = false;
-      grad_lib[2] = false;
+      if (modoMenu == CAMARAS)
+      {
+         camaraActiva = 2;
+         change_projection();
+         change_observer();
+         evento("Cambiada cámara activa a 2 (Perspectiva)");
+      }
 
       if (modoMenu == MOVIMIENTO)
       {
+         grad_lib[0] = true;
+         grad_lib[1] = false;
+         grad_lib[2] = false;
 
          evento("Seleccionado primer (1) grado de libertad");
 
@@ -1190,8 +1548,7 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
       }
       else
       {
-
-         cout << "[!] Seleccion no valida" << endl;
+         error("Seleccion no valida");
       }
       break;
 
@@ -1200,7 +1557,8 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
       if (modoMenu == MOVIMIENTO)
       {
 
-         if (grad_lib[0]){
+         if (grad_lib[0])
+         {
             foco->addGiroY(1.0);
             evento("Aumentado valor del primer grado de libertad");
          }
@@ -1213,7 +1571,6 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
 
                foco->addGiroZ(0);
                error("Limite de 90 alcanzado, no puede incrementar mas");
-               
             }
             else
             {
@@ -1241,8 +1598,6 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
             }
          }
 
-         
-
          visualizar_menu();
       }
       else if (modoMenu == ANIMACION)
@@ -1262,7 +1617,8 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
       if (modoMenu == MOVIMIENTO)
       {
 
-         if (grad_lib[0]){
+         if (grad_lib[0])
+         {
             evento("Decrementado valor del primero grado de libertad");
             foco->addGiroY(-1.0);
          }
@@ -1310,7 +1666,6 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
          velocidadAnimacionZY *= 0.8f;
 
          evento("Decrementada velocidad de animacion");
-         
       }
       else
       {
@@ -1345,6 +1700,39 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
       }
 
       break;
+
+   case 'F':
+
+      if (modoMenu == SELOBJETO)
+      {
+
+         // VISUALIZAMOS CILINDRO
+
+         sel_obj[5] = !sel_obj[5];
+
+         if (sel_obj[5])
+         {
+            evento("Se visualiza el foco ⏀");
+         }
+         else
+         {
+            evento("Se oculta el foco ⏀");
+         }
+
+         visualizar_menu();
+      }
+      else
+      {
+
+         // EN CUALQUIER CASO QUE NO SEA ESE,
+         // LA SELECCION NO SERÁ VÁLIDA.
+
+         error("Seleccion no valida");
+
+         visualizar_menu();
+      }
+
+      break;
    }
 
    return salir;
@@ -1353,29 +1741,38 @@ bool Escena::teclaPulsada(unsigned char tecla, int x, int y)
 
 void Escena::teclaEspecial(int Tecla1, int x, int y)
 {
+
    switch (Tecla1)
    {
    case GLUT_KEY_LEFT:
-      Observer_angle_y--;
+      camaras[camaraActiva].rotarYExaminar(-1 * (M_PI / 180));
       break;
    case GLUT_KEY_RIGHT:
-      Observer_angle_y++;
+      camaras[camaraActiva].rotarYExaminar(1 * (M_PI / 180));
       break;
    case GLUT_KEY_UP:
-      Observer_angle_x--;
+      camaras[camaraActiva].rotarXExaminar(-1 * (M_PI / 180));
+
       break;
    case GLUT_KEY_DOWN:
-      Observer_angle_x++;
+      camaras[camaraActiva].rotarXExaminar(1 * (M_PI / 180));
       break;
-   case GLUT_KEY_PAGE_UP:
-      Observer_distance *= 1.2;
+   case 104:
+      camaras[camaraActiva].zoom(0.9);
+      change_projection();
+
       break;
-   case GLUT_KEY_PAGE_DOWN:
-      Observer_distance /= 1.2;
+   case 105:
+      std::cout << "Tecla especial pulsada: " << Tecla1 << std::endl;
+      camaras[camaraActiva].zoom(1.1);
+      change_projection();
+
       break;
    }
 
    // std::cout << Observer_distance << std::endl;
+
+   // change_observer();
 }
 
 //**************************************************************************
@@ -1385,12 +1782,15 @@ void Escena::teclaEspecial(int Tecla1, int x, int y)
 //
 //***************************************************************************
 
-void Escena::change_projection(const float ratio_xy)
+void Escena::change_projection()
 {
+   // std::cout << ratio_xy << std::endl;
    glMatrixMode(GL_PROJECTION);
    glLoadIdentity();
-   const float wx = float(Height) * ratio_xy;
-   glFrustum(-wx, wx, -Height, Height, Front_plane, Back_plane);
+   // const float wx = float(Height)*ratio_xy ;
+
+   camaras[camaraActiva].setProyeccion();
+   // glFrustum( -wx, wx, -Height, Height, Front_plane, Back_plane );
 }
 //**************************************************************************
 // Funcion que se invoca cuando cambia el tamaño de la ventana
@@ -1398,9 +1798,16 @@ void Escena::change_projection(const float ratio_xy)
 
 void Escena::redimensionar(int newWidth, int newHeight)
 {
-   Width = newWidth / 10;
-   Height = newHeight / 10;
-   change_projection(float(newHeight) / float(newWidth));
+   const float ratio = (float)newWidth / (float)newHeight;
+
+   for (int i = 0; i < camaras.size(); i++)
+   {
+
+      camaras[i].setAspect(camaras[i].getBottom() * ratio);
+      camaras[i].setFov(camaras[i].getTop() * ratio);
+   }
+
+   change_projection();
    glViewport(0, 0, newWidth, newHeight);
 }
 
@@ -1413,26 +1820,29 @@ void Escena::change_observer()
    // posicion del observador
    glMatrixMode(GL_MODELVIEW);
    glLoadIdentity();
-   glTranslatef(0.0, 0.0, -Observer_distance);
-   glRotatef(Observer_angle_y, 0.0, 1.0, 0.0);
-   glRotatef(Observer_angle_x, 1.0, 0.0, 0.0);
+   // glTranslatef(0.0, 0.0, -Observer_distance);
+   // glRotatef(Observer_angle_y, 0.0, 1.0, 0.0);
+   // glRotatef(Observer_angle_x, 1.0, 0.0, 0.0);
+   camaras[camaraActiva].setObserver();
+
+   glGetFloatv(GL_MODELVIEW_MATRIX, mat);
 }
 
 void Escena::animarModeloJerarquico()
 {
 
-   if(animacion_luz){
+   if (animacion_luz)
+   {
 
       rotacionLuzPuntual += velocidadLuzPuntual;
       rotacionLuzPuntual = fmod(rotacionLuzPuntual, 360.0F);
-
    }
 
-   if(animacion_color){
-         
+   if (animacion_color)
+   {
+
       // std::cout << "Animacion color" << std::endl;
       luz1->variarColorDifuso(factor_aumento);
-   
    }
 
    if (animacion)
@@ -1449,15 +1859,442 @@ void Escena::animarModeloJerarquico()
 
       foco->addTransX(velocidadAnimacionX);
 
-      if(foco->getGiroZ() > 90){
+      if (foco->getGiroZ() > 90)
+      {
          velocidadAnimacionZY = velocidadAnimacionZY * -1;
       }
-      else if(foco->getGiroZ() < -90){
+      else if (foco->getGiroZ() < -90)
+      {
          velocidadAnimacionZY = velocidadAnimacionZY * -1;
       }
 
       foco->addGiroZ(velocidadAnimacionZY);
       foco->addGiroY(velocidadAnimacionZY);
-      
    }
+}
+
+void Escena::clickRaton(int boton, int estado, int x, int y)
+{
+
+   xant = x;
+   yant = y;
+
+   if (boton == GLUT_RIGHT_BUTTON)
+   {
+
+      if (estado == GLUT_DOWN)
+      {
+         if (camaras[camaraActiva].getObjetoSeleccionado() == NINGUNO)
+         {
+            estadoRaton = MOVIENDO_CAMARA_FIRSTPERSON;
+         }
+         else
+         {
+            estadoRaton = MOVIENDO_CAMARA_EXAMINAR;
+         }
+      }
+      else
+      {
+         estadoRaton = NONE;
+      }
+   }
+   else if (boton == GLUT_LEFT_BUTTON)
+   {
+      if (estado == GLUT_UP)
+      {
+         dibujaSeleccion();
+         processPick(x, y);
+      }
+   }
+   else if (boton == MOUSE_WHEEL_DOWN)
+   {
+      camaras[camaraActiva].zoom(1.1);
+   }
+   else if (boton == MOUSE_WHEEL_UP)
+   {
+      camaras[camaraActiva].zoom(0.9);
+   }
+   else
+   {
+      std::cout << "Boton no implementado: " << boton << std::endl;
+   }
+
+   change_projection();
+}
+
+void Escena::ratonMovido(int x, int y)
+{
+
+   if (estadoRaton == MOVIENDO_CAMARA_FIRSTPERSON)
+   {
+      camaras[camaraActiva].girar(x - xant, y - yant);
+      xant = x;
+      yant = y;
+   }
+   else if (estadoRaton == MOVIENDO_CAMARA_EXAMINAR)
+   {
+      camaras[camaraActiva].girar_examinar(x - xant, y - yant);
+      xant = x;
+      yant = y;
+   }
+}
+
+void Escena::dibujaSeleccion()
+{
+   // deshabilitamos el degradado
+   glDisable(GL_DITHER);
+   glDisable(GL_LIGHTING);
+   glDisable(GL_TEXTURE_2D);
+
+   // Calculamos el centro de los objetos
+
+   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Limpiar la pantalla
+
+   change_observer();
+
+   // glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+   // bool sel_obj[7] = {true, true, true, false, true, false, false}; // Piramide, cilindro, esfera, peón, cono , escultura y foco (mj)
+
+   if (sel_obj[0])
+   {
+      std::cout << "Color solido cono: " << cono->getColorSolido() << std::endl;
+      std::cout << "Color seleccion cono: " << (int)cono->getColorSeleccion()[0] << std::endl;
+      glPushMatrix();
+      glTranslatef(-50, 0, 125);
+      glScalef(5, 5, 5);
+      cono->draw(SELECCION);
+      glPopMatrix();
+   }
+
+   if (sel_obj[1])
+   {
+      glPushMatrix();
+      glTranslatef(100, 95, 100);
+      glScalef(0.1, 0.1, 0.1);
+      escultura->draw(SELECCION);
+      glPopMatrix();
+   }
+
+   if (sel_obj[2])
+   {
+      glPushMatrix();
+      glTranslatef(100, 0, 0);
+      glScalef(20, 20, 20);
+      peon->draw(SELECCION);
+      glPopMatrix();
+   }
+
+   if (sel_obj[3])
+   {
+      glPushMatrix();
+      glTranslatef(0, 50, -200);
+      esfera->draw(SELECCION);
+      glPopMatrix();
+   }
+
+   if (sel_obj[4])
+   {
+      glPushMatrix();
+      glTranslatef(-50, 0, 50);
+      cilindro->draw(SELECCION);
+      glPopMatrix();
+   }
+
+   if (sel_obj[5])
+   {
+      glPushMatrix();
+      glTranslatef(-270, 100, 130);
+      glRotatef(90.0f, 0.0f, 0.0f, 1.0f);
+      glScalef(10, 10, 10);
+      foco->draw(SELECCION);
+      glPopMatrix();
+   }
+
+   if (sel_obj[6])
+   {
+      glPushMatrix();
+      glTranslatef(100, 25, 100);
+      glScalef(500, 500, 500);
+      columna->draw(SELECCION);
+      glPopMatrix();
+   }
+
+   if (sel_obj[7])
+   {
+      glPushMatrix();
+      glTranslatef(-50, 90, 70);
+      glScalef(0.1, 0.1, 0.1);
+      lampara->draw(SELECCION);
+      glPopMatrix();
+   }
+
+   glEnable(GL_DITHER);
+   glEnable(GL_LIGHTING);
+   glEnable(GL_TEXTURE_2D);
+}
+
+void Escena::processPick(int x, int y)
+{
+   glDisable(GL_DITHER);
+   glDisable(GL_LIGHTING);
+   glDisable(GL_TEXTURE_2D);
+
+   GLint viewport[4];
+   GLubyte pixel[3];
+
+   glGetIntegerv(GL_VIEWPORT, viewport);
+
+   glReadPixels(x, viewport[3] - y, 1, 1, GL_RGB, GL_UNSIGNED_BYTE, (void *)pixel);
+
+   Tupla3i leido = {pixel[0], pixel[1], pixel[2]};
+
+   std::cout << "Leido: " << leido << std::endl;
+
+   Tupla3f centro;
+
+   if (leido(0) < EPSILON && leido(1) < EPSILON && leido(2) < EPSILON) // 0 0 0 cono
+   {
+      evento("Seleccionado cono ᐃ ");
+      camaras[camaraActiva].setObjetoSeleccionado(CONO);
+
+      centro = cono->getCentro();
+
+      centro = centroCamara(centro);
+
+      camaras[camaraActiva].setAt(centro);
+   }
+   else if (leido(0) < EPSILON && leido(1) < EPSILON && leido(2) == 255) // 0 0 1 escultura
+   {
+      evento("Seleccionada escultura ® ");
+      camaras[camaraActiva].setObjetoSeleccionado(ESCULTURA);
+
+      centro = escultura->getCentro();
+
+      centro = centroCamara(centro);
+
+      camaras[camaraActiva].setAt(centro);
+   }
+   else if (leido(0) < EPSILON && leido(1) == 255 && leido(2) < EPSILON) // 0 1 0 peón
+   {
+      evento("Seleccionada escultura peon ♙ ");
+
+      camaras[camaraActiva].setObjetoSeleccionado(PEON);
+
+      centro = peon->getCentro();
+
+      centro = centroCamara(centro);
+
+      camaras[camaraActiva].setAt(centro);
+   }
+   else if (leido(0) < EPSILON && leido(1) == 255 && leido(2) == 255) // 0 1 1 esfera
+   {
+      evento("Seleccionada esfera ● ");
+      camaras[camaraActiva].setObjetoSeleccionado(ESFERA);
+
+      centro = esfera->getCentro();
+
+      centro = centroCamara(centro);
+
+      camaras[camaraActiva].setAt(centro);
+   }
+   else if (leido(0) == 255 && leido(1) < EPSILON && leido(2) < EPSILON) // 1 0 0 cilindro
+   {
+      evento("Seleccionado cilindro 🗙 ");
+      camaras[camaraActiva].setObjetoSeleccionado(CILINDRO);
+      centro = cilindro->getCentro();
+
+      centro = centroCamara(centro);
+
+      camaras[camaraActiva].setAt(centro);
+   }
+   else if (leido(0) == 255 && leido(1) < EPSILON && leido(2) == 255) // 1 0 1 foco
+   {
+      evento("Seleccionado foco ⏀ ");
+      camaras[camaraActiva].setObjetoSeleccionado(FOCO);
+
+      centro = foco->getCentro();
+
+      centro = centroCamara(centro);
+
+      camaras[camaraActiva].setAt(centro);
+   }
+   else if (leido(0) == 255 && leido(1) == 255 && leido(2) < EPSILON) // 1 1 0 columna
+   {
+      evento("Seleccionada columna 𐇦 ");
+      camaras[camaraActiva].setObjetoSeleccionado(COLUMNA);
+
+      centro = columna->getCentro();
+
+      centro = centroCamara(centro);
+
+      camaras[camaraActiva].setAt(centro);
+   }
+   else if (leido(0) == 254 && leido(1) == 255 && leido(2) == 255) // 1 1 1 lampara
+   {
+      evento("Seleccionada lampara ⚬ ");
+      camaras[camaraActiva].setObjetoSeleccionado(LAMPARA);
+
+      centro = lampara->getCentro();
+
+      centro = centroCamara(centro);
+
+      camaras[camaraActiva].setAt(centro);
+   }
+   else
+   {
+      error("No se ha seleccionado nada");
+      camaras[camaraActiva].setObjetoSeleccionado(NINGUNO);
+   }
+
+   glEnable(GL_DITHER);
+   glEnable(GL_LIGHTING);
+   glEnable(GL_TEXTURE_2D);
+}
+
+Tupla3f Escena::centroCamara(const Tupla3f &centro)
+{
+
+   Tupla3f n_centro;
+
+   GLfloat inv[16];
+
+   invertMatrix(mat, inv);
+
+   // aplicamos la transformacion de la matriz al punto
+   n_centro(0) = inv[0] * centro(0) + inv[4] * centro(1) + inv[8] * centro(2) + inv[12];
+   n_centro(1) = inv[1] * centro(0) + inv[5] * centro(1) + inv[9] * centro(2) + inv[13];
+   n_centro(2) = inv[2] * centro(0) + inv[6] * centro(1) + inv[10] * centro(2) + inv[14];
+
+   return n_centro;
+}
+
+bool Escena::invertMatrix(const float m[16], float invOut[16])
+{
+   double inv[16], det;
+   int i;
+
+   inv[0] = m[5] * m[10] * m[15] -
+            m[5] * m[11] * m[14] -
+            m[9] * m[6] * m[15] +
+            m[9] * m[7] * m[14] +
+            m[13] * m[6] * m[11] -
+            m[13] * m[7] * m[10];
+
+   inv[4] = -m[4] * m[10] * m[15] +
+            m[4] * m[11] * m[14] +
+            m[8] * m[6] * m[15] -
+            m[8] * m[7] * m[14] -
+            m[12] * m[6] * m[11] +
+            m[12] * m[7] * m[10];
+
+   inv[8] = m[4] * m[9] * m[15] -
+            m[4] * m[11] * m[13] -
+            m[8] * m[5] * m[15] +
+            m[8] * m[7] * m[13] +
+            m[12] * m[5] * m[11] -
+            m[12] * m[7] * m[9];
+
+   inv[12] = -m[4] * m[9] * m[14] +
+             m[4] * m[10] * m[13] +
+             m[8] * m[5] * m[14] -
+             m[8] * m[6] * m[13] -
+             m[12] * m[5] * m[10] +
+             m[12] * m[6] * m[9];
+
+   inv[1] = -m[1] * m[10] * m[15] +
+            m[1] * m[11] * m[14] +
+            m[9] * m[2] * m[15] -
+            m[9] * m[3] * m[14] -
+            m[13] * m[2] * m[11] +
+            m[13] * m[3] * m[10];
+
+   inv[5] = m[0] * m[10] * m[15] -
+            m[0] * m[11] * m[14] -
+            m[8] * m[2] * m[15] +
+            m[8] * m[3] * m[14] +
+            m[12] * m[2] * m[11] -
+            m[12] * m[3] * m[10];
+
+   inv[9] = -m[0] * m[9] * m[15] +
+            m[0] * m[11] * m[13] +
+            m[8] * m[1] * m[15] -
+            m[8] * m[3] * m[13] -
+            m[12] * m[1] * m[11] +
+            m[12] * m[3] * m[9];
+
+   inv[13] = m[0] * m[9] * m[14] -
+             m[0] * m[10] * m[13] -
+             m[8] * m[1] * m[14] +
+             m[8] * m[2] * m[13] +
+             m[12] * m[1] * m[10] -
+             m[12] * m[2] * m[9];
+
+   inv[2] = m[1] * m[6] * m[15] -
+            m[1] * m[7] * m[14] -
+            m[5] * m[2] * m[15] +
+            m[5] * m[3] * m[14] +
+            m[13] * m[2] * m[7] -
+            m[13] * m[3] * m[6];
+
+   inv[6] = -m[0] * m[6] * m[15] +
+            m[0] * m[7] * m[14] +
+            m[4] * m[2] * m[15] -
+            m[4] * m[3] * m[14] -
+            m[12] * m[2] * m[7] +
+            m[12] * m[3] * m[6];
+
+   inv[10] = m[0] * m[5] * m[15] -
+             m[0] * m[7] * m[13] -
+             m[4] * m[1] * m[15] +
+             m[4] * m[3] * m[13] +
+             m[12] * m[1] * m[7] -
+             m[12] * m[3] * m[5];
+
+   inv[14] = -m[0] * m[5] * m[14] +
+             m[0] * m[6] * m[13] +
+             m[4] * m[1] * m[14] -
+             m[4] * m[2] * m[13] -
+             m[12] * m[1] * m[6] +
+             m[12] * m[2] * m[5];
+
+   inv[3] = -m[1] * m[6] * m[11] +
+            m[1] * m[7] * m[10] +
+            m[5] * m[2] * m[11] -
+            m[5] * m[3] * m[10] -
+            m[9] * m[2] * m[7] +
+            m[9] * m[3] * m[6];
+
+   inv[7] = m[0] * m[6] * m[11] -
+            m[0] * m[7] * m[10] -
+            m[4] * m[2] * m[11] +
+            m[4] * m[3] * m[10] +
+            m[8] * m[2] * m[7] -
+            m[8] * m[3] * m[6];
+
+   inv[11] = -m[0] * m[5] * m[11] +
+             m[0] * m[7] * m[9] +
+             m[4] * m[1] * m[11] -
+             m[4] * m[3] * m[9] -
+             m[8] * m[1] * m[7] +
+             m[8] * m[3] * m[5];
+
+   inv[15] = m[0] * m[5] * m[10] -
+             m[0] * m[6] * m[9] -
+             m[4] * m[1] * m[10] +
+             m[4] * m[2] * m[9] +
+             m[8] * m[1] * m[6] -
+             m[8] * m[2] * m[5];
+
+   det = m[0] * inv[0] + m[1] * inv[4] + m[2] * inv[8] + m[3] * inv[12];
+
+   if (det == 0)
+      return false;
+
+   det = 1.0 / det;
+
+   for (i = 0; i < 16; i++)
+      invOut[i] = inv[i] * det;
+
+   return true;
 }

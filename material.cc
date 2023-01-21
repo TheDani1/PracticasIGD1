@@ -9,6 +9,12 @@ Material::Material(Tupla4f mdifuso,
     this->especular = mespecular;
     this->ambiente = mambiente;
     this->brillo = brillo;
+    this->emision = {0.0f, 0.0f, 0.0f, 1.0f};
+}
+
+void Material::setEmision(Tupla4f emision)
+{
+    this->emision = emision;
 }
 
 Material::Material()
@@ -17,6 +23,7 @@ Material::Material()
     this->especular = {0.0f, 0.0f, 0.0f, 1.0f};
     this->ambiente = {0.2f, 0.2f, 0.2f, 1.0f};
     this->brillo = 0;
+    this->emision = {0.0f, 0.0f, 0.0f, 1.0f};
 }
 
 void Material::aplicar()
@@ -26,6 +33,7 @@ void Material::aplicar()
     glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, this->difuso);
     glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, this->especular);
     glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, this->brillo);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, this->emision);
 
     glColorMaterial(GL_FRONT_AND_BACK, GL_EMISSION);
     glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT);

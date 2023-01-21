@@ -26,6 +26,7 @@
 class ObjRevolucion : public Malla3D
 {
 public:
+    ObjRevolucion(const std::string &archivo);
     ObjRevolucion();
     ObjRevolucion(const std::string &archivo, int num_instancias, const tipoTextura & modo, bool conTextura);
     ObjRevolucion(std::vector<Tupla3f> archivo, int num_instancias, bool conTextura);

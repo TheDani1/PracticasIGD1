@@ -30,7 +30,7 @@ class Foco
    public:
    Foco();
 
-   void draw(const GLenum modo);
+   void draw(const modoVisual modo);
 
    void addGiroY(float giroY);
    void addGiroZ(float giroZ);
@@ -39,9 +39,16 @@ class Foco
 
    void setMaterial(const Material &mat);
 
+   void setTextura(const std::string &archivo1, const std::string &archivo2, const std::string &archivo3);
+
+   void setColorSeleccion(unsigned char selec[3]);
+
+
    float getGiroY();
    float getGiroZ();
    float getTransX();
+
+   Tupla3f getCentro();
 
    private:
    Cilindro *cilindro = nullptr;

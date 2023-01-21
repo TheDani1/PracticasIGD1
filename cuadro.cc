@@ -49,11 +49,22 @@ Cuadro::Cuadro(const float lado)
 
     Tupla3f negro(0.0f, 0.0f, 0.0f);
 
-    color_puntos(rojo);
+    // color_puntos(rojo);
 
-    color_lineas(verde);
+    // color_lineas(verde);
 
-    color_solido(blanco);
+    // color_solido(blanco);
+
+    point_color = rojo;
+
+    line_color = verde;
+
+    solid_color = blanco;
+
+    Tupla3u amarillo(255, 255, 0);
+
+    
+    //selection_color = amarillo;
 
     //modo_textura = PLANA;
 
@@ -69,5 +80,14 @@ Cuadro::Cuadro(const float lado)
     ct = {ct0, ct1, ct2, ct3};
 
     calcularNormales();
+
+    calcular_centro_malla();
+
+    selection_colors = new unsigned char[128 * 3 * v.size()];
+
+    selection_color[0] = 255;
+    selection_color[1] = 0;
+    selection_color[2] = 0;
+
 
 }

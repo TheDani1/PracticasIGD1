@@ -22,12 +22,14 @@
 
 typedef enum {CILINDRICA, ESFERICA, PLANA} tipoTextura;
 
+typedef enum {PUNTOS, LINEAS, SOLIDO, SELECCION, SELECCIONADO} modoVisual;
+
 class Malla3D
 {
    public:
 
    // función que dibuja el objeto en modo diferido (usando VBOs)
-   void draw(const GLenum modo);
+   void draw(const modoVisual modo);
 
    char visual_obj;
 
@@ -37,8 +39,6 @@ class Malla3D
 
    void color_lineas(const Tupla3f color);
 
-   void color_solido(const Tupla3f color);
-
    void calcularNormales();
 
    void setMaterial(const Material &mat);
@@ -46,6 +46,20 @@ class Malla3D
    void setTextura(const std::string &archivo);
 
    bool calcularCoordTextura();
+
+   Tupla3f getCentro() const;
+
+   Tupla3f getColorSolido() const;
+
+   unsigned char *getColorSeleccion() const;
+
+   void setColorSolido(const Tupla3f & color);
+
+   void setColorSeleccion(unsigned char selec[3]); 
+
+   void colorear(const modoVisual modo);
+
+   void invertirCaras();
 
    protected:
 
@@ -56,7 +70,10 @@ class Malla3D
 
       std::vector<Tupla3f> c_p; // tabla para los colores de los vértices (puntos)
       std::vector<Tupla3f> c_l; // tabla para los colores de los vértices (líneas)
-      std::vector<Tupla3f> c_s; // tabla para los colores de los vértices (sólido)
+      std::vector<Tupla3u> c_s; // tabla para los colores de los vértices (selección)
+
+      unsigned char *selection_colors;
+
 
       std::vector<Tupla2f> ct; // tabla de coordenadas de textura
       Textura textura; // Práctica 5
@@ -79,11 +96,22 @@ class Malla3D
 
       GLuint CrearVBO(GLuint tipo_vbo, GLuint tam, GLvoid *puntero_ram);
 
+      Tupla3f solid_color;
+      Tupla3f line_color;
+      Tupla3f point_color;
+
+      unsigned char * selection_color = new unsigned char[3];      
+
 		tipoTextura tipotext = PLANA;
       bool coordenadas_textura_creadas = false;
 
       bool calcular_coordscilindricas();
       bool calcular_coordsesfericas();
+
+      Tupla3f centro_malla;
+      void calcular_centro_malla();
+      Tupla3f centro_transformado;
+
 
 } ;
 
