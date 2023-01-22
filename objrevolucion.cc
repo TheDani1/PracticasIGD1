@@ -29,12 +29,6 @@ ObjRevolucion::ObjRevolucion(const std::string &archivo) {
 
    Tupla3f negro(0.0f, 0.0f, 0.0f);
 
-   // color_puntos(rojo);
-
-   // color_lineas(verde);
-
-   // color_solido(blanco);
-
    point_color = rojo;
 
    line_color = verde;
@@ -75,12 +69,6 @@ ObjRevolucion::ObjRevolucion(const std::string &archivo, int num_instancias, con
 
    Tupla3f negro(0.0f, 0.0f, 0.0f);
 
-   // color_puntos(rojo);
-
-   // color_lineas(verde);
-
-   // color_solido(blanco);
-
    point_color = rojo;
 
    line_color = verde;
@@ -92,9 +80,6 @@ ObjRevolucion::ObjRevolucion(const std::string &archivo, int num_instancias, con
    selection_color[0] = 0;
    selection_color[1] = 255;
    selection_color[2] = 0;
-
-   // calcularNormales();
-   //calcular_centro_malla();
 }
 
 // *****************************************************************************
@@ -287,7 +272,6 @@ void ObjRevolucion::calcularCoordTextura(const tipoTextura &modo, std::vector<Tu
    switch (modo)
    {
    case CILINDRICA:{
-      std::cout << "CILINDRICA" << std::endl;
       for (int i = 0; i < ct.size(); i++)
       {
          alpha = atan2(v[i](2), v[i](0));
@@ -302,17 +286,6 @@ void ObjRevolucion::calcularCoordTextura(const tipoTextura &modo, std::vector<Tu
 
          ct[i] = {s, t};
       }
-
-      /*for (int i = (perfil_original.size() * num_instancias); i < perfil_original.size() * (num_instancias + 1); i++)
-      {
-         alpha = atan2(v[i](2), v[i](0));
-         h = v[i](1);
-
-         s = 1.0f;
-         t = (h - perfil_original.front()(1)) / (perfil_original.back()(1) - perfil_original.front()(1));
-
-         ct[i] = {s, t};
-      }*/
 
       break;
    }

@@ -32,8 +32,6 @@ Cilindro::Cilindro(const int num_vert_perfil,
     coordenadas_textura_creadas = true;
 
     crearMalla(perfil_original, num_instancias_perf, tipotext);
-
-    //calcularCoordTextura(tipotext, perfil_original, num_instancias_perf);
     
     c_p.resize(v.size());
     c_l.resize(v.size());
@@ -61,6 +59,5 @@ Cilindro::Cilindro(const int num_vert_perfil,
     calcularCoordTextura(tipotext, perfil_original, num_instancias_perf);
     
     calcular_centro_malla();
-
 
 }

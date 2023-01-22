@@ -1,5 +1,3 @@
-
-
 #include "auxiliar.h"
 #include "ejes.h"
 

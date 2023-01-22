@@ -49,12 +49,6 @@ Cuadro::Cuadro(const float lado)
 
     Tupla3f negro(0.0f, 0.0f, 0.0f);
 
-    // color_puntos(rojo);
-
-    // color_lineas(verde);
-
-    // color_solido(blanco);
-
     point_color = rojo;
 
     line_color = verde;
@@ -62,13 +56,6 @@ Cuadro::Cuadro(const float lado)
     solid_color = blanco;
 
     Tupla3u amarillo(255, 255, 0);
-
-    
-    //selection_color = amarillo;
-
-    //modo_textura = PLANA;
-
-	//textura = new Textura("textures/text-madera.jpg");
 
     ct.resize(v.size());
 
@@ -88,6 +75,4 @@ Cuadro::Cuadro(const float lado)
     selection_color[0] = 255;
     selection_color[1] = 0;
     selection_color[2] = 0;
-
-
 }

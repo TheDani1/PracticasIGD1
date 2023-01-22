@@ -2,7 +2,7 @@
 
 // *****************************************************************************
 //
-// Clase camara (práctica 6)
+// Clase Camara (práctica 6)
 //
 // *****************************************************************************
 
@@ -30,9 +30,8 @@ void Camara::girar(int x, int y)
 {
 
 	if ((at - eye)(2) > 0)
-		y = -y;
+		y *= -1;
 
-	// at = {at(0) + x, at(1) - y, at(2)};
 	rotarXFirstPerson(-y * (M_PI / 180));
 	rotarYFirstPerson(-x * (M_PI / 180));
 }
@@ -49,10 +48,8 @@ void Camara::rotarXExaminar(float angle)
 
 	float modulo = sqrt(eye_centro.lengthSq());
 
-	// eye(1) = cos(angulo)*eye(1) - sin(angulo) * eye(2);
 	eye_centro(1) = cos(angle) * eye_centro(1) - sin(angle) * eye_centro(2);
 
-	// eye(2) = sin(angulo) * eye(1) + cos(angulo) * eye(2);
 	eye_centro(2) = sin(angle) * eye_centro(1) + cos(angle) * eye_centro(2);
 
 	eye_centro = eye_centro.normalized() * modulo;
@@ -138,10 +135,6 @@ void Camara::rotarZFirstPerson(const float angulo)
 	at = at_centro + eye;
 }
 
-void Camara::mover(float x, float y, float z)
-{
-}
-
 void Camara::zoom(float factor)
 {
 	aspect *= factor;
@@ -195,7 +188,6 @@ void Camara::setProyeccion()
 	// bien aspect, fov, near, far; // o bien left, right, near, far;
 	if (tipo == PERSPECTIVA)
 	{
-		// std::cout << near << " ";
 		glFrustum(aspect, fov, bottom, top, near, far);
 	}
 	else

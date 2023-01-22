@@ -17,7 +17,6 @@ Foco::Foco()
     cubo = new Cubo(1);
 
     cubo->calcular_centro_cubo();
-
 }
 
 void Foco::draw(const modoVisual modo)

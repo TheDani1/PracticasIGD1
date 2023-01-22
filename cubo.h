@@ -26,7 +26,6 @@ class Cubo : public Malla3D
 {
    public:
    Cubo(float lado);
-   std::vector<Tupla2f> generateSkyboxTextureCoords(float width, float height);
    void calcular_centro_cubo();
 } ;
 

@@ -50,12 +50,6 @@ Cubo::Cubo(float lado = 1)
    Tupla3f azul(0, 0, 1);
    Tupla3f blanco(0.9f, 0.9f, 0.9f);
 
-   // color_puntos(rojo);
-
-   // color_lineas(verde);
-
-   // color_solido(blanco);
-
    point_color = rojo;
 
    line_color = verde;
@@ -108,8 +102,6 @@ Cubo::Cubo(float lado = 1)
    // ct = {ct0, ct1, ct2, ct3, ct4, ct5, ct6, ct7};
 
    // Generar texturas de coordenadas para skybox
-
-   // calcularCoordTextura(tipotext);
 
    calcular_centro_malla();
 

@@ -24,6 +24,7 @@ typedef enum
     COLUMNA,
     LAMPARA,
     NINGUNO
+
 } objetos;
 
 
@@ -42,14 +43,15 @@ private:
     float bottom, top;
 
     objetos objeto_seleccionado = NINGUNO;
+    
 public:
 
     Camara(const Tupla3f & eye, const Tupla3f & at, const Tupla3f & up,\
 				   const TipoCamara & tipo, const float near, const float far);                  // con los parametros necesarios
 
-    void girar(int x, int y); // girar la camara en el punto de mira
-    void girar_examinar(int x, int y); // girar la camara en el punto de mira
-
+    void girar(int x, int y);
+    void girar_examinar(int x, int y);
+    
     void rotarXExaminar(float angle);
     void rotarYExaminar(float angle);
     void rotarZExaminar(float angle);
@@ -58,7 +60,6 @@ public:
     void rotarYFirstPerson(float angle);
     void rotarZFirstPerson(float angle);
 
-    void mover(float x, float y, float z);
     void zoom(float factor);
 
     void setAspect(const float & aspect);

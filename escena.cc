@@ -17,7 +17,6 @@ void Escena::evento(string evento)
 
    std::cout << "[Evento] " << evento << "\033[0m" << endl;
 
-   // printf("\033[0m");
 }
 
 void Escena::error(string error)
@@ -140,21 +139,11 @@ Escena::Escena()
    unsigned char *selection_color = new unsigned char[3];
    unsigned char *selection_color2 = new unsigned char[3];
    unsigned char *selection_color3 = new unsigned char[3];
-   unsigned char *selection_color4 = new unsigned char[3];
 
-   // Creación de objetos de la escena
 
    cono = new Cono(10, 10, 10, 5);
-   // selection_color4[0] = 64;
-   // selection_color4[1] = 32;
-   // selection_color4[2] = 2;
-   // cono->setColorSeleccion(selection_color4);
 
    escultura = new ObjPLY("plys/untitled.ply");
-   // selection_color3[0] = 0;
-   // selection_color3[1] = 0;
-   // selection_color3[2] = 255;
-   // escultura->setColorSeleccion(selection_color3);
 
    columna = new ObjPLY("plys/can.ply");
    selection_color3[0] = 255;
@@ -170,26 +159,11 @@ Escena::Escena()
 
    peon = new ObjRevolucion("plys/peon_polos.ply", 20, CILINDRICA, true);
    peon->setColorSolido({0.5568627451, 0.6549019608, 0.9137254902});
-   // selection_color[0] = 0;
-   // selection_color[1] = 255;
-   // selection_color[2] = 0;
-   // peon->setColorSeleccion(selection_color);
 
    esfera = new Esfera(20, 20, 50);
-   // selection_color[0] = 0;
-   // selection_color[1] = 255;
-   // selection_color[2] = 255;
-   // esfera->setColorSeleccion(selection_color);
-
-   // cono = new Cono(20, 20, 50, 20);
-   // cono->setColorSeleccion({0.0f, 0.0f, 1.0f});
 
    cilindro = new Cilindro(20, 20, 50, 20);
-   // selection_color[0] = 255;
-   // selection_color[1] = 0;
-   // selection_color[2] = 0;
-   // cilindro->setColorSeleccion(selection_color);
-
+   
    foco = new Foco();
    selection_color2[0] = 255;
    selection_color2[1] = 0;
@@ -304,18 +278,18 @@ Escena::Escena()
 
    // Cámaras (Práctica 6) ------------------------------------------------
 
-   Tupla3f eye = {0, 100, 200};
-   Tupla3f at = {0, 0, 0};
-   Tupla3f up = {0, 1, 0};
+   Tupla3f eye = {0, 150, 250};
+   Tupla3f at = {0, 2, 0};
+   Tupla3f up = {0, 2, 0};
    Camara c1(eye, at, up, PERSPECTIVA, 50.0, 2000.0);
 
-   eye = {0, 100, 300};
+   eye = {0, 200, 200};
    at = {0, 0, 0};
    up = {0, 1, 0};
    Camara c2(eye, at, up, ORTOGONAL, 50.0, 2000.0);
 
    eye = {0, 100, 100};
-   at = {0, 60, -115};
+   at = {0, 0, -115};
    up = {0, 1, 0};
    Camara c3(eye, {0, 0, 0}, up, PERSPECTIVA, 50.0, 2000.0);
 
@@ -354,7 +328,6 @@ void Escena::inicializar(int UI_window_width, int UI_window_height)
       camaras[i].setTop(UI_window_height / 10);
    }
 
-   // change_projection(float(UI_window_width) / float(UI_window_height));
    change_projection();
    glViewport(0, 0, UI_window_width, UI_window_height);
 
@@ -414,7 +387,6 @@ void Escena::dibujar()
       if (luz0 != nullptr)
       {
          glPushMatrix();
-         // std::cout << "Rotacion luz puntual: " << rotacionLuzPuntual << std::endl;
          glRotatef(rotacionLuzPuntual, 0.0f, 1.0f, 0.0f);
          luz0->activar();
          glPopMatrix();
@@ -1784,13 +1756,10 @@ void Escena::teclaEspecial(int Tecla1, int x, int y)
 
 void Escena::change_projection()
 {
-   // std::cout << ratio_xy << std::endl;
    glMatrixMode(GL_PROJECTION);
    glLoadIdentity();
-   // const float wx = float(Height)*ratio_xy ;
 
    camaras[camaraActiva].setProyeccion();
-   // glFrustum( -wx, wx, -Height, Height, Front_plane, Back_plane );
 }
 //**************************************************************************
 // Funcion que se invoca cuando cambia el tamaño de la ventana
@@ -1817,12 +1786,9 @@ void Escena::redimensionar(int newWidth, int newHeight)
 
 void Escena::change_observer()
 {
-   // posicion del observador
    glMatrixMode(GL_MODELVIEW);
    glLoadIdentity();
-   // glTranslatef(0.0, 0.0, -Observer_distance);
-   // glRotatef(Observer_angle_y, 0.0, 1.0, 0.0);
-   // glRotatef(Observer_angle_x, 1.0, 0.0, 0.0);
+   
    camaras[camaraActiva].setObserver();
 
    glGetFloatv(GL_MODELVIEW_MATRIX, mat);
@@ -1841,7 +1807,6 @@ void Escena::animarModeloJerarquico()
    if (animacion_color)
    {
 
-      // std::cout << "Animacion color" << std::endl;
       luz1->variarColorDifuso(factor_aumento);
    }
 
@@ -1941,12 +1906,10 @@ void Escena::ratonMovido(int x, int y)
 
 void Escena::dibujaSeleccion()
 {
-   // deshabilitamos el degradado
+   // Deshabilitamos todo (TEXTURAS, LUCES, DITHER)
    glDisable(GL_DITHER);
    glDisable(GL_LIGHTING);
    glDisable(GL_TEXTURE_2D);
-
-   // Calculamos el centro de los objetos
 
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Limpiar la pantalla
 
@@ -1958,8 +1921,7 @@ void Escena::dibujaSeleccion()
 
    if (sel_obj[0])
    {
-      std::cout << "Color solido cono: " << cono->getColorSolido() << std::endl;
-      std::cout << "Color seleccion cono: " << (int)cono->getColorSeleccion()[0] << std::endl;
+      
       glPushMatrix();
       glTranslatef(-50, 0, 125);
       glScalef(5, 5, 5);
@@ -2048,8 +2010,6 @@ void Escena::processPick(int x, int y)
    glReadPixels(x, viewport[3] - y, 1, 1, GL_RGB, GL_UNSIGNED_BYTE, (void *)pixel);
 
    Tupla3i leido = {pixel[0], pixel[1], pixel[2]};
-
-   std::cout << "Leido: " << leido << std::endl;
 
    Tupla3f centro;
 
@@ -2161,7 +2121,6 @@ Tupla3f Escena::centroCamara(const Tupla3f &centro)
 
    invertMatrix(mat, inv);
 
-   // aplicamos la transformacion de la matriz al punto
    n_centro(0) = inv[0] * centro(0) + inv[4] * centro(1) + inv[8] * centro(2) + inv[12];
    n_centro(1) = inv[1] * centro(0) + inv[5] * centro(1) + inv[9] * centro(2) + inv[13];
    n_centro(2) = inv[2] * centro(0) + inv[6] * centro(1) + inv[10] * centro(2) + inv[14];

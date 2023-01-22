@@ -89,9 +89,7 @@ void Malla3D::draw(const modoVisual modo)
       glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
       colorear(modo);
-
-      std::cout << "Color de seleccion " << (int) selection_color[0] << (int) selection_color[1] << (int) selection_color[2] << std::endl;
-
+      
       // for(int i = 0 ; i < 128 * 3 * v.size() ; i += 3)
       // {
       //    std::cout << "Color de seleccion(v) " << i << (int) selection_colors[i] << (int) selection_colors[i + 1] << (int) selection_colors[i + 2] << std::endl;

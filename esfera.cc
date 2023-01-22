@@ -38,9 +38,6 @@ Esfera::Esfera(const int num_vert_perfil, const int num_instancias_perf, const f
 
     calcular_centro_malla();
 
-    std::cout << "Tamano de perfil: " << perfil_original.size() << std::endl;
-    std::cout << "Tamano de vertices: " << v.size() << std::endl;
-
     c_p.resize(v.size());
     c_l.resize(v.size());
     c_s.resize(v.size());
@@ -62,15 +59,6 @@ Esfera::Esfera(const int num_vert_perfil, const int num_instancias_perf, const f
     selection_color[1] = 255;
     selection_color[2] = 255;
 
-    // color_puntos(rojo);
-
-    // color_lineas(azul);
-
-    // color_solido(blanco);
-
     tipotext = ESFERICA;
     coordenadas_textura_creadas = false;
-
-    //calcularCoordTextura(tipotext, perfil_original, num_instancias_perf);
-
 }
